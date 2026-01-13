@@ -22,6 +22,7 @@
             flex-direction: column;
             touch-action: pan-y;
             -webkit-tap-highlight-color: transparent;
+            overflow-y: auto;
         }
         
         /* Prevención de zoom */
@@ -58,7 +59,7 @@
             animation: twinkle 15s linear infinite;
         }
         
-        /* Pantalla de bienvenida */
+        /* Pantalla de bienvenida - REDUCIDA A 2 SEGUNDOS */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -72,140 +73,127 @@
             align-items: center;
             z-index: 1000;
             overflow: hidden;
-            animation: welcomeExit 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-            animation-delay: 2.5s;
+            animation: welcomeExit 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            animation-delay: 2s;
         }
         
         .welcome-content {
             text-align: center;
-            padding: 40px;
-            max-width: 800px;
+            padding: 30px;
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.4);
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.3);
             position: relative;
             z-index: 2;
-            border: 12px solid white;
-            animation: welcomeFloat 3s ease-in-out infinite alternate;
+            border: 8px solid white;
+            animation: welcomeFloat 2s ease-in-out infinite alternate;
         }
         
         .welcome-ornament {
             position: absolute;
-            width: 140px;
-            height: 140px;
+            width: 100px;
+            height: 100px;
             background: #ffb6c1;
             border-radius: 50%;
-            top: -70px;
+            top: -50px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 60px;
+            font-size: 40px;
             color: white;
-            box-shadow: 0 15px 30px rgba(255, 182, 193, 0.5);
+            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.4);
             z-index: 3;
-            animation: ornamentSpin 4s linear infinite;
+            animation: ornamentSpin 3s linear infinite;
         }
         
         .welcome-title {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: 1px;
             line-height: 1.1;
-            text-shadow: 4px 4px 0px rgba(255, 255, 255, 0.8);
-            animation: titleGlow 2s ease-in-out infinite alternate;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
+            animation: titleGlow 1.5s ease-in-out infinite alternate;
         }
         
         .welcome-subtitle {
-            font-size: 2rem;
-            margin-bottom: 30px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
             color: #ff6b9d;
             font-weight: 700;
-            animation: bounce 2s ease-in-out infinite;
-        }
-        
-        .welcome-text {
-            font-size: 1.3rem;
-            line-height: 1.6;
-            color: #8a6fa8;
-            margin-bottom: 40px;
-            max-width: 600px;
-            font-weight: 500;
-            animation: textPulse 3s ease-in-out infinite;
+            animation: bounce 1.5s ease-in-out infinite;
         }
         
         .loading-container {
-            width: 350px;
-            height: 15px;
+            width: 250px;
+            height: 10px;
             background: rgba(255, 182, 193, 0.3);
-            border-radius: 25px;
+            border-radius: 20px;
             overflow: hidden;
             margin-top: 20px;
             position: relative;
-            border: 4px solid white;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
         .loading-progress {
             width: 0%;
             height: 100%;
             background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
-            border-radius: 25px;
-            animation: loading 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            border-radius: 20px;
+            animation: loading 2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
         }
         
-        /* Contenido principal */
+        /* Contenido principal - VISIBLE INMEDIATAMENTE */
         .main-content {
             display: none;
-            padding: 30px 20px 0 20px;
+            padding: 20px 15px 0 15px;
             opacity: 0;
-            animation: contentFadeIn 0.5s ease forwards;
-            animation-delay: 2.6s;
+            animation: contentFadeIn 0.3s ease forwards;
+            animation-delay: 2.1s;
             position: relative;
             z-index: 2;
             flex: 1;
             overflow-y: auto;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 60px;
-            padding: 0 20px;
+            margin-bottom: 40px;
+            padding: 0 15px;
         }
         
         .main-title {
-            font-size: 3.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             background: linear-gradient(to right, #ff85a2, #a685ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 1px;
-            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
             position: relative;
             display: inline-block;
-            padding: 0 35px;
+            padding: 0 25px;
         }
         
         .main-title::before, .main-title::after {
             content: "✨";
             position: absolute;
             color: #ffb6c1;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -219,47 +207,46 @@
         }
         
         .subtitle {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #8a6fa8;
-            max-width: 900px;
+            max-width: 700px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.5;
             font-weight: 500;
-            padding: 0 30px;
+            padding: 0 20px;
         }
         
-        /* Contenedor de flayers - MÁS ANCHO Y GRANDE */
+        /* Contenedor de flayers - MÁS ANCHO Y RÁPIDO */
         .flayers-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 45px;
-            padding: 0 30px 50px 30px;
-            max-width: 1800px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 20px 40px 20px;
+            max-width: 1600px;
             margin: 0 auto;
-            width: 100%;
         }
         
         .flayer-card {
             background: white;
-            border-radius: 35px;
+            border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 25px 55px rgba(255, 182, 193, 0.35);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            border: 10px solid white;
+            border: 8px solid white;
             opacity: 0;
-            transform: translateY(30px) scale(0.95);
+            transform: translateY(20px);
             cursor: pointer;
         }
         
         .flayer-card.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
         
         .flayer-card:hover {
-            transform: translateY(-25px) scale(1.08);
-            box-shadow: 0 40px 80px rgba(255, 182, 193, 0.6);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 35px 70px rgba(255, 182, 193, 0.5);
         }
         
         .flayer-card::before {
@@ -268,7 +255,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 15px;
+            height: 10px;
             background: linear-gradient(to right, #ffb6c1, #d8b4fe, #a5b4fc);
             z-index: 2;
         }
@@ -276,7 +263,7 @@
         .flayer-image-container {
             position: relative;
             overflow: hidden;
-            height: 500px; /* MÁS GRANDE */
+            height: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -288,61 +275,61 @@
             height: 100%;
             object-fit: contain;
             display: block;
-            transition: transform 0.8s ease;
+            transition: transform 0.5s ease;
         }
         
         .flayer-card:hover .flayer-image {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         
         .flayer-price-container {
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             background: linear-gradient(to right, #fff5f9, #f9f5ff);
-            border-top: 5px dashed #ffb6c1;
+            border-top: 4px dashed #ffb6c1;
             position: relative;
         }
         
         .flayer-price-container::before {
             content: "💖";
             position: absolute;
-            left: 30px;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2.5rem;
+            font-size: 1.8rem;
         }
         
         .flayer-price-container::after {
             content: "💖";
             position: absolute;
-            right: 30px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2.5rem;
+            font-size: 1.8rem;
         }
         
         .price-tag {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 900;
             color: #ff6b9d;
-            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
             display: inline-block;
-            padding: 15px 40px;
+            padding: 10px 25px;
             background: white;
-            border-radius: 70px;
-            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
-            margin-bottom: 15px;
+            border-radius: 60px;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+            margin-bottom: 8px;
         }
         
         .flayer-name {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #8a6fa8;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         
-        /* Visualización de imagen en pantalla completa - MÁS GRANDE */
+        /* Visualización de imagen en pantalla completa - MEJORADA */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -356,8 +343,8 @@
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 40px;
+            transition: all 0.3s ease;
+            padding: 20px;
         }
         
         .image-viewer.active {
@@ -367,109 +354,61 @@
         
         .close-button {
             position: absolute;
-            top: 40px;
-            right: 40px;
-            width: 85px;
-            height: 85px;
+            top: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             color: #ff6b9d;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 5px solid #ffb6c1;
-            box-shadow: 0 20px 45px rgba(255, 182, 193, 0.6);
+            transition: all 0.3s ease;
+            border: 3px solid #ffb6c1;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5);
             z-index: 2001;
-            animation: buttonPulse 2s ease-in-out infinite alternate;
         }
         
         .close-button:hover {
             background: #ff6b9d;
             color: white;
-            transform: rotate(90deg) scale(1.3);
+            transform: rotate(90deg) scale(1.1);
             border-color: #ff6b9d;
-            box-shadow: 0 25px 50px rgba(255, 107, 157, 0.8);
         }
         
         .full-image-container {
-            width: 98%;
-            height: 98%;
-            border-radius: 50px;
-            overflow: hidden;
-            box-shadow: 0 60px 120px rgba(255, 182, 193, 0.7);
-            border: 25px solid white;
-            opacity: 0;
-            transform: scale(0.7);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
-            position: relative;
-            background: white;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        
-        .image-viewer.active .full-image-container {
-            opacity: 1;
-            transform: scale(1);
+            position: relative;
         }
         
         .full-image {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
+            max-width: 95%;
+            max-height: 95%;
             object-fit: contain;
             display: block;
+            border-radius: 20px;
+            box-shadow: 0 40px 80px rgba(255, 182, 193, 0.6);
+            background: white;
+            padding: 10px;
         }
         
-        /* Pull-to-refresh - DESACTIVADO POR DEFECTO */
-        .refresh-indicator {
-            position: fixed;
-            top: -90px;
-            left: 0;
-            width: 100%;
-            height: 90px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to right, #ffb6c1, #d8b4fe);
-            z-index: 999;
-            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 6px dotted white;
-            display: none; /* OCULTO POR DEFECTO */
-        }
-        
-        .refresh-indicator.active {
-            top: 0;
-            display: flex; /* SOLO SE MUESTRA CUANDO ESTÁ ACTIVO */
-        }
-        
-        .refresh-text {
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-            color: white;
-            font-size: 1.3rem;
-            gap: 20px;
-        }
-        
-        .refresh-text i {
-            animation: spin 1.5s linear infinite;
-        }
-        
-        /* Footer - Pegado abajo */
+        /* Footer */
         .footer {
             text-align: center;
-            padding: 35px 20px;
+            padding: 25px 15px;
             color: #8a6fa8;
-            font-size: 1.1rem;
-            border-top: 5px dashed #ffb6c1;
+            font-size: 1rem;
+            border-top: 4px dashed #ffb6c1;
             background: white;
-            border-radius: 50px 50px 0 0;
-            box-shadow: 0 -20px 50px rgba(255, 182, 193, 0.2);
+            border-radius: 40px 40px 0 0;
+            box-shadow: 0 -15px 40px rgba(255, 182, 193, 0.15);
             width: 100%;
             margin-top: auto;
             position: relative;
@@ -478,69 +417,39 @@
         .footer::before {
             content: "✨";
             position: absolute;
-            top: -30px;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             background: white;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            border: 5px dashed #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
+            border: 4px dashed #ffb6c1;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
         }
         
         .footer-text {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 10px;
             font-weight: 600;
         }
         
         .footer-subtext {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #a68faa;
         }
         
-        /* Botón de actualización manual */
-        .refresh-button {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 85px;
-            height: 85px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.2rem;
-            color: #ff6b9d;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 5px solid #ffb6c1;
-            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.6);
-            z-index: 100;
-            animation: buttonPulse 3s ease-in-out infinite alternate;
-        }
-        
-        .refresh-button:hover {
-            background: #ff6b9d;
-            color: white;
-            transform: rotate(180deg) scale(1.2);
-            border-color: #ff6b9d;
-            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.8);
-        }
-        
-        /* Animaciones */
+        /* Animaciones optimizadas */
         @keyframes welcomeFloat {
             0% {
                 transform: translateY(0) scale(1);
             }
             100% {
-                transform: translateY(-20px) scale(1.03);
+                transform: translateY(-10px) scale(1.02);
             }
         }
         
@@ -558,16 +467,7 @@
                 filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
             }
             100% {
-                filter: drop-shadow(0 0 25px rgba(255, 182, 193, 0.9));
-            }
-        }
-        
-        @keyframes textPulse {
-            0%, 100% {
-                opacity: 0.9;
-            }
-            50% {
-                opacity: 1;
+                filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.8));
             }
         }
         
@@ -595,7 +495,7 @@
             }
             50% {
                 opacity: 0.8;
-                transform: scale(1.2);
+                transform: scale(1.1);
             }
         }
         
@@ -604,7 +504,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-15px);
+                transform: translateY(-8px);
             }
         }
         
@@ -651,239 +551,152 @@
             }
         }
         
-        @keyframes buttonPulse {
-            0% {
-                box-shadow: 0 20px 45px rgba(255, 182, 193, 0.6);
-            }
-            100% {
-                box-shadow: 0 20px 55px rgba(255, 107, 157, 0.9);
-            }
-        }
-        
-        /* Responsive para diferentes pantallas */
-        @media (min-width: 2000px) {
-            .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-                gap: 60px;
-                padding: 0 50px 70px 50px;
-            }
-            
-            .flayer-image-container {
-                height: 550px;
-            }
-            
-            .main-content {
-                max-width: 2000px;
-            }
-        }
-        
+        /* Responsive */
         @media (max-width: 1200px) {
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                gap: 40px;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 25px;
             }
             
             .flayer-image-container {
-                height: 450px;
+                height: 400px;
             }
         }
         
         @media (max-width: 768px) {
             .welcome-title {
-                font-size: 2.8rem;
+                font-size: 2rem;
             }
             
             .welcome-subtitle {
-                font-size: 1.8rem;
-            }
-            
-            .welcome-text {
-                font-size: 1.2rem;
-            }
-            
-            .welcome-content {
-                padding: 30px 25px;
-                margin: 0 20px;
-            }
-            
-            .main-title {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
                 font-size: 1.3rem;
             }
             
+            .welcome-content {
+                padding: 20px;
+                margin: 0 15px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 35px;
-                padding: 0 25px 40px 25px;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+                padding: 0 15px 30px 15px;
             }
             
             .flayer-image-container {
-                height: 420px;
+                height: 350px;
             }
             
             .price-tag {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
             }
             
             .flayer-name {
-                font-size: 1.7rem;
+                font-size: 1.3rem;
             }
             
             .close-button {
-                top: 30px;
-                right: 30px;
-                width: 75px;
-                height: 75px;
-                font-size: 2.2rem;
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
             
-            .full-image-container {
-                border-width: 20px;
-                border-radius: 40px;
-            }
-            
-            .footer {
-                padding: 30px 20px;
-            }
-            
-            .refresh-button {
-                bottom: 30px;
-                right: 30px;
-                width: 75px;
-                height: 75px;
-                font-size: 2rem;
+            .full-image {
+                max-width: 98%;
+                max-height: 98%;
             }
         }
         
         @media (max-width: 480px) {
             .flayers-container {
                 grid-template-columns: 1fr;
-                max-width: 400px;
+                max-width: 320px;
                 margin: 0 auto;
             }
             
             .welcome-title {
-                font-size: 2.3rem;
+                font-size: 1.8rem;
             }
             
             .main-title {
-                font-size: 2.2rem;
-                padding: 0 25px;
+                font-size: 1.8rem;
+                padding: 0 20px;
             }
             
             .main-title::before, .main-title::after {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
             
             .welcome-ornament {
-                width: 120px;
-                height: 120px;
-                top: -60px;
-                font-size: 50px;
+                width: 80px;
+                height: 80px;
+                top: -40px;
+                font-size: 35px;
             }
             
             .flayer-image-container {
-                height: 380px;
-            }
-            
-            .close-button {
-                top: 25px;
-                right: 25px;
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-            }
-            
-            .full-image-container {
-                border-width: 15px;
-                border-radius: 35px;
-            }
-            
-            .footer::before {
-                width: 70px;
-                height: 70px;
-                font-size: 3rem;
-                top: -25px;
-            }
-            
-            .image-viewer {
-                padding: 20px;
-            }
-            
-            .refresh-button {
-                bottom: 25px;
-                right: 25px;
-                width: 70px;
-                height: 70px;
-                font-size: 1.8rem;
+                height: 300px;
             }
         }
         
-        /* Scroll personalizado lindo */
+        /* Scroll personalizado */
         ::-webkit-scrollbar {
-            width: 15px;
+            width: 10px;
         }
         
         ::-webkit-scrollbar-track {
             background: #fff5f7;
-            border-radius: 15px;
+            border-radius: 10px;
         }
         
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
-            border-radius: 15px;
-            border: 4px solid #fff5f7;
+            border-radius: 10px;
+            border: 3px solid #fff5f7;
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, #ff9ebb, #c9a8ff);
+        /* Estados de carga optimizados */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loadingShimmer 1.5s infinite;
         }
         
-        /* Mensaje de carga de imágenes */
-        .image-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.3rem;
-            color: #ffb6c1;
-            font-weight: 600;
+        @keyframes loadingShimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
         }
         
-        /* Mejoras para imágenes en el visor */
-        .image-controls {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 25px;
-            z-index: 2002;
+        /* Mejoras de rendimiento */
+        .flayer-image {
+            will-change: transform;
         }
         
-        .image-control-btn {
-            width: 70px;
-            height: 70px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            color: #ff6b9d;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 4px solid #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
-        }
-        
-        .image-control-btn:hover {
-            background: #ff6b9d;
-            color: white;
-            transform: scale(1.2);
+        /* Optimización para móviles */
+        @media (hover: none) {
+            .flayer-card:hover {
+                transform: none;
+            }
+            
+            .flayer-card:active {
+                transform: scale(0.98);
+            }
         }
     </style>
 </head>
@@ -891,7 +704,7 @@
     <!-- Decoraciones de fondo -->
     <div class="background-hearts" id="backgroundHearts"></div>
     
-    <!-- Pantalla de bienvenida -->
+    <!-- Pantalla de bienvenida - RÁPIDA -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-content">
             <div class="welcome-ornament">
@@ -899,33 +712,19 @@
             </div>
             <h1 class="welcome-title">HAPPY PACKAGES</h1>
             <h2 class="welcome-subtitle">PARA TUS FIESTAS ✨</h2>
-            <p class="welcome-text">Descubre nuestra exclusiva línea de paquetes Happy que harán de tu celebración algo mágico e inolvidable.</p>
             <div class="loading-container">
                 <div class="loading-progress"></div>
             </div>
         </div>
     </div>
     
-    <!-- Indicador de actualización - OCULTO POR DEFECTO -->
-    <div class="refresh-indicator" id="refreshIndicator">
-        <div class="refresh-text">
-            <i class="fas fa-heart"></i> Actualizando paquetes...
-        </div>
-    </div>
-    
-    <!-- Botón de actualización manual -->
-    <div class="refresh-button" id="manualRefreshButton" title="Actualizar catálogo">
-        <i class="fas fa-redo"></i>
-    </div>
-    
-    <!-- Visualizador de imagen en pantalla completa -->
+    <!-- Visualizador de imagen en pantalla completa - OPTIMIZADO -->
     <div class="image-viewer" id="imageViewer">
         <div class="close-button" id="closeViewer">
             <i class="fas fa-times"></i>
         </div>
         <div class="full-image-container">
-            <div class="image-loading" id="fullImageLoading">Cargando imagen...</div>
-            <img src="" alt="Imagen en pantalla completa" class="full-image" id="fullImage" style="display: none;">
+            <img src="" alt="Imagen en pantalla completa" class="full-image" id="fullImage">
         </div>
     </div>
     
@@ -933,21 +732,21 @@
     <div class="main-content" id="mainContent">
         <header class="header">
             <h1 class="main-title">CATÁLOGO HAPPY</h1>
-            <p class="subtitle">Toca cualquier imagen para verla en pantalla completa. Usa el botón 🔄 para actualizar.</p>
+            <p class="subtitle">Toca cualquier imagen para verla en pantalla completa</p>
         </header>
         
         <div class="flayers-container" id="flayersContainer">
-            <!-- Los flayers se generarán con JavaScript -->
+            <!-- Los flayers se cargarán dinámicamente -->
         </div>
         
         <footer class="footer">
-            <p class="footer-text">© 2023 Paquetes Adorables para Fiestas | Diseño Super Lindo | ¡Haz tus fiestas más especiales!</p>
+            <p class="footer-text">© 2023 Paquetes Adorables para Fiestas | Diseño Super Lindo</p>
             <p class="footer-subtext">❤️ Toca las imágenes para ver en pantalla completa ❤️</p>
         </footer>
     </div>
 
     <script>
-        // Datos de los flayers con tus imágenes locales
+        // Datos de los flayers
         const flayers = [
             {
                 id: 1,
@@ -988,24 +787,27 @@
         ];
         
         // Variables globales
-        const refreshIndicator = document.getElementById('refreshIndicator');
         const mainContent = document.getElementById('mainContent');
         const imageViewer = document.getElementById('imageViewer');
         const fullImage = document.getElementById('fullImage');
-        const fullImageLoading = document.getElementById('fullImageLoading');
         const closeViewer = document.getElementById('closeViewer');
         const backgroundHearts = document.getElementById('backgroundHearts');
-        const manualRefreshButton = document.getElementById('manualRefreshButton');
         
-        let isRefreshing = false;
-        let pullToRefreshEnabled = false; // DESACTIVADO POR DEFECTO
+        // Variable para controlar si las imágenes están precargadas
+        let imagesPreloaded = false;
         
-        // Inicializar después de cargar la página
+        // Inicializar inmediatamente
         document.addEventListener('DOMContentLoaded', function() {
             // Crear decoraciones de fondo
             createBackgroundDecorations();
             
-            // Configurar la transición (2.5 segundos)
+            // Precargar imágenes de forma agresiva
+            preloadImagesAggressive();
+            
+            // Configurar visor de imágenes
+            setupImageViewer();
+            
+            // Configurar transición rápida
             setTimeout(() => {
                 document.getElementById('welcomeScreen').style.display = 'none';
                 mainContent.style.display = 'flex';
@@ -1015,47 +817,56 @@
                 // Generar los flayers
                 generateFlayers();
                 
-                // Animar las tarjetas
+                // Animar las tarjetas inmediatamente
                 animateCardsOnScroll();
-            }, 2500);
-            
-            // Configurar botón de actualización manual
-            setupManualRefresh();
-            
-            // Opcional: descomentar si quieres activar pull-to-refresh
-            // setupPullToRefresh();
+            }, 2100);
             
             // Prevenir zoom
             preventZoom();
-            
-            // Configurar visor de imágenes
-            setupImageViewer();
-            
-            // Precargar imágenes para mejor experiencia
-            preloadImages();
         });
         
-        // Configurar botón de actualización manual
-        function setupManualRefresh() {
-            manualRefreshButton.addEventListener('click', function() {
-                if (!isRefreshing) {
-                    triggerRefresh();
-                }
-            });
-        }
-        
-        // Precargar imágenes
-        function preloadImages() {
+        // Precargar imágenes de forma AGGRESIVA
+        function preloadImagesAggressive() {
+            if (imagesPreloaded) return;
+            
+            const imagePromises = [];
+            
             flayers.forEach(flayer => {
                 const img = new Image();
                 img.src = flayer.image;
+                img.loading = 'eager';
+                img.decoding = 'async';
+                
+                // Crear una promesa para cada imagen
+                const promise = new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                });
+                
+                imagePromises.push(promise);
+                
+                // Forzar carga inmediata
+                document.body.appendChild(img);
+                img.style.display = 'none';
             });
+            
+            // Esperar a que todas las imágenes se carguen
+            Promise.all(imagePromises)
+                .then(() => {
+                    console.log('Todas las imágenes precargadas');
+                    imagesPreloaded = true;
+                })
+                .catch((error) => {
+                    console.log('Algunas imágenes no se cargaron:', error);
+                    // Continuar de todos modos
+                    imagesPreloaded = true;
+                });
         }
         
-        // Crear decoraciones de fondo (corazones y estrellas)
+        // Crear decoraciones de fondo
         function createBackgroundDecorations() {
             // Crear corazones
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 15; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '💖';
@@ -1065,7 +876,7 @@
             }
             
             // Crear estrellas
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 12; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.innerHTML = '✨';
@@ -1076,13 +887,10 @@
             }
         }
         
-        // Generar los flayers dinámicamente
+        // Generar los flayers dinámicamente - OPTIMIZADO
         function generateFlayers() {
             const container = document.getElementById('flayersContainer');
             container.innerHTML = '';
-            
-            // ORDEN ORIGINAL - NO SE MEZCLA
-            flayers.sort((a, b) => a.id - b.id);
             
             flayers.forEach(flayer => {
                 const flayerCard = document.createElement('div');
@@ -1090,8 +898,15 @@
                 flayerCard.setAttribute('data-id', flayer.id);
                 flayerCard.innerHTML = `
                     <div class="flayer-image-container">
-                        <div class="image-loading">Cargando...</div>
-                        <img src="${flayer.image}" alt="${flayer.title}" class="flayer-image" loading="lazy" style="display: none;" onload="this.style.display='block'; this.previousElementSibling.style.display='none';">
+                        <div class="image-placeholder"></div>
+                        <img src="${flayer.image}" 
+                             alt="${flayer.title}" 
+                             class="flayer-image" 
+                             loading="eager"
+                             decoding="async"
+                             style="opacity: 0;"
+                             onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';"
+                             onerror="this.style.display='none'; this.previousElementSibling.style.display='block';">
                     </div>
                     <div class="flayer-price-container">
                         <div class="price-tag">${flayer.price}</div>
@@ -1100,7 +915,7 @@
                 `;
                 container.appendChild(flayerCard);
                 
-                // Agregar evento para abrir imagen en pantalla completa al hacer clic en la imagen
+                // Agregar evento para abrir imagen en pantalla completa
                 flayerCard.addEventListener('click', function() {
                     openImageViewer(flayer.image);
                 });
@@ -1123,30 +938,50 @@
                 }
             });
             
-            // Manejar carga de imagen en visor
+            // Configurar carga de imagen en visor
             fullImage.onload = function() {
-                fullImage.style.display = 'block';
-                fullImageLoading.style.display = 'none';
+                // Ajustar el fondo según el tamaño de la imagen
+                adjustViewerBackground();
             };
             
+            // Manejar errores de imagen
             fullImage.onerror = function() {
-                fullImageLoading.textContent = 'Error al cargar la imagen';
-                fullImageLoading.style.color = '#ff6b6b';
+                console.error('Error al cargar la imagen en el visor');
+                // Podrías mostrar un mensaje de error aquí si lo deseas
             };
         }
         
         // Abrir imagen en pantalla completa
         function openImageViewer(imageSrc) {
-            // Mostrar mensaje de carga
-            fullImage.style.display = 'none';
-            fullImageLoading.style.display = 'block';
-            fullImageLoading.textContent = 'Cargando imagen...';
-            fullImageLoading.style.color = '#ffb6c1';
-            
-            // Cargar imagen
+            // Establecer la fuente de la imagen
             fullImage.src = imageSrc;
+            
+            // Mostrar el visor
             imageViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Forzar la carga si ya está en caché
+            if (fullImage.complete) {
+                adjustViewerBackground();
+            }
+        }
+        
+        // Ajustar el fondo del visor según el tamaño de la imagen
+        function adjustViewerBackground() {
+            // El fondo ya está configurado para ser transparente
+            // La imagen tiene su propio fondo blanco con padding
+            // Esto crea el efecto de "marco" que quieres
+            
+            // Si la imagen es muy vertical, ajustamos el padding
+            const imgRatio = fullImage.naturalWidth / fullImage.naturalHeight;
+            
+            if (imgRatio < 0.7) { // Imagen muy vertical
+                fullImage.style.padding = '20px 40px';
+            } else if (imgRatio > 1.3) { // Imagen muy horizontal
+                fullImage.style.padding = '40px 20px';
+            } else { // Imagen cuadrada o proporcional
+                fullImage.style.padding = '25px';
+            }
         }
         
         // Cerrar visor de imágenes
@@ -1154,10 +989,10 @@
             imageViewer.classList.remove('active');
             document.body.style.overflow = 'auto';
             
+            // Limpiar después de cerrar
             setTimeout(() => {
                 fullImage.src = '';
-                fullImage.style.display = 'none';
-                fullImageLoading.style.display = 'block';
+                fullImage.style.padding = '10px'; // Resetear padding
             }, 300);
         }
         
@@ -1166,145 +1001,11 @@
             const cards = document.querySelectorAll('.flayer-card');
             
             cards.forEach((card, index) => {
+                // Animar todas inmediatamente
                 setTimeout(() => {
                     card.classList.add('visible');
-                }, index * 100);
+                }, index * 50); // Más rápido
             });
-        }
-        
-        // Configurar pull-to-refresh (OPCIONAL - DESACTIVADO POR DEFECTO)
-        function setupPullToRefresh() {
-            if (!pullToRefreshEnabled) return;
-            
-            let touchStartY = 0;
-            let isDragging = false;
-            
-            document.addEventListener('touchstart', function(e) {
-                if (window.scrollY === 0 && !isRefreshing) {
-                    touchStartY = e.touches[0].clientY;
-                    isDragging = true;
-                }
-            }, { passive: true });
-            
-            document.addEventListener('touchmove', function(e) {
-                if (isDragging && !isRefreshing) {
-                    const touchCurrentY = e.touches[0].clientY;
-                    const diff = touchCurrentY - touchStartY;
-                    
-                    if (diff > 0 && window.scrollY === 0) {
-                        e.preventDefault();
-                        updateRefreshIndicator(diff);
-                    }
-                }
-            }, { passive: false });
-            
-            document.addEventListener('touchend', function(e) {
-                if (isDragging && !isRefreshing) {
-                    const touchCurrentY = e.changedTouches[0].clientY;
-                    
-                    if (touchCurrentY - touchStartY > 150) { // Más difícil de activar
-                        triggerRefresh();
-                    } else {
-                        resetRefresh();
-                    }
-                    
-                    isDragging = false;
-                }
-            });
-        }
-        
-        function updateRefreshIndicator(diff) {
-            const maxDiff = 200; // Más difícil de alcanzar
-            const progress = Math.min(diff, maxDiff) / maxDiff;
-            
-            refreshIndicator.style.top = `${-90 + (90 * progress)}px`;
-            
-            if (diff > 80) { // Umbral más alto
-                refreshIndicator.style.display = 'flex';
-                refreshIndicator.classList.add('active');
-            } else {
-                refreshIndicator.classList.remove('active');
-            }
-        }
-        
-        function triggerRefresh() {
-            if (isRefreshing) return;
-            
-            isRefreshing = true;
-            refreshIndicator.style.display = 'flex';
-            refreshIndicator.classList.add('active');
-            
-            // Simular actualización con un efecto lindo
-            setTimeout(() => {
-                // NO mezclar los flayers - mantener orden original
-                
-                // Regenerar flayers (podría recargar imágenes si hubiera cambios)
-                generateFlayers();
-                animateCardsOnScroll();
-                
-                // Efecto de confeti visual
-                createConfettiEffect();
-                
-                // Ocultar indicador
-                setTimeout(() => {
-                    refreshIndicator.classList.remove('active');
-                    setTimeout(() => {
-                        refreshIndicator.style.display = 'none';
-                    }, 400);
-                    isRefreshing = false;
-                }, 800);
-            }, 1200);
-        }
-        
-        function resetRefresh() {
-            refreshIndicator.classList.remove('active');
-            setTimeout(() => {
-                refreshIndicator.style.display = 'none';
-            }, 400);
-        }
-        
-        // Crear efecto de confeti (visualmente lindo)
-        function createConfettiEffect() {
-            const confettiContainer = document.createElement('div');
-            confettiContainer.style.position = 'fixed';
-            confettiContainer.style.top = '0';
-            confettiContainer.style.left = '0';
-            confettiContainer.style.width = '100%';
-            confettiContainer.style.height = '100%';
-            confettiContainer.style.pointerEvents = 'none';
-            confettiContainer.style.zIndex = '9999';
-            
-            const emojis = ['💖', '✨', '🌸', '🎀', '🎉', '🦄', '🌈', '🍬'];
-            
-            for (let i = 0; i < 30; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'absolute';
-                confetti.style.fontSize = `${Math.random() * 28 + 18}px`;
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.top = '-50px';
-                confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                
-                confettiContainer.appendChild(confetti);
-                
-                // Animación de caída
-                const animation = confetti.animate([
-                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 2000 + 1500,
-                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
-                });
-                
-                animation.onfinish = () => {
-                    confetti.remove();
-                };
-            }
-            
-            document.body.appendChild(confettiContainer);
-            
-            setTimeout(() => {
-                confettiContainer.remove();
-            }, 3000);
         }
         
         // Prevenir zoom en dispositivos táctiles
@@ -1320,15 +1021,45 @@
             }, { passive: false });
         }
         
-        // Habilitar pull-to-refresh si el usuario realmente lo quiere
-        function enablePullToRefresh() {
-            pullToRefreshEnabled = true;
-            setupPullToRefresh();
-            alert('Pull-to-refresh activado. Desliza desde arriba para actualizar.');
+        // Cargar todo inmediatamente cuando la página esté lista
+        window.addEventListener('load', function() {
+            // Forzar la visualización si algo se atasca
+            setTimeout(() => {
+                if (document.getElementById('welcomeScreen').style.display !== 'none') {
+                    document.getElementById('welcomeScreen').style.display = 'none';
+                    mainContent.style.display = 'flex';
+                    mainContent.style.flexDirection = 'column';
+                    mainContent.style.opacity = '1';
+                    
+                    if (document.getElementById('flayersContainer').children.length === 0) {
+                        generateFlayers();
+                        animateCardsOnScroll();
+                    }
+                }
+            }, 3000); // Máximo 3 segundos de espera
+        });
+        
+        // Mejorar rendimiento en dispositivos móviles
+        if ('ontouchstart' in window) {
+            // Optimizaciones específicas para táctiles
+            document.body.style.cursor = 'pointer';
         }
         
-        // Para activar pull-to-refresh, llama a enablePullToRefresh()
-        // Por ahora está desactivado para no molestar
+        // Prevenir comportamientos no deseados
+        document.addEventListener('touchmove', function(e) {
+            // Permitir scroll normal
+        }, { passive: true });
+        
+        // Carga progresiva para conexiones lentas
+        if ('connection' in navigator) {
+            const connection = navigator.connection;
+            if (connection.saveData || connection.effectiveType.includes('2g')) {
+                // Modo de ahorro de datos - cargar menos decoraciones
+                document.querySelectorAll('.heart, .star').forEach(el => {
+                    if (Math.random() > 0.5) el.style.display = 'none';
+                });
+            }
+        }
     </script>
 </body>
 </html>
