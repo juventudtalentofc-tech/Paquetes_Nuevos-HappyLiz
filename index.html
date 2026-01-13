@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy - Catálogo de Paquetes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', 'Segoe UI', 'Arial Rounded MT Bold', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f7 0%, #fef9ff 50%, #fff0f5 100%);
+            color: #5a3d5c;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            touch-action: pan-y;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Prevención de zoom */
+        html, body {
+            touch-action: manipulation;
+            overflow-x: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Decoraciones de fondo - Elementos lindos */
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 182, 193, 0.3);
+            animation: float-heart 20s linear infinite;
+        }
+        
+        .star {
+            position: absolute;
+            font-size: 18px;
+            color: rgba(255, 215, 0, 0.2);
+            animation: twinkle 15s linear infinite;
+        }
+        
+        /* Pantalla de bienvenida - Más tiempo */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffd6e7 0%, #e1c6ff 50%, #c6e8ff 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow: hidden;
+            animation: welcomeExit 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            animation-delay: 4.5s;
+        }
+        
+        .welcome-content {
+            text-align: center;
+            padding: 30px;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.3);
+            position: relative;
+            z-index: 2;
+            border: 8px solid white;
+            animation: welcomeFloat 3s ease-in-out infinite alternate;
+        }
+        
+        .welcome-ornament {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #ffb6c1;
+            border-radius: 50%;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.4);
+            z-index: 3;
+            animation: ornamentSpin 4s linear infinite;
+        }
+        
+        .welcome-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ff6b9d;
+            font-weight: 700;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .welcome-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #8a6fa8;
+            margin-bottom: 40px;
+            max-width: 500px;
+            font-weight: 500;
+            animation: textPulse 3s ease-in-out infinite;
+        }
+        
+        .loading-container {
+            width: 300px;
+            height: 12px;
+            background: rgba(255, 182, 193, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+            position: relative;
+            border: 3px solid white;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
+            border-radius: 20px;
+            animation: loading 4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+        
+        /* Contenido principal */
+        .main-content {
+            display: none;
+            padding: 25px 15px 0 15px;
+            opacity: 0;
+            animation: contentFadeIn 0.5s ease forwards;
+            animation-delay: 4.6s;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 0 15px;
+        }
+        
+        .main-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ff85a2, #a685ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            position: relative;
+            display: inline-block;
+            padding: 0 25px;
+        }
+        
+        .main-title::before, .main-title::after {
+            content: "✨";
+            position: absolute;
+            color: #ffb6c1;
+            font-size: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .main-title::before {
+            left: -15px;
+        }
+        
+        .main-title::after {
+            right: -15px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #8a6fa8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 500;
+            padding: 0 20px;
+        }
+        
+        /* Contenedor de flayers - Agrandados */
+        .flayers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 35px;
+            padding: 0 20px 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .flayer-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 8px solid white;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            cursor: pointer;
+        }
+        
+        .flayer-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .flayer-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 35px 70px rgba(255, 182, 193, 0.5);
+        }
+        
+        .flayer-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(to right, #ffb6c1, #d8b4fe, #a5b4fc);
+            z-index: 2;
+        }
+        
+        .flayer-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 420px; /* Agrandado */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f8f8, #f0f0f0);
+        }
+        
+        .flayer-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+        
+        .flayer-card:hover .flayer-image {
+            transform: scale(1.08);
+        }
+        
+        .flayer-price-container {
+            padding: 25px;
+            text-align: center;
+            background: linear-gradient(to right, #fff5f9, #f9f5ff);
+            border-top: 4px dashed #ffb6c1;
+            position: relative;
+        }
+        
+        .flayer-price-container::before {
+            content: "💖";
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+        }
+        
+        .flayer-price-container::after {
+            content: "💖";
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+        }
+        
+        .price-tag {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ff6b9d;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            padding: 10px 30px;
+            background: white;
+            border-radius: 60px;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+            margin-bottom: 10px;
+        }
+        
+        .flayer-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #8a6fa8;
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        /* Visualización de imagen en pantalla completa - SIN TÍTULO */
+        .image-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 245, 247, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .image-viewer.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 35px;
+            right: 35px;
+            width: 75px;
+            height: 75px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            color: #ff6b9d;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid #ffb6c1;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+            z-index: 2001;
+            animation: buttonPulse 2s ease-in-out infinite alternate;
+        }
+        
+        .close-button:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: rotate(90deg) scale(1.2);
+            border-color: #ff6b9d;
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.7);
+        }
+        
+        .full-image-container {
+            max-width: 96%;
+            max-height: 96%;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(255, 182, 193, 0.6);
+            border: 20px solid white;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
+            position: relative;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-viewer.active .full-image-container {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .full-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        /* NO HAY TÍTULO EN EL VISOR - SOLO LA IMAGEN */
+        
+        /* Pull-to-refresh */
+        .refresh-indicator {
+            position: fixed;
+            top: -80px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ffb6c1, #d8b4fe);
+            z-index: 999;
+            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 5px dotted white;
+        }
+        
+        .refresh-indicator.active {
+            top: 0;
+        }
+        
+        .refresh-text {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+            gap: 15px;
+        }
+        
+        .refresh-text i {
+            animation: spin 1.5s linear infinite;
+        }
+        
+        /* Footer - Pegado abajo */
+        .footer {
+            text-align: center;
+            padding: 30px 15px;
+            color: #8a6fa8;
+            font-size: 1rem;
+            border-top: 4px dashed #ffb6c1;
+            background: white;
+            border-radius: 40px 40px 0 0;
+            box-shadow: 0 -15px 40px rgba(255, 182, 193, 0.15);
+            width: 100%;
+            margin-top: auto;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: "✨";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            background: white;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 4px dashed #ffb6c1;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+        }
+        
+        .footer-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .footer-subtext {
+            font-size: 0.95rem;
+            color: #a68faa;
+        }
+        
+        /* Animaciones */
+        @keyframes welcomeFloat {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                transform: translateY(-15px) scale(1.02);
+            }
+        }
+        
+        @keyframes ornamentSpin {
+            0% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+        
+        @keyframes titleGlow {
+            0% {
+                filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
+            }
+            100% {
+                filter: drop-shadow(0 0 20px rgba(255, 182, 193, 0.8));
+            }
+        }
+        
+        @keyframes textPulse {
+            0%, 100% {
+                opacity: 0.9;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes float-heart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+        
+        @keyframes welcomeExit {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100%);
+                opacity: 0;
+                display: none;
+            }
+        }
+        
+        @keyframes contentFadeIn {
+            0% {
+                opacity: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            100% {
+                opacity: 1;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes buttonPulse {
+            0% {
+                box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+            }
+            100% {
+                box-shadow: 0 15px 45px rgba(255, 107, 157, 0.8);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
+            }
+            
+            .flayer-image-container {
+                height: 380px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .welcome-text {
+                font-size: 1.1rem;
+            }
+            
+            .welcome-content {
+                padding: 25px 20px;
+                margin: 0 15px;
+            }
+            
+            .main-title {
+                font-size: 2.3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 25px;
+                padding: 0 15px 35px 15px;
+            }
+            
+            .flayer-image-container {
+                height: 350px;
+            }
+            
+            .price-tag {
+                font-size: 2rem;
+            }
+            
+            .flayer-name {
+                font-size: 1.5rem;
+            }
+            
+            .close-button {
+                top: 25px;
+                right: 25px;
+                width: 65px;
+                height: 65px;
+                font-size: 2rem;
+            }
+            
+            .full-image-container {
+                border-width: 15px;
+                border-radius: 30px;
+            }
+            
+            .footer {
+                padding: 25px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .flayers-container {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+                padding: 0 20px;
+            }
+            
+            .main-title::before, .main-title::after {
+                font-size: 1.5rem;
+            }
+            
+            .welcome-ornament {
+                width: 100px;
+                height: 100px;
+                top: -50px;
+                font-size: 40px;
+            }
+            
+            .flayer-image-container {
+                height: 320px;
+            }
+            
+            .close-button {
+                top: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .full-image-container {
+                border-width: 10px;
+                border-radius: 25px;
+            }
+            
+            .footer::before {
+                width: 60px;
+                height: 60px;
+                font-size: 2.5rem;
+                top: -20px;
+            }
+        }
+        
+        /* Scroll personalizado lindo */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #fff5f7;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
+            border-radius: 10px;
+            border: 3px solid #fff5f7;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #ff9ebb, #c9a8ff);
+        }
+        
+        /* Mensaje de carga de imágenes */
+        .image-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            color: #ffb6c1;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Decoraciones de fondo -->
+    <div class="background-hearts" id="backgroundHearts"></div>
+    
+    <!-- Pantalla de bienvenida - Más tiempo -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <div class="welcome-ornament">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h1 class="welcome-title">HAPPY PACKAGES</h1>
+            <h2 class="welcome-subtitle">PARA TUS FIESTAS ✨</h2>
+            <p class="welcome-text">Descubre nuestra exclusiva línea de paquetes Happy que harán de tu celebración algo mágico e inolvidable.</p>
+            <div class="loading-container">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Indicador de actualización -->
+    <div class="refresh-indicator" id="refreshIndicator">
+        <div class="refresh-text">
+            <i class="fas fa-heart"></i> Actualizando paquetes...
+        </div>
+    </div>
+    
+    <!-- Visualizador de imagen en pantalla completa - SIN TÍTULO -->
+    <div class="image-viewer" id="imageViewer">
+        <div class="close-button" id="closeViewer">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="full-image-container">
+            <div class="image-loading" id="fullImageLoading">Cargando imagen...</div>
+            <img src="" alt="Imagen en pantalla completa" class="full-image" id="fullImage" style="display: none;">
+            <!-- NO HAY TÍTULO AQUÍ -->
+        </div>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="main-content" id="mainContent">
+        <header class="header">
+            <h1 class="main-title">CATÁLOGO HAPPY</h1>
+            <p class="subtitle">Toca cualquier imagen para verla en pantalla completa. ¡Desliza hacia abajo para actualizar!</p>
+        </header>
+        
+        <div class="flayers-container" id="flayersContainer">
+            <!-- Los flayers se generarán con JavaScript -->
+        </div>
+        
+        <footer class="footer">
+            <p class="footer-text">© 2023 Paquetes Adorables para Fiestas | Diseño Super Lindo | ¡Haz tus fiestas más especiales!</p>
+            <p class="footer-subtext">❤️ Toca las imágenes para ver en pantalla completa ❤️</p>
+        </footer>
+    </div>
+
+    <script>
+        // Datos de los flayers con tus imágenes locales
+        const flayers = [
+            {
+                id: 1,
+                title: "Happy Express",
+                image: "1.png",
+                price: "$230,000"
+            },
+            {
+                id: 2,
+                title: "Happy Basic",
+                image: "2.png",
+                price: "$310,000"
+            },
+            {
+                id: 3,
+                title: "Happy Plus",
+                image: "3.png",
+                price: "$395,000"
+            },
+            {
+                id: 4,
+                title: "Happy Pro",
+                image: "4.png",
+                price: "$550,000"
+            },
+            {
+                id: 5,
+                title: "Happy Glam",
+                image: "5.png",
+                price: "$930,000"
+            },
+            {
+                id: 6,
+                title: "Happy Premium",
+                image: "6.png",
+                price: "$1,250,000"
+            }
+        ];
+        
+        // Variables globales
+        const refreshIndicator = document.getElementById('refreshIndicator');
+        const mainContent = document.getElementById('mainContent');
+        const imageViewer = document.getElementById('imageViewer');
+        const fullImage = document.getElementById('fullImage');
+        const fullImageLoading = document.getElementById('fullImageLoading');
+        const closeViewer = document.getElementById('closeViewer');
+        const backgroundHearts = document.getElementById('backgroundHearts');
+        let isRefreshing = false;
+        
+        // Inicializar después de cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Crear decoraciones de fondo
+            createBackgroundDecorations();
+            
+            // Configurar la transición (más tiempo - 4.5 segundos)
+            setTimeout(() => {
+                document.getElementById('welcomeScreen').style.display = 'none';
+                mainContent.style.display = 'flex';
+                mainContent.style.flexDirection = 'column';
+                mainContent.style.opacity = '1';
+                
+                // Generar los flayers
+                generateFlayers();
+                
+                // Animar las tarjetas
+                animateCardsOnScroll();
+            }, 4500);
+            
+            // Configurar pull-to-refresh
+            setupPullToRefresh();
+            
+            // Prevenir zoom
+            preventZoom();
+            
+            // Configurar visor de imágenes
+            setupImageViewer();
+            
+            // Precargar imágenes para mejor experiencia
+            preloadImages();
+        });
+        
+        // Precargar imágenes
+        function preloadImages() {
+            flayers.forEach(flayer => {
+                const img = new Image();
+                img.src = flayer.image;
+            });
+        }
+        
+        // Crear decoraciones de fondo (corazones y estrellas)
+        function createBackgroundDecorations() {
+            // Crear corazones
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 20}s`;
+                backgroundHearts.appendChild(heart);
+            }
+            
+            // Crear estrellas
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '✨';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 15}s`;
+                backgroundHearts.appendChild(star);
+            }
+        }
+        
+        // Generar los flayers dinámicamente - AGREGADOS
+        function generateFlayers() {
+            const container = document.getElementById('flayersContainer');
+            container.innerHTML = '';
+            
+            flayers.forEach(flayer => {
+                const flayerCard = document.createElement('div');
+                flayerCard.className = 'flayer-card';
+                flayerCard.setAttribute('data-id', flayer.id);
+                flayerCard.innerHTML = `
+                    <div class="flayer-image-container">
+                        <div class="image-loading">Cargando...</div>
+                        <img src="${flayer.image}" alt="${flayer.title}" class="flayer-image" loading="lazy" style="display: none;" onload="this.style.display='block'; this.previousElementSibling.style.display='none';">
+                    </div>
+                    <div class="flayer-price-container">
+                        <div class="price-tag">${flayer.price}</div>
+                        <div class="flayer-name">${flayer.title}</div>
+                    </div>
+                `;
+                container.appendChild(flayerCard);
+                
+                // Agregar evento para abrir imagen en pantalla completa al hacer clic en la imagen
+                flayerCard.addEventListener('click', function() {
+                    openImageViewer(flayer.image);
+                });
+            });
+        }
+        
+        // Configurar visor de imágenes
+        function setupImageViewer() {
+            closeViewer.addEventListener('click', closeImageViewer);
+            
+            imageViewer.addEventListener('click', function(e) {
+                if (e.target === imageViewer) {
+                    closeImageViewer();
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && imageViewer.classList.contains('active')) {
+                    closeImageViewer();
+                }
+            });
+            
+            // Manejar carga de imagen en visor
+            fullImage.onload = function() {
+                fullImage.style.display = 'block';
+                fullImageLoading.style.display = 'none';
+            };
+            
+            fullImage.onerror = function() {
+                fullImageLoading.textContent = 'Error al cargar la imagen';
+                fullImageLoading.style.color = '#ff6b6b';
+            };
+        }
+        
+        // Abrir imagen en pantalla completa - SIN TÍTULO
+        function openImageViewer(imageSrc) {
+            // Mostrar mensaje de carga
+            fullImage.style.display = 'none';
+            fullImageLoading.style.display = 'block';
+            fullImageLoading.textContent = 'Cargando imagen...';
+            fullImageLoading.style.color = '#ffb6c1';
+            
+            // Cargar imagen - SIN TÍTULO
+            fullImage.src = imageSrc;
+            imageViewer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Cerrar visor de imágenes
+        function closeImageViewer() {
+            imageViewer.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            setTimeout(() => {
+                fullImage.src = '';
+                fullImage.style.display = 'none';
+                fullImageLoading.style.display = 'block';
+            }, 300);
+        }
+        
+        // Animación de entrada de tarjetas
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.flayer-card');
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 100);
+            });
+        }
+        
+        // Configurar pull-to-refresh
+        function setupPullToRefresh() {
+            let touchStartY = 0;
+            let isDragging = false;
+            
+            document.addEventListener('touchstart', function(e) {
+                if (window.scrollY === 0 && !isRefreshing) {
+                    touchStartY = e.touches[0].clientY;
+                    isDragging = true;
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', function(e) {
+                if (isDragging && !isRefreshing) {
+                    const touchCurrentY = e.touches[0].clientY;
+                    const diff = touchCurrentY - touchStartY;
+                    
+                    if (diff > 0 && window.scrollY === 0) {
+                        e.preventDefault();
+                        updateRefreshIndicator(diff);
+                    }
+                }
+            }, { passive: false });
+            
+            document.addEventListener('touchend', function(e) {
+                if (isDragging && !isRefreshing) {
+                    const touchCurrentY = e.changedTouches[0].clientY;
+                    
+                    if (touchCurrentY - touchStartY > 100) {
+                        triggerRefresh();
+                    } else {
+                        resetRefresh();
+                    }
+                    
+                    isDragging = false;
+                }
+            });
+        }
+        
+        function updateRefreshIndicator(diff) {
+            const maxDiff = 150;
+            const progress = Math.min(diff, maxDiff) / maxDiff;
+            
+            refreshIndicator.style.top = `${-80 + (80 * progress)}px`;
+            
+            if (diff > 50) {
+                refreshIndicator.classList.add('active');
+            }
+        }
+        
+        function triggerRefresh() {
+            isRefreshing = true;
+            
+            // Simular actualización con un efecto lindo
+            setTimeout(() => {
+                // Mezclar los flayers
+                shuffleFlayers();
+                
+                // Regenerar flayers
+                generateFlayers();
+                animateCardsOnScroll();
+                
+                // Efecto de confeti visual
+                createConfettiEffect();
+                
+                // Ocultar indicador
+                setTimeout(() => {
+                    refreshIndicator.classList.remove('active');
+                    isRefreshing = false;
+                }, 500);
+            }, 1200);
+        }
+        
+        function resetRefresh() {
+            refreshIndicator.classList.remove('active');
+            refreshIndicator.style.top = '-80px';
+        }
+        
+        // Mezclar array de flayers
+        function shuffleFlayers() {
+            for (let i = flayers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flayers[i], flayers[j]] = [flayers[j], flayers[i]];
+            }
+        }
+        
+        // Crear efecto de confeti (visualmente lindo)
+        function createConfettiEffect() {
+            const confettiContainer = document.createElement('div');
+            confettiContainer.style.position = 'fixed';
+            confettiContainer.style.top = '0';
+            confettiContainer.style.left = '0';
+            confettiContainer.style.width = '100%';
+            confettiContainer.style.height = '100%';
+            confettiContainer.style.pointerEvents = 'none';
+            confettiContainer.style.zIndex = '9999';
+            
+            const emojis = ['💖', '✨', '🌸', '🎀', '🎉', '🦄', '🌈', '🍬'];
+            
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.fontSize = `${Math.random() * 24 + 16}px`;
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = '-50px';
+                confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                confettiContainer.appendChild(confetti);
+                
+                // Animación de caída
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1500,
+                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                });
+                
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
+            }
+            
+            document.body.appendChild(confettiContainer);
+            
+            setTimeout(() => {
+                confettiContainer.remove();
+            }, 3000);
+        }
+        
+        // Prevenir zoom en dispositivos táctiles
+        function preventZoom() {
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        }
+    </script>
+</body>
+</html>
