@@ -58,7 +58,7 @@
             animation: twinkle 15s linear infinite;
         }
         
-        /* Pantalla de bienvenida - Más tiempo */
+        /* Pantalla de bienvenida */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -73,176 +73,180 @@
             z-index: 1000;
             overflow: hidden;
             animation: welcomeExit 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-            animation-delay: 4.5s;
+            animation-delay: 2.5s;
         }
         
         .welcome-content {
             text-align: center;
-            padding: 30px;
-            max-width: 700px;
+            padding: 40px;
+            max-width: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.3);
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.4);
             position: relative;
             z-index: 2;
-            border: 8px solid white;
+            border: 12px solid white;
             animation: welcomeFloat 3s ease-in-out infinite alternate;
         }
         
         .welcome-ornament {
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             background: #ffb6c1;
             border-radius: 50%;
-            top: -60px;
+            top: -70px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 50px;
+            font-size: 60px;
             color: white;
-            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.4);
+            box-shadow: 0 15px 30px rgba(255, 182, 193, 0.5);
             z-index: 3;
             animation: ornamentSpin 4s linear infinite;
         }
         
         .welcome-title {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 900;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: 1px;
             line-height: 1.1;
-            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
+            text-shadow: 4px 4px 0px rgba(255, 255, 255, 0.8);
             animation: titleGlow 2s ease-in-out infinite alternate;
         }
         
         .welcome-subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
+            font-size: 2rem;
+            margin-bottom: 30px;
             color: #ff6b9d;
             font-weight: 700;
             animation: bounce 2s ease-in-out infinite;
         }
         
         .welcome-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             line-height: 1.6;
             color: #8a6fa8;
             margin-bottom: 40px;
-            max-width: 500px;
+            max-width: 600px;
             font-weight: 500;
             animation: textPulse 3s ease-in-out infinite;
         }
         
         .loading-container {
-            width: 300px;
-            height: 12px;
+            width: 350px;
+            height: 15px;
             background: rgba(255, 182, 193, 0.3);
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
             margin-top: 20px;
             position: relative;
-            border: 3px solid white;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 4px solid white;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
         }
         
         .loading-progress {
             width: 0%;
             height: 100%;
             background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
-            border-radius: 20px;
-            animation: loading 4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            border-radius: 25px;
+            animation: loading 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
         }
         
         /* Contenido principal */
         .main-content {
             display: none;
-            padding: 25px 15px 0 15px;
+            padding: 30px 20px 0 20px;
             opacity: 0;
             animation: contentFadeIn 0.5s ease forwards;
-            animation-delay: 4.6s;
+            animation-delay: 2.6s;
             position: relative;
             z-index: 2;
             flex: 1;
             overflow-y: auto;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 50px;
-            padding: 0 15px;
+            margin-bottom: 60px;
+            padding: 0 20px;
         }
         
         .main-title {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             background: linear-gradient(to right, #ff85a2, #a685ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 0.5px;
-            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
             position: relative;
             display: inline-block;
-            padding: 0 25px;
+            padding: 0 35px;
         }
         
         .main-title::before, .main-title::after {
             content: "✨";
             position: absolute;
             color: #ffb6c1;
-            font-size: 2rem;
+            font-size: 2.5rem;
             top: 50%;
             transform: translateY(-50%);
         }
         
         .main-title::before {
-            left: -15px;
+            left: -10px;
         }
         
         .main-title::after {
-            right: -15px;
+            right: -10px;
         }
         
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #8a6fa8;
-            max-width: 700px;
+            max-width: 900px;
             margin: 0 auto;
             line-height: 1.6;
             font-weight: 500;
-            padding: 0 20px;
+            padding: 0 30px;
         }
         
-        /* Contenedor de flayers - Agrandados */
+        /* Contenedor de flayers - MÁS ANCHO Y GRANDE */
         .flayers-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
-            padding: 0 20px 40px 20px;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 45px;
+            padding: 0 30px 50px 30px;
+            max-width: 1800px;
             margin: 0 auto;
+            width: 100%;
         }
         
         .flayer-card {
             background: white;
-            border-radius: 30px;
+            border-radius: 35px;
             overflow: hidden;
-            box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
+            box-shadow: 0 25px 55px rgba(255, 182, 193, 0.35);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            border: 8px solid white;
+            border: 10px solid white;
             opacity: 0;
             transform: translateY(30px) scale(0.95);
             cursor: pointer;
@@ -254,8 +258,8 @@
         }
         
         .flayer-card:hover {
-            transform: translateY(-20px) scale(1.05);
-            box-shadow: 0 35px 70px rgba(255, 182, 193, 0.5);
+            transform: translateY(-25px) scale(1.08);
+            box-shadow: 0 40px 80px rgba(255, 182, 193, 0.6);
         }
         
         .flayer-card::before {
@@ -264,7 +268,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 12px;
+            height: 15px;
             background: linear-gradient(to right, #ffb6c1, #d8b4fe, #a5b4fc);
             z-index: 2;
         }
@@ -272,7 +276,7 @@
         .flayer-image-container {
             position: relative;
             overflow: hidden;
-            height: 420px; /* Agrandado */
+            height: 500px; /* MÁS GRANDE */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -280,65 +284,65 @@
         }
         
         .flayer-image {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             display: block;
-            transition: transform 0.7s ease;
+            transition: transform 0.8s ease;
         }
         
         .flayer-card:hover .flayer-image {
-            transform: scale(1.08);
+            transform: scale(1.1);
         }
         
         .flayer-price-container {
-            padding: 25px;
+            padding: 30px;
             text-align: center;
             background: linear-gradient(to right, #fff5f9, #f9f5ff);
-            border-top: 4px dashed #ffb6c1;
+            border-top: 5px dashed #ffb6c1;
             position: relative;
         }
         
         .flayer-price-container::before {
             content: "💖";
             position: absolute;
-            left: 25px;
+            left: 30px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
         
         .flayer-price-container::after {
             content: "💖";
             position: absolute;
-            right: 25px;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
         
         .price-tag {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
             color: #ff6b9d;
-            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
             display: inline-block;
-            padding: 10px 30px;
+            padding: 15px 40px;
             background: white;
-            border-radius: 60px;
-            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
-            margin-bottom: 10px;
+            border-radius: 70px;
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+            margin-bottom: 15px;
         }
         
         .flayer-name {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #8a6fa8;
             text-align: center;
-            margin-top: 5px;
+            margin-top: 10px;
         }
         
-        /* Visualización de imagen en pantalla completa - SIN TÍTULO */
+        /* Visualización de imagen en pantalla completa - MÁS GRANDE */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -353,6 +357,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 40px;
         }
         
         .image-viewer.active {
@@ -362,21 +367,21 @@
         
         .close-button {
             position: absolute;
-            top: 35px;
-            right: 35px;
-            width: 75px;
-            height: 75px;
+            top: 40px;
+            right: 40px;
+            width: 85px;
+            height: 85px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #ff6b9d;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 4px solid #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+            border: 5px solid #ffb6c1;
+            box-shadow: 0 20px 45px rgba(255, 182, 193, 0.6);
             z-index: 2001;
             animation: buttonPulse 2s ease-in-out infinite alternate;
         }
@@ -384,18 +389,18 @@
         .close-button:hover {
             background: #ff6b9d;
             color: white;
-            transform: rotate(90deg) scale(1.2);
+            transform: rotate(90deg) scale(1.3);
             border-color: #ff6b9d;
-            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.7);
+            box-shadow: 0 25px 50px rgba(255, 107, 157, 0.8);
         }
         
         .full-image-container {
-            max-width: 96%;
-            max-height: 96%;
-            border-radius: 40px;
+            width: 98%;
+            height: 98%;
+            border-radius: 50px;
             overflow: hidden;
-            box-shadow: 0 50px 100px rgba(255, 182, 193, 0.6);
-            border: 20px solid white;
+            box-shadow: 0 60px 120px rgba(255, 182, 193, 0.7);
+            border: 25px solid white;
             opacity: 0;
             transform: scale(0.7);
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
@@ -414,30 +419,32 @@
         .full-image {
             max-width: 100%;
             max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             display: block;
         }
         
-        /* NO HAY TÍTULO EN EL VISOR - SOLO LA IMAGEN */
-        
-        /* Pull-to-refresh */
+        /* Pull-to-refresh - DESACTIVADO POR DEFECTO */
         .refresh-indicator {
             position: fixed;
-            top: -80px;
+            top: -90px;
             left: 0;
             width: 100%;
-            height: 80px;
+            height: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
             background: linear-gradient(to right, #ffb6c1, #d8b4fe);
             z-index: 999;
             transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 5px dotted white;
+            border-bottom: 6px dotted white;
+            display: none; /* OCULTO POR DEFECTO */
         }
         
         .refresh-indicator.active {
             top: 0;
+            display: flex; /* SOLO SE MUESTRA CUANDO ESTÁ ACTIVO */
         }
         
         .refresh-text {
@@ -445,8 +452,8 @@
             align-items: center;
             font-weight: 700;
             color: white;
-            font-size: 1.2rem;
-            gap: 15px;
+            font-size: 1.3rem;
+            gap: 20px;
         }
         
         .refresh-text i {
@@ -456,13 +463,13 @@
         /* Footer - Pegado abajo */
         .footer {
             text-align: center;
-            padding: 30px 15px;
+            padding: 35px 20px;
             color: #8a6fa8;
-            font-size: 1rem;
-            border-top: 4px dashed #ffb6c1;
+            font-size: 1.1rem;
+            border-top: 5px dashed #ffb6c1;
             background: white;
-            border-radius: 40px 40px 0 0;
-            box-shadow: 0 -15px 40px rgba(255, 182, 193, 0.15);
+            border-radius: 50px 50px 0 0;
+            box-shadow: 0 -20px 50px rgba(255, 182, 193, 0.2);
             width: 100%;
             margin-top: auto;
             position: relative;
@@ -471,30 +478,60 @@
         .footer::before {
             content: "✨";
             position: absolute;
-            top: -25px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 3rem;
+            font-size: 3.5rem;
             background: white;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            border: 4px dashed #ffb6c1;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+            border: 5px dashed #ffb6c1;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
         }
         
         .footer-text {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
             font-weight: 600;
         }
         
         .footer-subtext {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #a68faa;
+        }
+        
+        /* Botón de actualización manual */
+        .refresh-button {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 85px;
+            height: 85px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            color: #ff6b9d;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 5px solid #ffb6c1;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.6);
+            z-index: 100;
+            animation: buttonPulse 3s ease-in-out infinite alternate;
+        }
+        
+        .refresh-button:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: rotate(180deg) scale(1.2);
+            border-color: #ff6b9d;
+            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.8);
         }
         
         /* Animaciones */
@@ -503,7 +540,7 @@
                 transform: translateY(0) scale(1);
             }
             100% {
-                transform: translateY(-15px) scale(1.02);
+                transform: translateY(-20px) scale(1.03);
             }
         }
         
@@ -521,7 +558,7 @@
                 filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
             }
             100% {
-                filter: drop-shadow(0 0 20px rgba(255, 182, 193, 0.8));
+                filter: drop-shadow(0 0 25px rgba(255, 182, 193, 0.9));
             }
         }
         
@@ -567,7 +604,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-15px);
             }
         }
         
@@ -616,153 +653,189 @@
         
         @keyframes buttonPulse {
             0% {
-                box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+                box-shadow: 0 20px 45px rgba(255, 182, 193, 0.6);
             }
             100% {
-                box-shadow: 0 15px 45px rgba(255, 107, 157, 0.8);
+                box-shadow: 0 20px 55px rgba(255, 107, 157, 0.9);
             }
         }
         
-        /* Responsive */
-        @media (max-width: 1024px) {
+        /* Responsive para diferentes pantallas */
+        @media (min-width: 2000px) {
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 30px;
+                grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+                gap: 60px;
+                padding: 0 50px 70px 50px;
             }
             
             .flayer-image-container {
-                height: 380px;
+                height: 550px;
+            }
+            
+            .main-content {
+                max-width: 2000px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 40px;
+            }
+            
+            .flayer-image-container {
+                height: 450px;
             }
         }
         
         @media (max-width: 768px) {
             .welcome-title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .welcome-subtitle {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             
             .welcome-text {
-                font-size: 1.1rem;
-            }
-            
-            .welcome-content {
-                padding: 25px 20px;
-                margin: 0 15px;
-            }
-            
-            .main-title {
-                font-size: 2.3rem;
-            }
-            
-            .subtitle {
                 font-size: 1.2rem;
             }
             
+            .welcome-content {
+                padding: 30px 25px;
+                margin: 0 20px;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-                gap: 25px;
-                padding: 0 15px 35px 15px;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 35px;
+                padding: 0 25px 40px 25px;
             }
             
             .flayer-image-container {
-                height: 350px;
+                height: 420px;
             }
             
             .price-tag {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .flayer-name {
-                font-size: 1.5rem;
+                font-size: 1.7rem;
             }
             
             .close-button {
-                top: 25px;
-                right: 25px;
-                width: 65px;
-                height: 65px;
-                font-size: 2rem;
+                top: 30px;
+                right: 30px;
+                width: 75px;
+                height: 75px;
+                font-size: 2.2rem;
             }
             
             .full-image-container {
-                border-width: 15px;
-                border-radius: 30px;
+                border-width: 20px;
+                border-radius: 40px;
             }
             
             .footer {
-                padding: 25px 15px;
+                padding: 30px 20px;
+            }
+            
+            .refresh-button {
+                bottom: 30px;
+                right: 30px;
+                width: 75px;
+                height: 75px;
+                font-size: 2rem;
             }
         }
         
         @media (max-width: 480px) {
             .flayers-container {
                 grid-template-columns: 1fr;
-                max-width: 350px;
+                max-width: 400px;
                 margin: 0 auto;
             }
             
             .welcome-title {
-                font-size: 2rem;
+                font-size: 2.3rem;
             }
             
             .main-title {
-                font-size: 2rem;
-                padding: 0 20px;
+                font-size: 2.2rem;
+                padding: 0 25px;
             }
             
             .main-title::before, .main-title::after {
-                font-size: 1.5rem;
-            }
-            
-            .welcome-ornament {
-                width: 100px;
-                height: 100px;
-                top: -50px;
-                font-size: 40px;
-            }
-            
-            .flayer-image-container {
-                height: 320px;
-            }
-            
-            .close-button {
-                top: 20px;
-                right: 20px;
-                width: 60px;
-                height: 60px;
                 font-size: 1.8rem;
             }
             
+            .welcome-ornament {
+                width: 120px;
+                height: 120px;
+                top: -60px;
+                font-size: 50px;
+            }
+            
+            .flayer-image-container {
+                height: 380px;
+            }
+            
+            .close-button {
+                top: 25px;
+                right: 25px;
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            
             .full-image-container {
-                border-width: 10px;
-                border-radius: 25px;
+                border-width: 15px;
+                border-radius: 35px;
             }
             
             .footer::before {
-                width: 60px;
-                height: 60px;
-                font-size: 2.5rem;
-                top: -20px;
+                width: 70px;
+                height: 70px;
+                font-size: 3rem;
+                top: -25px;
+            }
+            
+            .image-viewer {
+                padding: 20px;
+            }
+            
+            .refresh-button {
+                bottom: 25px;
+                right: 25px;
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
             }
         }
         
         /* Scroll personalizado lindo */
         ::-webkit-scrollbar {
-            width: 12px;
+            width: 15px;
         }
         
         ::-webkit-scrollbar-track {
             background: #fff5f7;
-            border-radius: 10px;
+            border-radius: 15px;
         }
         
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
-            border-radius: 10px;
-            border: 3px solid #fff5f7;
+            border-radius: 15px;
+            border: 4px solid #fff5f7;
         }
         
         ::-webkit-scrollbar-thumb:hover {
@@ -775,9 +848,42 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #ffb6c1;
             font-weight: 600;
+        }
+        
+        /* Mejoras para imágenes en el visor */
+        .image-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 25px;
+            z-index: 2002;
+        }
+        
+        .image-control-btn {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #ff6b9d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 4px solid #ffb6c1;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+        }
+        
+        .image-control-btn:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -785,7 +891,7 @@
     <!-- Decoraciones de fondo -->
     <div class="background-hearts" id="backgroundHearts"></div>
     
-    <!-- Pantalla de bienvenida - Más tiempo -->
+    <!-- Pantalla de bienvenida -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-content">
             <div class="welcome-ornament">
@@ -800,14 +906,19 @@
         </div>
     </div>
     
-    <!-- Indicador de actualización -->
+    <!-- Indicador de actualización - OCULTO POR DEFECTO -->
     <div class="refresh-indicator" id="refreshIndicator">
         <div class="refresh-text">
             <i class="fas fa-heart"></i> Actualizando paquetes...
         </div>
     </div>
     
-    <!-- Visualizador de imagen en pantalla completa - SIN TÍTULO -->
+    <!-- Botón de actualización manual -->
+    <div class="refresh-button" id="manualRefreshButton" title="Actualizar catálogo">
+        <i class="fas fa-redo"></i>
+    </div>
+    
+    <!-- Visualizador de imagen en pantalla completa -->
     <div class="image-viewer" id="imageViewer">
         <div class="close-button" id="closeViewer">
             <i class="fas fa-times"></i>
@@ -815,7 +926,6 @@
         <div class="full-image-container">
             <div class="image-loading" id="fullImageLoading">Cargando imagen...</div>
             <img src="" alt="Imagen en pantalla completa" class="full-image" id="fullImage" style="display: none;">
-            <!-- NO HAY TÍTULO AQUÍ -->
         </div>
     </div>
     
@@ -823,7 +933,7 @@
     <div class="main-content" id="mainContent">
         <header class="header">
             <h1 class="main-title">CATÁLOGO HAPPY</h1>
-            <p class="subtitle">Toca cualquier imagen para verla en pantalla completa. ¡Desliza hacia abajo para actualizar!</p>
+            <p class="subtitle">Toca cualquier imagen para verla en pantalla completa. Usa el botón 🔄 para actualizar.</p>
         </header>
         
         <div class="flayers-container" id="flayersContainer">
@@ -885,14 +995,17 @@
         const fullImageLoading = document.getElementById('fullImageLoading');
         const closeViewer = document.getElementById('closeViewer');
         const backgroundHearts = document.getElementById('backgroundHearts');
+        const manualRefreshButton = document.getElementById('manualRefreshButton');
+        
         let isRefreshing = false;
+        let pullToRefreshEnabled = false; // DESACTIVADO POR DEFECTO
         
         // Inicializar después de cargar la página
         document.addEventListener('DOMContentLoaded', function() {
             // Crear decoraciones de fondo
             createBackgroundDecorations();
             
-            // Configurar la transición (más tiempo - 4.5 segundos)
+            // Configurar la transición (2.5 segundos)
             setTimeout(() => {
                 document.getElementById('welcomeScreen').style.display = 'none';
                 mainContent.style.display = 'flex';
@@ -904,10 +1017,13 @@
                 
                 // Animar las tarjetas
                 animateCardsOnScroll();
-            }, 4500);
+            }, 2500);
             
-            // Configurar pull-to-refresh
-            setupPullToRefresh();
+            // Configurar botón de actualización manual
+            setupManualRefresh();
+            
+            // Opcional: descomentar si quieres activar pull-to-refresh
+            // setupPullToRefresh();
             
             // Prevenir zoom
             preventZoom();
@@ -918,6 +1034,15 @@
             // Precargar imágenes para mejor experiencia
             preloadImages();
         });
+        
+        // Configurar botón de actualización manual
+        function setupManualRefresh() {
+            manualRefreshButton.addEventListener('click', function() {
+                if (!isRefreshing) {
+                    triggerRefresh();
+                }
+            });
+        }
         
         // Precargar imágenes
         function preloadImages() {
@@ -930,7 +1055,7 @@
         // Crear decoraciones de fondo (corazones y estrellas)
         function createBackgroundDecorations() {
             // Crear corazones
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 30; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '💖';
@@ -940,7 +1065,7 @@
             }
             
             // Crear estrellas
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 25; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.innerHTML = '✨';
@@ -951,10 +1076,13 @@
             }
         }
         
-        // Generar los flayers dinámicamente - AGREGADOS
+        // Generar los flayers dinámicamente
         function generateFlayers() {
             const container = document.getElementById('flayersContainer');
             container.innerHTML = '';
+            
+            // ORDEN ORIGINAL - NO SE MEZCLA
+            flayers.sort((a, b) => a.id - b.id);
             
             flayers.forEach(flayer => {
                 const flayerCard = document.createElement('div');
@@ -1007,7 +1135,7 @@
             };
         }
         
-        // Abrir imagen en pantalla completa - SIN TÍTULO
+        // Abrir imagen en pantalla completa
         function openImageViewer(imageSrc) {
             // Mostrar mensaje de carga
             fullImage.style.display = 'none';
@@ -1015,7 +1143,7 @@
             fullImageLoading.textContent = 'Cargando imagen...';
             fullImageLoading.style.color = '#ffb6c1';
             
-            // Cargar imagen - SIN TÍTULO
+            // Cargar imagen
             fullImage.src = imageSrc;
             imageViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1044,8 +1172,10 @@
             });
         }
         
-        // Configurar pull-to-refresh
+        // Configurar pull-to-refresh (OPCIONAL - DESACTIVADO POR DEFECTO)
         function setupPullToRefresh() {
+            if (!pullToRefreshEnabled) return;
+            
             let touchStartY = 0;
             let isDragging = false;
             
@@ -1072,7 +1202,7 @@
                 if (isDragging && !isRefreshing) {
                     const touchCurrentY = e.changedTouches[0].clientY;
                     
-                    if (touchCurrentY - touchStartY > 100) {
+                    if (touchCurrentY - touchStartY > 150) { // Más difícil de activar
                         triggerRefresh();
                     } else {
                         resetRefresh();
@@ -1084,25 +1214,31 @@
         }
         
         function updateRefreshIndicator(diff) {
-            const maxDiff = 150;
+            const maxDiff = 200; // Más difícil de alcanzar
             const progress = Math.min(diff, maxDiff) / maxDiff;
             
-            refreshIndicator.style.top = `${-80 + (80 * progress)}px`;
+            refreshIndicator.style.top = `${-90 + (90 * progress)}px`;
             
-            if (diff > 50) {
+            if (diff > 80) { // Umbral más alto
+                refreshIndicator.style.display = 'flex';
                 refreshIndicator.classList.add('active');
+            } else {
+                refreshIndicator.classList.remove('active');
             }
         }
         
         function triggerRefresh() {
+            if (isRefreshing) return;
+            
             isRefreshing = true;
+            refreshIndicator.style.display = 'flex';
+            refreshIndicator.classList.add('active');
             
             // Simular actualización con un efecto lindo
             setTimeout(() => {
-                // Mezclar los flayers
-                shuffleFlayers();
+                // NO mezclar los flayers - mantener orden original
                 
-                // Regenerar flayers
+                // Regenerar flayers (podría recargar imágenes si hubiera cambios)
                 generateFlayers();
                 animateCardsOnScroll();
                 
@@ -1112,22 +1248,19 @@
                 // Ocultar indicador
                 setTimeout(() => {
                     refreshIndicator.classList.remove('active');
+                    setTimeout(() => {
+                        refreshIndicator.style.display = 'none';
+                    }, 400);
                     isRefreshing = false;
-                }, 500);
+                }, 800);
             }, 1200);
         }
         
         function resetRefresh() {
             refreshIndicator.classList.remove('active');
-            refreshIndicator.style.top = '-80px';
-        }
-        
-        // Mezclar array de flayers
-        function shuffleFlayers() {
-            for (let i = flayers.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [flayers[i], flayers[j]] = [flayers[j], flayers[i]];
-            }
+            setTimeout(() => {
+                refreshIndicator.style.display = 'none';
+            }, 400);
         }
         
         // Crear efecto de confeti (visualmente lindo)
@@ -1146,7 +1279,7 @@
             for (let i = 0; i < 30; i++) {
                 const confetti = document.createElement('div');
                 confetti.style.position = 'absolute';
-                confetti.style.fontSize = `${Math.random() * 24 + 16}px`;
+                confetti.style.fontSize = `${Math.random() * 28 + 18}px`;
                 confetti.style.left = `${Math.random() * 100}%`;
                 confetti.style.top = '-50px';
                 confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
@@ -1186,6 +1319,16 @@
                 }
             }, { passive: false });
         }
+        
+        // Habilitar pull-to-refresh si el usuario realmente lo quiere
+        function enablePullToRefresh() {
+            pullToRefreshEnabled = true;
+            setupPullToRefresh();
+            alert('Pull-to-refresh activado. Desliza desde arriba para actualizar.');
+        }
+        
+        // Para activar pull-to-refresh, llama a enablePullToRefresh()
+        // Por ahora está desactivado para no molestar
     </script>
 </body>
 </html>
