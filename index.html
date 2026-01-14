@@ -22,7 +22,6 @@
             flex-direction: column;
             touch-action: pan-y;
             -webkit-tap-highlight-color: transparent;
-            overflow-y: auto;
         }
         
         /* Prevención de zoom */
@@ -59,7 +58,7 @@
             animation: twinkle 15s linear infinite;
         }
         
-        /* Pantalla de bienvenida - REDUCIDA A 2 SEGUNDOS */
+        /* Pantalla de bienvenida - MANTENIENDO EL DISEÑO PERO MÁS RÁPIDA */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -73,8 +72,8 @@
             align-items: center;
             z-index: 1000;
             overflow: hidden;
-            animation: welcomeExit 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-            animation-delay: 2s;
+            animation: welcomeExit 0.5s ease forwards;
+            animation-delay: 1.5s; /* REDUCIDO DE 4.5 A 1.5 SEGUNDOS */
         }
         
         .welcome-content {
@@ -91,30 +90,30 @@
             position: relative;
             z-index: 2;
             border: 8px solid white;
-            animation: welcomeFloat 2s ease-in-out infinite alternate;
+            animation: welcomeFloat 3s ease-in-out infinite alternate;
         }
         
         .welcome-ornament {
             position: absolute;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background: #ffb6c1;
             border-radius: 50%;
-            top: -50px;
+            top: -60px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 40px;
+            font-size: 50px;
             color: white;
             box-shadow: 0 10px 20px rgba(255, 182, 193, 0.4);
             z-index: 3;
-            animation: ornamentSpin 3s linear infinite;
+            animation: ornamentSpin 4s linear infinite;
         }
         
         .welcome-title {
-            font-size: 2.5rem;
+            font-size: 3.2rem;
             font-weight: 900;
             margin-bottom: 15px;
             background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
@@ -124,20 +123,30 @@
             letter-spacing: 1px;
             line-height: 1.1;
             text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
-            animation: titleGlow 1.5s ease-in-out infinite alternate;
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
         
         .welcome-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
             color: #ff6b9d;
             font-weight: 700;
-            animation: bounce 1.5s ease-in-out infinite;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .welcome-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #8a6fa8;
+            margin-bottom: 40px;
+            max-width: 500px;
+            font-weight: 500;
+            animation: textPulse 3s ease-in-out infinite;
         }
         
         .loading-container {
-            width: 250px;
-            height: 10px;
+            width: 300px;
+            height: 12px;
             background: rgba(255, 182, 193, 0.3);
             border-radius: 20px;
             overflow: hidden;
@@ -152,16 +161,16 @@
             height: 100%;
             background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
             border-radius: 20px;
-            animation: loading 2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            animation: loading 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards; /* REDUCIDO DE 4 A 1.5 SEGUNDOS */
         }
         
-        /* Contenido principal - VISIBLE INMEDIATAMENTE */
+        /* Contenido principal */
         .main-content {
             display: none;
-            padding: 20px 15px 0 15px;
+            padding: 25px 15px 0 15px;
             opacity: 0;
-            animation: contentFadeIn 0.3s ease forwards;
-            animation-delay: 2.1s;
+            animation: contentFadeIn 0.5s ease forwards;
+            animation-delay: 1.6s; /* AJUSTADO */
             position: relative;
             z-index: 2;
             flex: 1;
@@ -170,14 +179,14 @@
         
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             padding: 0 15px;
         }
         
         .main-title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             background: linear-gradient(to right, #ff85a2, #a685ff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -193,36 +202,36 @@
             content: "✨";
             position: absolute;
             color: #ffb6c1;
-            font-size: 1.8rem;
+            font-size: 2rem;
             top: 50%;
             transform: translateY(-50%);
         }
         
         .main-title::before {
-            left: -10px;
+            left: -15px;
         }
         
         .main-title::after {
-            right: -10px;
+            right: -15px;
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #8a6fa8;
             max-width: 700px;
             margin: 0 auto;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 500;
             padding: 0 20px;
         }
         
-        /* Contenedor de flayers - MÁS ANCHO Y RÁPIDO */
+        /* Contenedor de flayers - Agrandados */
         .flayers-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 35px;
             padding: 0 20px 40px 20px;
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
@@ -231,21 +240,21 @@
             border-radius: 30px;
             overflow: hidden;
             box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             border: 8px solid white;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px) scale(0.95);
             cursor: pointer;
         }
         
         .flayer-card.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
         
         .flayer-card:hover {
-            transform: translateY(-15px) scale(1.03);
+            transform: translateY(-20px) scale(1.05);
             box-shadow: 0 35px 70px rgba(255, 182, 193, 0.5);
         }
         
@@ -255,7 +264,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 10px;
+            height: 12px;
             background: linear-gradient(to right, #ffb6c1, #d8b4fe, #a5b4fc);
             z-index: 2;
         }
@@ -263,7 +272,7 @@
         .flayer-image-container {
             position: relative;
             overflow: hidden;
-            height: 450px;
+            height: 420px; /* Agrandado */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -275,15 +284,15 @@
             height: 100%;
             object-fit: contain;
             display: block;
-            transition: transform 0.5s ease;
+            transition: transform 0.7s ease;
         }
         
         .flayer-card:hover .flayer-image {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
         
         .flayer-price-container {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             background: linear-gradient(to right, #fff5f9, #f9f5ff);
             border-top: 4px dashed #ffb6c1;
@@ -293,43 +302,43 @@
         .flayer-price-container::before {
             content: "💖";
             position: absolute;
-            left: 20px;
+            left: 25px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
         
         .flayer-price-container::after {
             content: "💖";
             position: absolute;
-            right: 20px;
+            right: 25px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
         
         .price-tag {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
             color: #ff6b9d;
             text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
             display: inline-block;
-            padding: 10px 25px;
+            padding: 10px 30px;
             background: white;
             border-radius: 60px;
             box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .flayer-name {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: #8a6fa8;
             text-align: center;
             margin-top: 5px;
         }
         
-        /* Visualización de imagen en pantalla completa - MEJORADA */
+        /* Visualización de imagen en pantalla completa */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -343,8 +352,7 @@
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
-            padding: 20px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .image-viewer.active {
@@ -354,55 +362,102 @@
         
         .close-button {
             position: absolute;
-            top: 25px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
+            top: 35px;
+            right: 35px;
+            width: 75px;
+            height: 75px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: #ff6b9d;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid #ffb6c1;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid #ffb6c1;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
             z-index: 2001;
+            animation: buttonPulse 2s ease-in-out infinite alternate;
         }
         
         .close-button:hover {
             background: #ff6b9d;
             color: white;
-            transform: rotate(90deg) scale(1.1);
+            transform: rotate(90deg) scale(1.2);
             border-color: #ff6b9d;
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.7);
         }
         
         .full-image-container {
-            width: 100%;
-            height: 100%;
+            max-width: 96%;
+            max-height: 96%;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(255, 182, 193, 0.6);
+            border: 20px solid white;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
+            position: relative;
+            background: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+        }
+        
+        .image-viewer.active .full-image-container {
+            opacity: 1;
+            transform: scale(1);
         }
         
         .full-image {
-            max-width: 95%;
-            max-height: 95%;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
             display: block;
-            border-radius: 20px;
-            box-shadow: 0 40px 80px rgba(255, 182, 193, 0.6);
-            background: white;
-            padding: 10px;
         }
         
-        /* Footer */
+        /* NO HAY TÍTULO EN EL VISOR - SOLO LA IMAGEN */
+        
+        /* Pull-to-refresh */
+        .refresh-indicator {
+            position: fixed;
+            top: -80px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ffb6c1, #d8b4fe);
+            z-index: 999;
+            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 5px dotted white;
+            display: none; /* OCULTO */
+        }
+        
+        .refresh-indicator.active {
+            top: 0;
+        }
+        
+        .refresh-text {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+            gap: 15px;
+        }
+        
+        .refresh-text i {
+            animation: spin 1.5s linear infinite;
+        }
+        
+        /* Footer - Pegado abajo */
         .footer {
             text-align: center;
-            padding: 25px 15px;
+            padding: 30px 15px;
             color: #8a6fa8;
             font-size: 1rem;
             border-top: 4px dashed #ffb6c1;
@@ -417,13 +472,13 @@
         .footer::before {
             content: "✨";
             position: absolute;
-            top: -20px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 2.5rem;
+            font-size: 3rem;
             background: white;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -433,23 +488,23 @@
         }
         
         .footer-text {
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
             font-weight: 600;
         }
         
         .footer-subtext {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #a68faa;
         }
         
-        /* Animaciones optimizadas */
+        /* Animaciones */
         @keyframes welcomeFloat {
             0% {
                 transform: translateY(0) scale(1);
             }
             100% {
-                transform: translateY(-10px) scale(1.02);
+                transform: translateY(-15px) scale(1.02);
             }
         }
         
@@ -467,7 +522,16 @@
                 filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
             }
             100% {
-                filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.8));
+                filter: drop-shadow(0 0 20px rgba(255, 182, 193, 0.8));
+            }
+        }
+        
+        @keyframes textPulse {
+            0%, 100% {
+                opacity: 0.9;
+            }
+            50% {
+                opacity: 1;
             }
         }
         
@@ -495,7 +559,7 @@
             }
             50% {
                 opacity: 0.8;
-                transform: scale(1.1);
+                transform: scale(1.2);
             }
         }
         
@@ -504,7 +568,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-8px);
+                transform: translateY(-10px);
             }
         }
         
@@ -551,44 +615,57 @@
             }
         }
         
+        @keyframes buttonPulse {
+            0% {
+                box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+            }
+            100% {
+                box-shadow: 0 15px 45px rgba(255, 107, 157, 0.8);
+            }
+        }
+        
         /* Responsive */
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 25px;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
             }
             
             .flayer-image-container {
-                height: 400px;
+                height: 380px;
             }
         }
         
         @media (max-width: 768px) {
             .welcome-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
             .welcome-subtitle {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
+            }
+            
+            .welcome-text {
+                font-size: 1.1rem;
             }
             
             .welcome-content {
-                padding: 20px;
+                padding: 25px 20px;
                 margin: 0 15px;
             }
             
             .main-title {
-                font-size: 2rem;
+                font-size: 2.3rem;
             }
             
             .subtitle {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
-                padding: 0 15px 30px 15px;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 25px;
+                padding: 0 15px 35px 15px;
             }
             
             .flayer-image-container {
@@ -596,40 +673,44 @@
             }
             
             .price-tag {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .flayer-name {
-                font-size: 1.3rem;
-            }
-            
-            .close-button {
-                top: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
                 font-size: 1.5rem;
             }
             
-            .full-image {
-                max-width: 98%;
-                max-height: 98%;
+            .close-button {
+                top: 25px;
+                right: 25px;
+                width: 65px;
+                height: 65px;
+                font-size: 2rem;
+            }
+            
+            .full-image-container {
+                border-width: 15px;
+                border-radius: 30px;
+            }
+            
+            .footer {
+                padding: 25px 15px;
             }
         }
         
         @media (max-width: 480px) {
             .flayers-container {
                 grid-template-columns: 1fr;
-                max-width: 320px;
+                max-width: 350px;
                 margin: 0 auto;
             }
             
             .welcome-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .main-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
                 padding: 0 20px;
             }
             
@@ -638,20 +719,40 @@
             }
             
             .welcome-ornament {
-                width: 80px;
-                height: 80px;
-                top: -40px;
-                font-size: 35px;
+                width: 100px;
+                height: 100px;
+                top: -50px;
+                font-size: 40px;
             }
             
             .flayer-image-container {
-                height: 300px;
+                height: 320px;
+            }
+            
+            .close-button {
+                top: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .full-image-container {
+                border-width: 10px;
+                border-radius: 25px;
+            }
+            
+            .footer::before {
+                width: 60px;
+                height: 60px;
+                font-size: 2.5rem;
+                top: -20px;
             }
         }
         
-        /* Scroll personalizado */
+        /* Scroll personalizado lindo */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
         
         ::-webkit-scrollbar-track {
@@ -665,37 +766,36 @@
             border: 3px solid #fff5f7;
         }
         
-        /* Estados de carga optimizados */
-        .image-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loadingShimmer 1.5s infinite;
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #ff9ebb, #c9a8ff);
         }
         
-        @keyframes loadingShimmer {
+        /* MEJORA: Placeholder de carga */
+        .image-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            color: #ffb6c1;
+            font-weight: 600;
+            display: none;
+        }
+        
+        /* NUEVO: Efecto de brillo para imágenes cargadas */
+        .image-loaded {
+            animation: imageGlow 0.5s ease;
+        }
+        
+        @keyframes imageGlow {
             0% {
-                background-position: -200% 0;
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.1);
             }
             100% {
-                background-position: 200% 0;
-            }
-        }
-        
-        /* Mejoras de rendimiento */
-        .flayer-image {
-            will-change: transform;
-        }
-        
-        /* Optimización para móviles */
-        @media (hover: none) {
-            .flayer-card:hover {
-                transform: none;
-            }
-            
-            .flayer-card:active {
-                transform: scale(0.98);
+                filter: brightness(1);
             }
         }
     </style>
@@ -704,7 +804,7 @@
     <!-- Decoraciones de fondo -->
     <div class="background-hearts" id="backgroundHearts"></div>
     
-    <!-- Pantalla de bienvenida - RÁPIDA -->
+    <!-- Pantalla de bienvenida - MÁS RÁPIDA -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-content">
             <div class="welcome-ornament">
@@ -712,13 +812,14 @@
             </div>
             <h1 class="welcome-title">HAPPY PACKAGES</h1>
             <h2 class="welcome-subtitle">PARA TUS FIESTAS ✨</h2>
+            <p class="welcome-text">Descubre nuestra exclusiva línea de paquetes Happy que harán de tu celebración algo mágico e inolvidable.</p>
             <div class="loading-container">
                 <div class="loading-progress"></div>
             </div>
         </div>
     </div>
     
-    <!-- Visualizador de imagen en pantalla completa - OPTIMIZADO -->
+    <!-- Visualizador de imagen en pantalla completa -->
     <div class="image-viewer" id="imageViewer">
         <div class="close-button" id="closeViewer">
             <i class="fas fa-times"></i>
@@ -736,17 +837,17 @@
         </header>
         
         <div class="flayers-container" id="flayersContainer">
-            <!-- Los flayers se cargarán dinámicamente -->
+            <!-- Los flayers se cargarán INSTANTÁNEAMENTE -->
         </div>
         
         <footer class="footer">
-            <p class="footer-text">© 2023 Paquetes Adorables para Fiestas | Diseño Super Lindo</p>
+            <p class="footer-text">© 2023 Paquetes Adorables para Fiestas | Diseño Super Lindo | ¡Haz tus fiestas más especiales!</p>
             <p class="footer-subtext">❤️ Toca las imágenes para ver en pantalla completa ❤️</p>
         </footer>
     </div>
 
     <script>
-        // Datos de los flayers
+        // Datos de los flayers - MISMO DISEÑO
         const flayers = [
             {
                 id: 1,
@@ -787,86 +888,179 @@
         ];
         
         // Variables globales
-        const mainContent = document.getElementById('mainContent');
         const imageViewer = document.getElementById('imageViewer');
         const fullImage = document.getElementById('fullImage');
         const closeViewer = document.getElementById('closeViewer');
         const backgroundHearts = document.getElementById('backgroundHearts');
         
-        // Variable para controlar si las imágenes están precargadas
-        let imagesPreloaded = false;
+        // Array para rastrear imágenes precargadas
+        const preloadedImages = {};
         
-        // Inicializar inmediatamente
+        // ============================================
+        // 1. PRECARGAR IMÁGENES AL INSTANTE
+        // ============================================
+        
+        // Función para precargar imágenes de forma AGRESIVA
+        function preloadImagesAggressive() {
+            console.log("🚀 Iniciando precarga ULTRA RÁPIDA de imágenes...");
+            
+            // Crear array de promesas para todas las imágenes
+            const preloadPromises = flayers.map(flayer => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = flayer.image;
+                    
+                    // Configuración PARA MÁXIMA VELOCIDAD
+                    img.loading = 'eager';        // Carga inmediata
+                    img.decoding = 'sync';        // Decodificación sincrónica
+                    img.fetchPriority = 'high';   // Prioridad máxima
+                    
+                    // Marcar como precargada cuando cargue
+                    img.onload = () => {
+                        console.log(`✅ Precargada: ${flayer.image}`);
+                        preloadedImages[flayer.image] = true;
+                        resolve();
+                    };
+                    
+                    // Si hay error, intentar de nuevo
+                    img.onerror = () => {
+                        console.warn(`⚠️ Error precargando ${flayer.image}, reintentando...`);
+                        setTimeout(() => {
+                            img.src = flayer.image + '?retry=' + Date.now();
+                        }, 100);
+                    };
+                    
+                    // Forzar carga insertando en DOM
+                    document.body.appendChild(img);
+                    img.style.display = 'none';
+                });
+            });
+            
+            // Esperar a que todas se precarguen
+            Promise.all(preloadPromises)
+                .then(() => {
+                    console.log("🎉 TODAS las imágenes precargadas con éxito!");
+                    
+                    // Mostrar contenido principal ANTES del tiempo normal
+                    setTimeout(() => {
+                        document.getElementById('welcomeScreen').style.display = 'none';
+                        const mainContent = document.getElementById('mainContent');
+                        mainContent.style.display = 'flex';
+                        mainContent.style.flexDirection = 'column';
+                        mainContent.style.opacity = '1';
+                        
+                        // Generar flayers con imágenes YA CARGADAS
+                        generateFlayersInstant();
+                        
+                        // Animar tarjetas
+                        animateCardsOnScroll();
+                    }, 100); // SOLO 100ms de espera!
+                })
+                .catch(() => {
+                    console.log("Algunas imágenes no se precargaron, pero continuamos...");
+                });
+        }
+        
+        // ============================================
+        // 2. GENERAR FLYERS CON IMÁGENES YA CARGADAS
+        // ============================================
+        
+        function generateFlayersInstant() {
+            const container = document.getElementById('flayersContainer');
+            container.innerHTML = '';
+            
+            flayers.forEach((flayer, index) => {
+                const flayerCard = document.createElement('div');
+                flayerCard.className = 'flayer-card';
+                flayerCard.setAttribute('data-id', flayer.id);
+                
+                // Crear la tarjeta CON LA IMAGEN YA EN CACHÉ
+                flayerCard.innerHTML = `
+                    <div class="flayer-image-container">
+                        <img src="${flayer.image}" 
+                             alt="${flayer.title}" 
+                             class="flayer-image"
+                             loading="eager"
+                             decoding="sync"
+                             fetchpriority="high"
+                             onload="this.classList.add('image-loaded');">
+                    </div>
+                    <div class="flayer-price-container">
+                        <div class="price-tag">${flayer.price}</div>
+                        <div class="flayer-name">${flayer.title}</div>
+                    </div>
+                `;
+                
+                container.appendChild(flayerCard);
+                
+                // Agregar evento para abrir imagen - USANDO IMAGEN PRECARGADA
+                flayerCard.addEventListener('click', function() {
+                    openImageViewerInstant(flayer.image);
+                });
+                
+                // Verificar si la imagen YA está cargada en caché
+                setTimeout(() => {
+                    const cardImg = flayerCard.querySelector('.flayer-image');
+                    if (cardImg.complete) {
+                        cardImg.classList.add('image-loaded');
+                    }
+                }, 10);
+            });
+        }
+        
+        // ============================================
+        // 3. ABRIR IMAGEN EN VISOR INSTANTÁNEAMENTE
+        // ============================================
+        
+        function openImageViewerInstant(imageSrc) {
+            // Usar la imagen YA PRECARGADA
+            fullImage.src = imageSrc;
+            
+            // Mostrar visor
+            imageViewer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Ajustar tamaño de la imagen en el visor
+            adjustImageSize();
+        }
+        
+        function adjustImageSize() {
+            if (fullImage.complete) {
+                const imgRatio = fullImage.naturalWidth / fullImage.naturalHeight;
+                
+                if (imgRatio < 0.7) {
+                    fullImage.style.padding = '20px 40px';
+                } else if (imgRatio > 1.3) {
+                    fullImage.style.padding = '40px 20px';
+                } else {
+                    fullImage.style.padding = '25px';
+                }
+            } else {
+                fullImage.onload = adjustImageSize;
+            }
+        }
+        
+        // ============================================
+        // 4. CONFIGURACIÓN INICIAL
+        // ============================================
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Crear decoraciones de fondo
             createBackgroundDecorations();
             
-            // Precargar imágenes de forma agresiva
+            // INICIAR PRECARGA INMEDIATAMENTE
             preloadImagesAggressive();
             
-            // Configurar visor de imágenes
+            // Configurar visor
             setupImageViewer();
-            
-            // Configurar transición rápida
-            setTimeout(() => {
-                document.getElementById('welcomeScreen').style.display = 'none';
-                mainContent.style.display = 'flex';
-                mainContent.style.flexDirection = 'column';
-                mainContent.style.opacity = '1';
-                
-                // Generar los flayers
-                generateFlayers();
-                
-                // Animar las tarjetas inmediatamente
-                animateCardsOnScroll();
-            }, 2100);
             
             // Prevenir zoom
             preventZoom();
         });
         
-        // Precargar imágenes de forma AGGRESIVA
-        function preloadImagesAggressive() {
-            if (imagesPreloaded) return;
-            
-            const imagePromises = [];
-            
-            flayers.forEach(flayer => {
-                const img = new Image();
-                img.src = flayer.image;
-                img.loading = 'eager';
-                img.decoding = 'async';
-                
-                // Crear una promesa para cada imagen
-                const promise = new Promise((resolve, reject) => {
-                    img.onload = resolve;
-                    img.onerror = reject;
-                });
-                
-                imagePromises.push(promise);
-                
-                // Forzar carga inmediata
-                document.body.appendChild(img);
-                img.style.display = 'none';
-            });
-            
-            // Esperar a que todas las imágenes se carguen
-            Promise.all(imagePromises)
-                .then(() => {
-                    console.log('Todas las imágenes precargadas');
-                    imagesPreloaded = true;
-                })
-                .catch((error) => {
-                    console.log('Algunas imágenes no se cargaron:', error);
-                    // Continuar de todos modos
-                    imagesPreloaded = true;
-                });
-        }
-        
         // Crear decoraciones de fondo
         function createBackgroundDecorations() {
-            // Crear corazones
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 25; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '💖';
@@ -875,8 +1069,7 @@
                 backgroundHearts.appendChild(heart);
             }
             
-            // Crear estrellas
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 20; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.innerHTML = '✨';
@@ -885,41 +1078,6 @@
                 star.style.animationDelay = `${Math.random() * 15}s`;
                 backgroundHearts.appendChild(star);
             }
-        }
-        
-        // Generar los flayers dinámicamente - OPTIMIZADO
-        function generateFlayers() {
-            const container = document.getElementById('flayersContainer');
-            container.innerHTML = '';
-            
-            flayers.forEach(flayer => {
-                const flayerCard = document.createElement('div');
-                flayerCard.className = 'flayer-card';
-                flayerCard.setAttribute('data-id', flayer.id);
-                flayerCard.innerHTML = `
-                    <div class="flayer-image-container">
-                        <div class="image-placeholder"></div>
-                        <img src="${flayer.image}" 
-                             alt="${flayer.title}" 
-                             class="flayer-image" 
-                             loading="eager"
-                             decoding="async"
-                             style="opacity: 0;"
-                             onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';"
-                             onerror="this.style.display='none'; this.previousElementSibling.style.display='block';">
-                    </div>
-                    <div class="flayer-price-container">
-                        <div class="price-tag">${flayer.price}</div>
-                        <div class="flayer-name">${flayer.title}</div>
-                    </div>
-                `;
-                container.appendChild(flayerCard);
-                
-                // Agregar evento para abrir imagen en pantalla completa
-                flayerCard.addEventListener('click', function() {
-                    openImageViewer(flayer.image);
-                });
-            });
         }
         
         // Configurar visor de imágenes
@@ -938,77 +1096,29 @@
                 }
             });
             
-            // Configurar carga de imagen en visor
-            fullImage.onload = function() {
-                // Ajustar el fondo según el tamaño de la imagen
-                adjustViewerBackground();
-            };
-            
-            // Manejar errores de imagen
-            fullImage.onerror = function() {
-                console.error('Error al cargar la imagen en el visor');
-                // Podrías mostrar un mensaje de error aquí si lo deseas
-            };
+            // Configurar imagen del visor para carga rápida
+            fullImage.loading = 'eager';
+            fullImage.decoding = 'sync';
+            fullImage.fetchPriority = 'high';
         }
         
-        // Abrir imagen en pantalla completa
-        function openImageViewer(imageSrc) {
-            // Establecer la fuente de la imagen
-            fullImage.src = imageSrc;
-            
-            // Mostrar el visor
-            imageViewer.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Forzar la carga si ya está en caché
-            if (fullImage.complete) {
-                adjustViewerBackground();
-            }
-        }
-        
-        // Ajustar el fondo del visor según el tamaño de la imagen
-        function adjustViewerBackground() {
-            // El fondo ya está configurado para ser transparente
-            // La imagen tiene su propio fondo blanco con padding
-            // Esto crea el efecto de "marco" que quieres
-            
-            // Si la imagen es muy vertical, ajustamos el padding
-            const imgRatio = fullImage.naturalWidth / fullImage.naturalHeight;
-            
-            if (imgRatio < 0.7) { // Imagen muy vertical
-                fullImage.style.padding = '20px 40px';
-            } else if (imgRatio > 1.3) { // Imagen muy horizontal
-                fullImage.style.padding = '40px 20px';
-            } else { // Imagen cuadrada o proporcional
-                fullImage.style.padding = '25px';
-            }
-        }
-        
-        // Cerrar visor de imágenes
+        // Cerrar visor
         function closeImageViewer() {
             imageViewer.classList.remove('active');
             document.body.style.overflow = 'auto';
-            
-            // Limpiar después de cerrar
-            setTimeout(() => {
-                fullImage.src = '';
-                fullImage.style.padding = '10px'; // Resetear padding
-            }, 300);
         }
         
-        // Animación de entrada de tarjetas
+        // Animar tarjetas
         function animateCardsOnScroll() {
             const cards = document.querySelectorAll('.flayer-card');
-            
             cards.forEach((card, index) => {
-                // Animar todas inmediatamente
                 setTimeout(() => {
                     card.classList.add('visible');
-                }, index * 50); // Más rápido
+                }, index * 100);
             });
         }
         
-        // Prevenir zoom en dispositivos táctiles
+        // Prevenir zoom
         function preventZoom() {
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
@@ -1021,45 +1131,42 @@
             }, { passive: false });
         }
         
-        // Cargar todo inmediatamente cuando la página esté lista
-        window.addEventListener('load', function() {
-            // Forzar la visualización si algo se atasca
-            setTimeout(() => {
-                if (document.getElementById('welcomeScreen').style.display !== 'none') {
-                    document.getElementById('welcomeScreen').style.display = 'none';
-                    mainContent.style.display = 'flex';
-                    mainContent.style.flexDirection = 'column';
-                    mainContent.style.opacity = '1';
-                    
-                    if (document.getElementById('flayersContainer').children.length === 0) {
-                        generateFlayers();
-                        animateCardsOnScroll();
+        // ============================================
+        // 5. VERIFICACIÓN Y RECARGA DE IMÁGENES
+        // ============================================
+        
+        // Verificar cada 500ms que las imágenes estén cargadas
+        setInterval(() => {
+            const images = document.querySelectorAll('.flayer-image');
+            images.forEach(img => {
+                if (!img.complete || img.naturalWidth === 0) {
+                    // Si no está cargada, forzar recarga
+                    const currentSrc = img.src;
+                    if (currentSrc && !currentSrc.includes('retry=')) {
+                        img.src = currentSrc + '?retry=' + Date.now();
                     }
                 }
-            }, 3000); // Máximo 3 segundos de espera
-        });
+            });
+        }, 500);
         
-        // Mejorar rendimiento en dispositivos móviles
-        if ('ontouchstart' in window) {
-            // Optimizaciones específicas para táctiles
-            document.body.style.cursor = 'pointer';
-        }
-        
-        // Prevenir comportamientos no deseados
-        document.addEventListener('touchmove', function(e) {
-            // Permitir scroll normal
-        }, { passive: true });
-        
-        // Carga progresiva para conexiones lentas
-        if ('connection' in navigator) {
-            const connection = navigator.connection;
-            if (connection.saveData || connection.effectiveType.includes('2g')) {
-                // Modo de ahorro de datos - cargar menos decoraciones
-                document.querySelectorAll('.heart, .star').forEach(el => {
-                    if (Math.random() > 0.5) el.style.display = 'none';
+        // Cuando la página termine de cargar, verificar todo
+        window.addEventListener('load', function() {
+            console.log("✅ Página completamente cargada");
+            
+            // Forzar recarga de cualquier imagen que no se cargó
+            setTimeout(() => {
+                const allImages = document.querySelectorAll('img');
+                allImages.forEach(img => {
+                    if (!img.complete || img.naturalWidth === 0) {
+                        const currentSrc = img.src;
+                        img.src = '';
+                        setTimeout(() => {
+                            img.src = currentSrc;
+                        }, 50);
+                    }
                 });
-            }
-        }
+            }, 1000);
+        });
     </script>
 </body>
 </html>
