@@ -58,7 +58,7 @@
             animation: twinkle 15s linear infinite;
         }
         
-        /* Pantalla de bienvenida - MANTENIENDO EL DISEÑO PERO MÁS RÁPIDA */
+        /* Pantalla de bienvenida - MÁS RÁPIDA Y MÁS PEQUEÑA */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -73,104 +73,105 @@
             z-index: 1000;
             overflow: hidden;
             animation: welcomeExit 0.5s ease forwards;
-            animation-delay: 1.5s; /* REDUCIDO DE 4.5 A 1.5 SEGUNDOS */
+            animation-delay: 1.2s; /* REDUCIDO AÚN MÁS */
         }
         
         .welcome-content {
             text-align: center;
-            padding: 30px;
-            max-width: 700px;
+            padding: 20px; /* REDUCIDO */
+            max-width: 500px; /* MÁS PEQUEÑO */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.3);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px; /* MÁS PEQUEÑO */
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
             position: relative;
             z-index: 2;
-            border: 8px solid white;
-            animation: welcomeFloat 3s ease-in-out infinite alternate;
+            border: 6px solid white; /* MÁS DELGADO */
+            animation: welcomeFloat 2s ease-in-out infinite alternate;
+            transform: scale(0.9); /* MÁS PEQUEÑO */
         }
         
         .welcome-ornament {
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: 80px; /* MÁS PEQUEÑO */
+            height: 80px; /* MÁS PEQUEÑO */
             background: #ffb6c1;
             border-radius: 50%;
-            top: -60px;
+            top: -40px; /* AJUSTADO */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 50px;
+            font-size: 35px; /* MÁS PEQUEÑO */
             color: white;
-            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.4);
+            box-shadow: 0 8px 15px rgba(255, 182, 193, 0.4);
             z-index: 3;
-            animation: ornamentSpin 4s linear infinite;
+            animation: ornamentSpin 3s linear infinite; /* MÁS RÁPIDO */
         }
         
         .welcome-title {
-            font-size: 3.2rem;
+            font-size: 2.2rem; /* MÁS PEQUEÑO */
             font-weight: 900;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* REDUCIDO */
             background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: 1px;
             line-height: 1.1;
-            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8);
-            animation: titleGlow 2s ease-in-out infinite alternate;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            animation: titleGlow 1.5s ease-in-out infinite alternate; /* MÁS RÁPIDO */
         }
         
         .welcome-subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
+            font-size: 1.4rem; /* MÁS PEQUEÑO */
+            margin-bottom: 15px; /* REDUCIDO */
             color: #ff6b9d;
             font-weight: 700;
-            animation: bounce 2s ease-in-out infinite;
+            animation: bounce 1.5s ease-in-out infinite; /* MÁS RÁPIDO */
         }
         
         .welcome-text {
-            font-size: 1.2rem;
-            line-height: 1.6;
+            font-size: 1rem; /* MÁS PEQUEÑO */
+            line-height: 1.4;
             color: #8a6fa8;
-            margin-bottom: 40px;
-            max-width: 500px;
+            margin-bottom: 25px; /* REDUCIDO */
+            max-width: 400px; /* MÁS PEQUEÑO */
             font-weight: 500;
-            animation: textPulse 3s ease-in-out infinite;
+            animation: textPulse 2s ease-in-out infinite; /* MÁS RÁPIDO */
         }
         
         .loading-container {
-            width: 300px;
-            height: 12px;
+            width: 250px; /* MÁS PEQUEÑO */
+            height: 10px; /* MÁS DELGADO */
             background: rgba(255, 182, 193, 0.3);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            margin-top: 20px;
+            margin-top: 15px; /* REDUCIDO */
             position: relative;
-            border: 3px solid white;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid white;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
         }
         
         .loading-progress {
             width: 0%;
             height: 100%;
             background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
-            border-radius: 20px;
-            animation: loading 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards; /* REDUCIDO DE 4 A 1.5 SEGUNDOS */
+            border-radius: 15px;
+            animation: loading 1s cubic-bezier(0.65, 0, 0.35, 1) forwards; /* MUCHO MÁS RÁPIDO */
         }
         
         /* Contenido principal */
         .main-content {
             display: none;
-            padding: 25px 15px 0 15px;
+            padding: 20px 15px 0 15px;
             opacity: 0;
             animation: contentFadeIn 0.5s ease forwards;
-            animation-delay: 1.6s; /* AJUSTADO */
+            animation-delay: 1.3s; /* AJUSTADO */
             position: relative;
             z-index: 2;
             flex: 1;
@@ -179,14 +180,14 @@
         
         .header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px; /* REDUCIDO */
             padding: 0 15px;
         }
         
         .main-title {
-            font-size: 2.8rem;
+            font-size: 2.5rem; /* MÁS PEQUEÑO */
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* REDUCIDO */
             background: linear-gradient(to right, #ff85a2, #a685ff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -195,56 +196,56 @@
             text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
             position: relative;
             display: inline-block;
-            padding: 0 25px;
+            padding: 0 20px; /* REDUCIDO */
         }
         
         .main-title::before, .main-title::after {
             content: "✨";
             position: absolute;
             color: #ffb6c1;
-            font-size: 2rem;
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
             top: 50%;
             transform: translateY(-50%);
         }
         
         .main-title::before {
-            left: -15px;
+            left: -10px; /* AJUSTADO */
         }
         
         .main-title::after {
-            right: -15px;
+            right: -10px; /* AJUSTADO */
         }
         
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.1rem; /* MÁS PEQUEÑO */
             color: #8a6fa8;
-            max-width: 700px;
+            max-width: 600px; /* MÁS PEQUEÑO */
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.5;
             font-weight: 500;
-            padding: 0 20px;
+            padding: 0 15px; /* REDUCIDO */
         }
         
-        /* Contenedor de flayers - Agrandados */
+        /* Contenedor de flayers */
         .flayers-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
-            padding: 0 20px 40px 20px;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 15px 30px 15px;
+            max-width: 1300px;
             margin: 0 auto;
         }
         
         .flayer-card {
             background: white;
-            border-radius: 30px;
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.3);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            border: 8px solid white;
+            border: 6px solid white; /* MÁS DELGADO */
             opacity: 0;
-            transform: translateY(30px) scale(0.95);
+            transform: translateY(20px) scale(0.95);
             cursor: pointer;
         }
         
@@ -254,8 +255,8 @@
         }
         
         .flayer-card:hover {
-            transform: translateY(-20px) scale(1.05);
-            box-shadow: 0 35px 70px rgba(255, 182, 193, 0.5);
+            transform: translateY(-15px) scale(1.03); /* MÁS SUAVE */
+            box-shadow: 0 25px 50px rgba(255, 182, 193, 0.4);
         }
         
         .flayer-card::before {
@@ -264,7 +265,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 12px;
+            height: 10px; /* MÁS DELGADO */
             background: linear-gradient(to right, #ffb6c1, #d8b4fe, #a5b4fc);
             z-index: 2;
         }
@@ -272,7 +273,7 @@
         .flayer-image-container {
             position: relative;
             overflow: hidden;
-            height: 420px; /* Agrandado */
+            height: 380px; /* MÁS PEQUEÑO */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -284,61 +285,61 @@
             height: 100%;
             object-fit: contain;
             display: block;
-            transition: transform 0.7s ease;
+            transition: transform 0.6s ease;
         }
         
         .flayer-card:hover .flayer-image {
-            transform: scale(1.08);
+            transform: scale(1.06); /* MÁS SUAVE */
         }
         
         .flayer-price-container {
-            padding: 25px;
+            padding: 20px; /* REDUCIDO */
             text-align: center;
             background: linear-gradient(to right, #fff5f9, #f9f5ff);
-            border-top: 4px dashed #ffb6c1;
+            border-top: 3px dashed #ffb6c1; /* MÁS DELGADO */
             position: relative;
         }
         
         .flayer-price-container::before {
             content: "💖";
             position: absolute;
-            left: 25px;
+            left: 20px; /* AJUSTADO */
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2rem;
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
         }
         
         .flayer-price-container::after {
             content: "💖";
             position: absolute;
-            right: 25px;
+            right: 20px; /* AJUSTADO */
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2rem;
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
         }
         
         .price-tag {
-            font-size: 2.2rem;
+            font-size: 2rem; /* MÁS PEQUEÑO */
             font-weight: 900;
             color: #ff6b9d;
             text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
             display: inline-block;
-            padding: 10px 30px;
+            padding: 8px 25px; /* REDUCIDO */
             background: white;
-            border-radius: 60px;
-            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
-            margin-bottom: 10px;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.3);
+            margin-bottom: 8px; /* REDUCIDO */
         }
         
         .flayer-name {
-            font-size: 1.6rem;
+            font-size: 1.5rem; /* MÁS PEQUEÑO */
             font-weight: 800;
             color: #8a6fa8;
             text-align: center;
             margin-top: 5px;
         }
         
-        /* Visualización de imagen en pantalla completa - MEJORADO */
+        /* Visualización de imagen en pantalla completa - SIMPLIFICADO */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -352,7 +353,7 @@
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .image-viewer.active {
@@ -360,42 +361,41 @@
             visibility: visible;
         }
         
-        /* Botones del visor - NUEVO DISEÑO CON OJITO */
+        /* Botones del visor - SIMPLIFICADOS */
         .viewer-controls {
             position: absolute;
-            top: 35px;
-            right: 35px;
+            top: 25px; /* MÁS PEQUEÑO */
+            right: 25px; /* MÁS PEQUEÑO */
             display: flex;
-            gap: 20px;
+            gap: 15px; /* REDUCIDO */
             z-index: 2001;
         }
         
         .viewer-button {
-            width: 75px;
-            height: 75px;
+            width: 60px; /* MÁS PEQUEÑO */
+            height: 60px; /* MÁS PEQUEÑO */
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.2rem;
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
             color: #ff6b9d;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 4px solid #ffb6c1;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
-            animation: buttonPulse 2s ease-in-out infinite alternate;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid #ffb6c1; /* MÁS DELGADO */
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
         }
         
         .viewer-button:hover {
-            transform: scale(1.2);
-            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.7);
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.5);
         }
         
         .close-button:hover {
             background: #ff6b9d;
             color: white;
-            transform: rotate(90deg) scale(1.2);
+            transform: rotate(90deg) scale(1.1);
             border-color: #ff6b9d;
         }
         
@@ -403,24 +403,29 @@
             background: linear-gradient(135deg, #a685ff, #85b8ff);
             border-color: #9e8cff;
             color: white;
-            animation-delay: 0.3s;
+            text-decoration: none; /* Para el link */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .eye-button:hover {
             background: linear-gradient(135deg, #9580ff, #75aaff);
             border-color: #8a7aff;
+            text-decoration: none;
+            color: white;
         }
         
         .full-image-container {
-            max-width: 96%;
-            max-height: 96%;
-            border-radius: 40px;
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 30px; /* MÁS PEQUEÑO */
             overflow: hidden;
-            box-shadow: 0 50px 100px rgba(255, 182, 193, 0.6);
-            border: 20px solid white;
+            box-shadow: 0 35px 80px rgba(255, 182, 193, 0.5);
+            border: 15px solid white; /* MÁS DELGADO */
             opacity: 0;
-            transform: scale(0.7);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
             position: relative;
             background: white;
             display: flex;
@@ -440,17 +445,17 @@
             display: block;
         }
         
-        /* NUEVO: Información de la imagen */
+        /* INFORMACIÓN DE LA IMAGEN - SOLO INFORMACIÓN DE LA IMAGEN ACTUAL */
         .image-info {
             position: absolute;
-            bottom: 30px;
+            bottom: 25px; /* MÁS PEQUEÑO */
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 2001;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.5s ease 0.3s;
+            transition: all 0.4s ease 0.2s;
         }
         
         .image-viewer.active .image-info {
@@ -461,67 +466,26 @@
         .image-title {
             display: inline-block;
             background: rgba(255, 255, 255, 0.95);
-            padding: 20px 40px;
-            border-radius: 60px;
-            font-size: 2rem;
+            padding: 15px 30px; /* REDUCIDO */
+            border-radius: 50px;
+            font-size: 1.6rem; /* MÁS PEQUEÑO */
             font-weight: 900;
             color: #ff6b9d;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
-            border: 5px solid #ffb6c1;
-            backdrop-filter: blur(10px);
-            transform: translateY(0);
-            transition: all 0.4s ease;
+            box-shadow: 0 12px 30px rgba(255, 182, 193, 0.4);
+            border: 4px solid #ffb6c1; /* MÁS DELGADO */
+            backdrop-filter: blur(8px);
         }
         
-        .image-title:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.7);
-        }
-        
-        /* Pull-to-refresh */
-        .refresh-indicator {
-            position: fixed;
-            top: -80px;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to right, #ffb6c1, #d8b4fe);
-            z-index: 999;
-            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 5px dotted white;
-            display: none; /* OCULTO */
-        }
-        
-        .refresh-indicator.active {
-            top: 0;
-        }
-        
-        .refresh-text {
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-            color: white;
-            font-size: 1.2rem;
-            gap: 15px;
-        }
-        
-        .refresh-text i {
-            animation: spin 1.5s linear infinite;
-        }
-        
-        /* Footer - Pegado abajo */
+        /* Footer - MÁS PEQUEÑO */
         .footer {
             text-align: center;
-            padding: 30px 15px;
+            padding: 25px 15px;
             color: #8a6fa8;
-            font-size: 1rem;
-            border-top: 4px dashed #ffb6c1;
+            font-size: 0.95rem; /* MÁS PEQUEÑO */
+            border-top: 3px dashed #ffb6c1; /* MÁS DELGADO */
             background: white;
-            border-radius: 40px 40px 0 0;
-            box-shadow: 0 -15px 40px rgba(255, 182, 193, 0.15);
+            border-radius: 30px 30px 0 0; /* MÁS PEQUEÑO */
+            box-shadow: 0 -12px 30px rgba(255, 182, 193, 0.12);
             width: 100%;
             margin-top: auto;
             position: relative;
@@ -530,39 +494,39 @@
         .footer::before {
             content: "✨";
             position: absolute;
-            top: -25px;
+            top: -20px; /* AJUSTADO */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 3rem;
+            font-size: 2.5rem; /* MÁS PEQUEÑO */
             background: white;
-            width: 70px;
-            height: 70px;
+            width: 60px; /* MÁS PEQUEÑO */
+            height: 60px; /* MÁS PEQUEÑO */
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            border: 4px dashed #ffb6c1;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+            border: 3px dashed #ffb6c1; /* MÁS DELGADO */
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
         }
         
         .footer-text {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 1rem; /* MÁS PEQUEÑO */
+            margin-bottom: 12px; /* REDUCIDO */
             font-weight: 600;
         }
         
         .footer-subtext {
-            font-size: 0.95rem;
+            font-size: 0.9rem; /* MÁS PEQUEÑO */
             color: #a68faa;
         }
         
-        /* Animaciones */
+        /* Animaciones - MÁS RÁPIDAS */
         @keyframes welcomeFloat {
             0% {
-                transform: translateY(0) scale(1);
+                transform: translateY(0) scale(0.9);
             }
             100% {
-                transform: translateY(-15px) scale(1.02);
+                transform: translateY(-10px) scale(0.92);
             }
         }
         
@@ -577,10 +541,10 @@
         
         @keyframes titleGlow {
             0% {
-                filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
+                filter: drop-shadow(0 0 4px rgba(255, 182, 193, 0.5));
             }
             100% {
-                filter: drop-shadow(0 0 20px rgba(255, 182, 193, 0.8));
+                filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.7));
             }
         }
         
@@ -626,7 +590,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-8px); /* MÁS SUAVE */
             }
         }
         
@@ -675,84 +639,85 @@
         
         @keyframes buttonPulse {
             0% {
-                box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+                box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
             }
             100% {
-                box-shadow: 0 15px 45px rgba(255, 107, 157, 0.8);
+                box-shadow: 0 10px 35px rgba(255, 107, 157, 0.6);
             }
         }
         
         /* Responsive */
         @media (max-width: 1024px) {
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 30px;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 25px;
             }
             
             .flayer-image-container {
-                height: 380px;
+                height: 340px;
             }
         }
         
         @media (max-width: 768px) {
             .welcome-title {
-                font-size: 2.5rem;
+                font-size: 1.9rem;
             }
             
             .welcome-subtitle {
-                font-size: 1.5rem;
-            }
-            
-            .welcome-text {
-                font-size: 1.1rem;
-            }
-            
-            .welcome-content {
-                padding: 25px 20px;
-                margin: 0 15px;
-            }
-            
-            .main-title {
-                font-size: 2.3rem;
-            }
-            
-            .subtitle {
                 font-size: 1.2rem;
             }
             
+            .welcome-text {
+                font-size: 0.95rem;
+            }
+            
+            .welcome-content {
+                padding: 18px;
+                margin: 0 15px;
+                max-width: 400px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-                gap: 25px;
-                padding: 0 15px 35px 15px;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 20px;
+                padding: 0 10px 25px 10px;
             }
             
             .flayer-image-container {
-                height: 350px;
+                height: 320px;
             }
             
             .price-tag {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .flayer-name {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             .viewer-controls {
-                top: 25px;
-                right: 25px;
-                gap: 15px;
+                top: 20px;
+                right: 20px;
+                gap: 12px;
             }
             
             .viewer-button {
-                width: 65px;
-                height: 65px;
-                font-size: 2rem;
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
             }
             
             .full-image-container {
-                border-width: 15px;
-                border-radius: 30px;
+                border-width: 12px;
+                border-radius: 25px;
             }
             
             .image-info {
@@ -760,61 +725,62 @@
             }
             
             .image-title {
-                font-size: 1.6rem;
-                padding: 15px 30px;
+                font-size: 1.4rem;
+                padding: 12px 25px;
             }
             
             .footer {
-                padding: 25px 15px;
+                padding: 20px 15px;
             }
         }
         
         @media (max-width: 480px) {
             .flayers-container {
                 grid-template-columns: 1fr;
-                max-width: 350px;
+                max-width: 320px;
                 margin: 0 auto;
+                gap: 20px;
             }
             
             .welcome-title {
-                font-size: 2rem;
+                font-size: 1.7rem;
             }
             
             .main-title {
-                font-size: 2rem;
-                padding: 0 20px;
+                font-size: 1.8rem;
+                padding: 0 15px;
             }
             
             .main-title::before, .main-title::after {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             .welcome-ornament {
-                width: 100px;
-                height: 100px;
-                top: -50px;
-                font-size: 40px;
+                width: 70px;
+                height: 70px;
+                top: -35px;
+                font-size: 30px;
             }
             
             .flayer-image-container {
-                height: 320px;
+                height: 300px;
             }
             
             .viewer-controls {
-                top: 20px;
-                right: 20px;
+                top: 15px;
+                right: 15px;
                 gap: 10px;
             }
             
             .viewer-button {
-                width: 60px;
-                height: 60px;
-                font-size: 1.8rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
             
             .full-image-container {
                 border-width: 10px;
-                border-radius: 25px;
+                border-radius: 20px;
             }
             
             .image-info {
@@ -822,53 +788,45 @@
             }
             
             .image-title {
-                font-size: 1.4rem;
-                padding: 12px 20px;
+                font-size: 1.2rem;
+                padding: 10px 20px;
             }
             
             .footer::before {
-                width: 60px;
-                height: 60px;
-                font-size: 2.5rem;
-                top: -20px;
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+                top: -15px;
+            }
+            
+            .loading-container {
+                width: 200px;
             }
         }
         
-        /* Scroll personalizado lindo */
+        /* Scroll personalizado */
         ::-webkit-scrollbar {
-            width: 12px;
+            width: 10px;
         }
         
         ::-webkit-scrollbar-track {
             background: #fff5f7;
-            border-radius: 10px;
+            border-radius: 8px;
         }
         
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
-            border-radius: 10px;
-            border: 3px solid #fff5f7;
+            border-radius: 8px;
+            border: 2px solid #fff5f7;
         }
         
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(to bottom, #ff9ebb, #c9a8ff);
         }
         
-        /* MEJORA: Placeholder de carga */
-        .image-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.2rem;
-            color: #ffb6c1;
-            font-weight: 600;
-            display: none;
-        }
-        
-        /* NUEVO: Efecto de brillo para imágenes cargadas */
+        /* Efecto de brillo para imágenes cargadas */
         .image-loaded {
-            animation: imageGlow 0.5s ease;
+            animation: imageGlow 0.4s ease;
         }
         
         @keyframes imageGlow {
@@ -876,103 +834,11 @@
                 filter: brightness(1);
             }
             50% {
-                filter: brightness(1.1);
+                filter: brightness(1.08);
             }
             100% {
                 filter: brightness(1);
             }
-        }
-        
-        /* NUEVO: Modal de zoom */
-        .zoom-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.5s ease;
-        }
-        
-        .zoom-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .zoom-image {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            transform: scale(0.9);
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 10px;
-            box-shadow: 0 0 80px rgba(255, 182, 193, 0.4);
-        }
-        
-        .zoom-modal.active .zoom-image {
-            transform: scale(1);
-        }
-        
-        .close-zoom {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.5rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        
-        .close-zoom:hover {
-            background: rgba(255, 107, 157, 0.8);
-            transform: rotate(90deg) scale(1.1);
-        }
-        
-        /* Notificación bonita */
-        .notification {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(135deg, #ffb6c1, #d8b4fe);
-            color: white;
-            padding: 20px 35px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.5);
-            z-index: 2002;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 4px solid white;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .notification.active {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-        
-        .notification i {
-            font-size: 1.5rem;
-            animation: spin 2s linear infinite;
         }
     </style>
 </head>
@@ -980,7 +846,7 @@
     <!-- Decoraciones de fondo -->
     <div class="background-hearts" id="backgroundHearts"></div>
     
-    <!-- Pantalla de bienvenida - MÁS RÁPIDA -->
+    <!-- Pantalla de bienvenida - MÁS RÁPIDA Y PEQUEÑA -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-content">
             <div class="welcome-ornament">
@@ -988,45 +854,33 @@
             </div>
             <h1 class="welcome-title">HAPPY PACKAGES</h1>
             <h2 class="welcome-subtitle">PARA TUS FIESTAS ✨</h2>
-            <p class="welcome-text">Descubre nuestra exclusiva línea de paquetes Happy que harán de tu celebración algo mágico e inolvidable.</p>
+            <p class="welcome-text">Descubre nuestra exclusiva línea de paquetes Happy.</p>
             <div class="loading-container">
                 <div class="loading-progress"></div>
             </div>
         </div>
     </div>
     
-    <!-- Visualizador de imagen en pantalla completa - MEJORADO -->
+    <!-- Visualizador de imagen en pantalla completa - SIMPLIFICADO -->
     <div class="image-viewer" id="imageViewer">
         <div class="viewer-controls">
             <div class="viewer-button close-button" id="closeViewer">
                 <i class="fas fa-times"></i>
             </div>
-            <div class="viewer-button eye-button" id="eyeButton" title="Ver detalles">
+            <!-- Botón de ojito con link - CAMBIA EL "#" POR TU LINK -->
+            <a href="#" class="viewer-button eye-button" id="eyeButton" title="Más información" target="_blank">
                 <i class="fas fa-eye"></i>
-            </div>
+            </a>
         </div>
         
         <div class="full-image-container">
             <img src="" alt="Imagen en pantalla completa" class="full-image" id="fullImage">
         </div>
         
+        <!-- SOLO INFORMACIÓN DE LA IMAGEN ACTUAL -->
         <div class="image-info">
             <div class="image-title" id="imageTitle"></div>
         </div>
-    </div>
-    
-    <!-- Modal de zoom para el botón de ojito -->
-    <div class="zoom-modal" id="zoomModal">
-        <div class="close-zoom" id="closeZoom">
-            <i class="fas fa-times"></i>
-        </div>
-        <img src="" alt="Zoom" class="zoom-image" id="zoomImage">
-    </div>
-    
-    <!-- Notificación -->
-    <div class="notification" id="notification">
-        <i class="fas fa-star"></i>
-        <span id="notificationText">¡Imagen ampliada!</span>
     </div>
     
     <!-- Contenido principal -->
@@ -1041,13 +895,13 @@
         </div>
         
         <footer class="footer">
-            <p class="footer-text">© 2023 Paquetes Adorables para Fiestas | Diseño Super Lindo | ¡Haz tus fiestas más especiales!</p>
+            <p class="footer-text">© 2023 Paquetes Adorables para Fiestas | ¡Haz tus fiestas más especiales!</p>
             <p class="footer-subtext">❤️ Toca las imágenes para ver en pantalla completa ❤️</p>
         </footer>
     </div>
 
     <script>
-        // Datos de los flayers - MISMO DISEÑO
+        // Datos de los flayers
         const flayers = [
             {
                 id: 0.1,
@@ -1097,18 +951,12 @@
         const imageViewer = document.getElementById('imageViewer');
         const fullImage = document.getElementById('fullImage');
         const closeViewer = document.getElementById('closeViewer');
-        const backgroundHearts = document.getElementById('backgroundHearts');
         const eyeButton = document.getElementById('eyeButton');
         const imageTitle = document.getElementById('imageTitle');
-        const zoomModal = document.getElementById('zoomModal');
-        const zoomImage = document.getElementById('zoomImage');
-        const closeZoom = document.getElementById('closeZoom');
-        const notification = document.getElementById('notification');
-        const notificationText = document.getElementById('notificationText');
+        const backgroundHearts = document.getElementById('backgroundHearts');
         
-        // Variables para rastrear el flayer actual
-        let currentFlayer = null;
-        let currentImageSrc = '';
+        // Variable para el link del ojito - CAMBIA ESTA VARIABLE PARA CADA IMAGEN
+        let currentEyeLink = "#";
         
         // Array para rastrear imágenes precargadas
         const preloadedImages = {};
@@ -1128,9 +976,9 @@
                     img.src = flayer.image;
                     
                     // Configuración PARA MÁXIMA VELOCIDAD
-                    img.loading = 'eager';        // Carga inmediata
-                    img.decoding = 'sync';        // Decodificación sincrónica
-                    img.fetchPriority = 'high';   // Prioridad máxima
+                    img.loading = 'eager';
+                    img.decoding = 'sync';
+                    img.fetchPriority = 'high';
                     
                     // Marcar como precargada cuando cargue
                     img.onload = () => {
@@ -1158,7 +1006,7 @@
                 .then(() => {
                     console.log("🎉 TODAS las imágenes precargadas con éxito!");
                     
-                    // Mostrar contenido principal ANTES del tiempo normal
+                    // Mostrar contenido principal MUY RÁPIDO
                     setTimeout(() => {
                         document.getElementById('welcomeScreen').style.display = 'none';
                         const mainContent = document.getElementById('mainContent');
@@ -1171,7 +1019,7 @@
                         
                         // Animar tarjetas
                         animateCardsOnScroll();
-                    }, 100); // SOLO 100ms de espera!
+                    }, 50); // SOLO 50ms de espera!
                 })
                 .catch(() => {
                     console.log("Algunas imágenes no se precargaron, pero continuamos...");
@@ -1210,7 +1058,7 @@
                 
                 container.appendChild(flayerCard);
                 
-                // Agregar evento para abrir imagen - USANDO IMAGEN PRECARGADA
+                // Agregar evento para abrir imagen
                 flayerCard.addEventListener('click', function() {
                     openImageViewerInstant(flayer);
                 });
@@ -1226,18 +1074,20 @@
         }
         
         // ============================================
-        // 3. ABRIR IMAGEN EN VISOR INSTANTÁNEAMENTE
+        // 3. ABRIR IMAGEN EN VISOR
         // ============================================
         
         function openImageViewerInstant(flayer) {
-            currentFlayer = flayer;
-            currentImageSrc = flayer.image;
-            
             // Usar la imagen YA PRECARGADA
             fullImage.src = flayer.image;
             
             // Establecer título de la imagen
             imageTitle.textContent = `${flayer.title} - ${flayer.price}`;
+            
+            // Configurar link del botón de ojito - AQUÍ PUEDES CAMBIAR EL LINK PARA CADA IMAGEN
+            // Ejemplo: if (flayer.id === 1) { eyeButton.href = "https://tulink.com/express"; }
+            // Por ahora todos van al mismo link, pero puedes personalizar
+            eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
             
             // Mostrar visor
             imageViewer.classList.add('active');
@@ -1245,9 +1095,6 @@
             
             // Ajustar tamaño de la imagen en el visor
             adjustImageSize();
-            
-            // Mostrar notificación bonita
-            showNotification(`Abriendo ${flayer.title}`);
         }
         
         function adjustImageSize() {
@@ -1255,11 +1102,11 @@
                 const imgRatio = fullImage.naturalWidth / fullImage.naturalHeight;
                 
                 if (imgRatio < 0.7) {
-                    fullImage.style.padding = '20px 40px';
+                    fullImage.style.padding = '15px 30px';
                 } else if (imgRatio > 1.3) {
-                    fullImage.style.padding = '40px 20px';
+                    fullImage.style.padding = '30px 15px';
                 } else {
-                    fullImage.style.padding = '25px';
+                    fullImage.style.padding = '20px';
                 }
             } else {
                 fullImage.onload = adjustImageSize;
@@ -1267,41 +1114,7 @@
         }
         
         // ============================================
-        // 4. FUNCIONALIDAD DEL BOTÓN DE OJITO (ZOOM)
-        // ============================================
-        
-        function setupEyeButton() {
-            eyeButton.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevenir que se cierre el visor
-                
-                if (currentImageSrc) {
-                    // Abrir modal de zoom
-                    zoomImage.src = currentImageSrc;
-                    zoomModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    
-                    // Mostrar notificación
-                    showNotification("¡Zoom activado! Toca para salir");
-                }
-            });
-        }
-        
-        // ============================================
-        // 5. NOTIFICACIÓN BONITA
-        // ============================================
-        
-        function showNotification(text) {
-            notificationText.textContent = text;
-            notification.classList.add('active');
-            
-            // Ocultar después de 3 segundos
-            setTimeout(() => {
-                notification.classList.remove('active');
-            }, 3000);
-        }
-        
-        // ============================================
-        // 6. CONFIGURACIÓN INICIAL
+        // 4. CONFIGURACIÓN INICIAL
         // ============================================
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -1314,19 +1127,13 @@
             // Configurar visor
             setupImageViewer();
             
-            // Configurar botón de ojito
-            setupEyeButton();
-            
-            // Configurar modal de zoom
-            setupZoomModal();
-            
             // Prevenir zoom
             preventZoom();
         });
         
         // Crear decoraciones de fondo
         function createBackgroundDecorations() {
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 20; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '💖';
@@ -1335,7 +1142,7 @@
                 backgroundHearts.appendChild(heart);
             }
             
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.innerHTML = '✨';
@@ -1368,33 +1175,10 @@
             fullImage.fetchPriority = 'high';
         }
         
-        // Configurar modal de zoom
-        function setupZoomModal() {
-            closeZoom.addEventListener('click', closeZoomModal);
-            
-            zoomModal.addEventListener('click', function(e) {
-                if (e.target === zoomModal) {
-                    closeZoomModal();
-                }
-            });
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && zoomModal.classList.contains('active')) {
-                    closeZoomModal();
-                }
-            });
-        }
-        
         // Cerrar visor
         function closeImageViewer() {
             imageViewer.classList.remove('active');
             document.body.style.overflow = 'auto';
-        }
-        
-        // Cerrar modal de zoom
-        function closeZoomModal() {
-            zoomModal.classList.remove('active');
-            document.body.style.overflow = 'hidden'; // Mantener oculto porque el visor sigue abierto
         }
         
         // Animar tarjetas
@@ -1403,7 +1187,7 @@
             cards.forEach((card, index) => {
                 setTimeout(() => {
                     card.classList.add('visible');
-                }, index * 100);
+                }, index * 80);
             });
         }
         
@@ -1421,24 +1205,10 @@
         }
         
         // ============================================
-        // 7. VERIFICACIÓN Y RECARGA DE IMÁGENES
+        // 5. VERIFICACIÓN Y RECARGA DE IMÁGENES
         // ============================================
         
-        // Verificar cada 500ms que las imágenes estén cargadas
-        setInterval(() => {
-            const images = document.querySelectorAll('.flayer-image');
-            images.forEach(img => {
-                if (!img.complete || img.naturalWidth === 0) {
-                    // Si no está cargada, forzar recarga
-                    const currentSrc = img.src;
-                    if (currentSrc && !currentSrc.includes('retry=')) {
-                        img.src = currentSrc + '?retry=' + Date.now();
-                    }
-                }
-            });
-        }, 500);
-        
-        // Cuando la página termine de cargar, verificar todo
+        // Cuando la página termine de cargar
         window.addEventListener('load', function() {
             console.log("✅ Página completamente cargada");
             
@@ -1454,8 +1224,44 @@
                         }, 50);
                     }
                 });
-            }, 1000);
+            }, 500);
         });
+        
+        // Función para cambiar el link del botón de ojito según la imagen
+        function setEyeButtonLink(flayerId) {
+            // Aquí puedes personalizar el link para cada imagen
+            // Ejemplo:
+            /*
+            switch(flayerId) {
+                case 0.1:
+                    eyeButton.href = "https://tulink.com/flash";
+                    break;
+                case 1:
+                    eyeButton.href = "https://tulink.com/express";
+                    break;
+                case 2:
+                    eyeButton.href = "https://tulink.com/basic";
+                    break;
+                case 3:
+                    eyeButton.href = "https://tulink.com/plus";
+                    break;
+                case 4:
+                    eyeButton.href = "https://tulink.com/pro";
+                    break;
+                case 5:
+                    eyeButton.href = "https://tulink.com/glam";
+                    break;
+                case 6:
+                    eyeButton.href = "https://tulink.com/premium";
+                    break;
+                default:
+                    eyeButton.href = "#";
+            }
+            */
+           
+           // Por defecto, todos van al mismo link
+           eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+        }
     </script>
 </body>
 </html>
