@@ -867,7 +867,7 @@
             <div class="viewer-button close-button" id="closeViewer">
                 <i class="fas fa-times"></i>
             </div>
-            <!-- Botón de ojito con link - CAMBIA EL "#" POR TU LINK -->
+            <!-- Botón de ojito con link - SE ACTUALIZARÁ DINÁMICAMENTE -->
             <a href="folder1.html" class="viewer-button eye-button" id="eyeButton" title="Más información" target="_blank">
                 <i class="fas fa-eye"></i>
             </a>
@@ -901,49 +901,56 @@
     </div>
 
     <script>
-        // Datos de los flayers
+        // Datos de los flayers CON LINKS PERSONALIZADOS
         const flayers = [
             {
                 id: 0.1,
                 title: "Happy Flash",
                 image: "01.png",
-                price: "$195,000"
+                price: "$195,000",
+                link: "folder1.html" // LINK ESPECÍFICO PARA ESTE PAQUETE
             },
             {
                 id: 1,
                 title: "Happy Express",
                 image: "1.png",
-                price: "$230,000"
+                price: "$230,000",
+                link: "folder1.html" // LINK ESPECÍFICO PARA ESTE PAQUETE
             },
             {
                 id: 2,
                 title: "Happy Basic",
                 image: "2.png",
-                price: "$310,000"
+                price: "$310,000",
+                link: "folder1.html" // LINK ESPECÍFICO PARA ESTE PAQUETE
             },
             {
                 id: 3,
                 title: "Happy Plus",
                 image: "3.png",
-                price: "$395,000"
+                price: "$395,000",
+                link: "folder1.html" // LINK ESPECÍFICO PARA ESTE PAQUETE
             },
             {
                 id: 4,
                 title: "Happy Pro",
                 image: "4.png",
-                price: "$550,000"
+                price: "$550,000",
+                link: "folder1.html" // LINK ESPECÍFICO PARA ESTE PAQUETE
             },
             {
                 id: 5,
                 title: "Happy Glam",
                 image: "5.png",
-                price: "$930,000"
+                price: "$930,000",
+                link: "folder1.html" // LINK ESPECÍFICO PARA ESTE PAQUETE
             },
             {
                 id: 6,
                 title: "Happy Premium",
                 image: "6.png",
-                price: "$1,250,000"
+                price: "$1,250,000",
+                link: "folder1.html" // LINK ESPECÍFICO PARA ESTE PAQUETE
             }
         ];
         
@@ -955,8 +962,8 @@
         const imageTitle = document.getElementById('imageTitle');
         const backgroundHearts = document.getElementById('backgroundHearts');
         
-        // Variable para el link del ojito - CAMBIA ESTA VARIABLE PARA CADA IMAGEN
-        let currentEyeLink = "folder1.html";
+        // Variable para rastrear el flayer actual
+        let currentFlayer = null;
         
         // Array para rastrear imágenes precargadas
         const preloadedImages = {};
@@ -1078,16 +1085,28 @@
         // ============================================
         
         function openImageViewerInstant(flayer) {
+            // Guardar el flayer actual
+            currentFlayer = flayer;
+            
             // Usar la imagen YA PRECARGADA
             fullImage.src = flayer.image;
             
             // Establecer título de la imagen
             imageTitle.textContent = `${flayer.title} - ${flayer.price}`;
             
-            // Configurar link del botón de ojito - AQUÍ PUEDES CAMBIAR EL LINK PARA CADA IMAGEN
-            // Ejemplo: if (flayer.id === 1) { eyeButton.href = "https://tulink.com/express"; }
-            // Por ahora todos van al mismo link, pero puedes personalizar
-            eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+            // Configurar link del botón de ojito CON EL LINK DEL FLAYER ACTUAL
+            if (flayer.link) {
+                eyeButton.href = flayer.link;
+                eyeButton.title = `Ver detalles de ${flayer.title}`;
+                console.log(`🔗 Link del ojito configurado a: ${flayer.link}`);
+            } else {
+                // Si no hay link, deshabilitar el botón
+                eyeButton.href = "#";
+                eyeButton.removeAttribute('onclick');
+                eyeButton.style.opacity = "0.5";
+                eyeButton.style.cursor = "not-allowed";
+                eyeButton.title = "No disponible";
+            }
             
             // Mostrar visor
             imageViewer.classList.add('active');
@@ -1129,7 +1148,30 @@
             
             // Prevenir zoom
             preventZoom();
+            
+            // Configurar botón de ojito
+            setupEyeButton();
         });
+        
+        // ============================================
+        // 5. CONFIGURAR BOTÓN DE OJITO
+        // ============================================
+        
+        function setupEyeButton() {
+            // Configurar el evento click del botón de ojito
+            eyeButton.addEventListener('click', function(e) {
+                // Si no hay link válido, prevenir la acción
+                if (!currentFlayer || !currentFlayer.link || currentFlayer.link === "#") {
+                    e.preventDefault();
+                    alert("Esta opción no está disponible actualmente.");
+                    return;
+                }
+                
+                // Si hay link válido, permitir que se abra normalmente
+                // El atributo target="_blank" ya está en el HTML
+                console.log(`🌐 Abriendo: ${currentFlayer.link} para ${currentFlayer.title}`);
+            });
+        }
         
         // Crear decoraciones de fondo
         function createBackgroundDecorations() {
@@ -1179,6 +1221,10 @@
         function closeImageViewer() {
             imageViewer.classList.remove('active');
             document.body.style.overflow = 'auto';
+            
+            // Restablecer el botón de ojito
+            eyeButton.href = "#";
+            eyeButton.title = "Más información";
         }
         
         // Animar tarjetas
@@ -1205,7 +1251,7 @@
         }
         
         // ============================================
-        // 5. VERIFICACIÓN Y RECARGA DE IMÁGENES
+        // 6. VERIFICACIÓN Y RECARGA DE IMÁGENES
         // ============================================
         
         // Cuando la página termine de cargar
@@ -1227,44 +1273,20 @@
             }, 500);
         });
         
-        // Función para cambiar el link del botón de ojito según la imagen
-        function setEyeButtonLink(flayerId) {
-            // Aquí puedes personalizar el link para cada imagen
-            // Ejemplo:
-            /*
-            switch(flayerId) {
-                case 0.1:
-                    eyeButton.href = "https://tulink.com/flash";
-                    break;
-                case 1:
-                    eyeButton.href = "https://tulink.com/express";
-                    break;
-                case 2:
-                    eyeButton.href = "https://tulink.com/basic";
-                    break;
-                case 3:
-                    eyeButton.href = "https://tulink.com/plus";
-                    break;
-                case 4:
-                    eyeButton.href = "https://tulink.com/pro";
-                    break;
-                case 5:
-                    eyeButton.href = "https://tulink.com/glam";
-                    break;
-                case 6:
-                    eyeButton.href = "https://tulink.com/premium";
-                    break;
-                default:
-                    eyeButton.href = "#";
-            }
-            */
-           
-           // Por defecto, todos van al mismo link
-           eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+        // ============================================
+        // 7. FUNCIÓN PARA CAMBIAR LINKS FÁCILMENTE
+        // ============================================
+        
+        // Función para actualizar todos los links fácilmente
+        function updateAllLinks(newLink) {
+            flayers.forEach(flayer => {
+                flayer.link = newLink;
+            });
+            console.log(`🔗 Todos los links actualizados a: ${newLink}`);
         }
+        
+        // EJEMPLO: Si quieres cambiar todos los links a una nueva página:
+        // updateAllLinks("nuevo-folder.html");
     </script>
 </body>
 </html>
-
-
-
