@@ -18,7 +18,6 @@
             width: 100%;
             height: 100%;
             overflow-x: hidden;
-            touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
@@ -31,11 +30,14 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            -webkit-overflow-scrolling: touch; /* Mejor scroll en iOS */
         }
         
-        /* ===== PREVENT ZOOM ===== */
+        /* ===== SCROLL PERMITTED ===== */
         body, html {
-            touch-action: pan-y;
+            overflow-y: auto; /* Permitir scroll vertical */
+            overflow-x: hidden; /* Prevenir scroll horizontal */
+            touch-action: pan-y; /* Permitir desplazamiento vertical */
             -webkit-user-select: none;
             user-select: none;
         }
@@ -146,7 +148,7 @@
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 15px;
             position: relative;
             z-index: 2;
             opacity: 0;
@@ -156,12 +158,12 @@
         
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 0 15px;
+            margin-bottom: 30px;
+            padding: 0 10px;
         }
         
         .main-title {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 900;
             margin-bottom: 15px;
             background: linear-gradient(to right, #ff85a2, #a685ff);
@@ -170,25 +172,26 @@
             color: transparent;
             position: relative;
             display: inline-block;
-            padding: 0 25px;
+            padding: 0 20px;
+            line-height: 1.2;
         }
         
         .main-title::before, .main-title::after {
             content: "✨";
             position: absolute;
             color: #ffb6c1;
-            font-size: 2rem;
+            font-size: 1.8rem;
             top: 50%;
             transform: translateY(-50%);
         }
         
-        .main-title::before { left: -10px; }
-        .main-title::after { right: -10px; }
+        .main-title::before { left: -5px; }
+        .main-title::after { right: -5px; }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #8a6fa8;
-            line-height: 1.6;
+            line-height: 1.5;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -197,8 +200,8 @@
         .options-container {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            padding: 0 15px 40px 15px;
+            gap: 20px;
+            padding: 0 10px 30px 10px;
             width: 100%;
         }
         
@@ -206,11 +209,11 @@
         .option-card {
             background: white;
             border-radius: 25px;
-            padding: 25px 30px;
+            padding: 25px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
             box-shadow: 0 15px 40px rgba(255, 182, 193, 0.25);
             border: 4px solid transparent;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -219,6 +222,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
         }
         
         .option-card:nth-child(1) { animation-delay: 0.1s; }
@@ -240,25 +244,25 @@
         }
         
         .option-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: 0 25px 60px rgba(255, 182, 193, 0.4);
             border-color: #ffb6c1;
         }
         
         .option-card:active {
-            transform: translateY(-5px) scale(0.98);
+            transform: translateY(-3px) scale(0.99);
         }
         
         .option-icon {
-            width: 70px;
-            height: 70px;
-            min-width: 70px;
+            width: 65px;
+            height: 65px;
+            min-width: 65px;
             background: linear-gradient(135deg, #ffb6c1, #d8b4fe);
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: white;
             box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
             transition: all 0.3s ease;
@@ -271,33 +275,36 @@
         
         .option-content {
             flex: 1;
+            min-width: 0; /* Para evitar desbordamiento en móvil */
         }
         
         .option-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: #ff6b9d;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            line-height: 1.3;
         }
         
         .option-description {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #8a6fa8;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         .option-arrow {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #d8b4fe;
             transition: all 0.3s ease;
+            min-width: 24px;
         }
         
         .option-card:hover .option-arrow {
             color: #ff6b9d;
-            transform: translateX(10px);
+            transform: translateX(8px);
         }
         
         /* ===== PAGE TRANSITION OVERLAY ===== */
@@ -324,24 +331,24 @@
         
         .transition-content {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 25px;
             box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
             border: 5px solid white;
-            max-width: 400px;
+            max-width: 350px;
             width: 90%;
         }
         
         .transition-icon {
-            font-size: 3rem;
+            font-size: 2.8rem;
             color: #ff6b9d;
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
         }
         
         .transition-text {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             background: linear-gradient(to right, #ff85a2, #a685ff);
             -webkit-background-clip: text;
@@ -351,49 +358,49 @@
         }
         
         .transition-subtext {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #8a6fa8;
         }
         
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
-            padding: 25px 20px;
+            padding: 20px 15px;
             color: #8a6fa8;
             background: white;
             border-top: 3px dashed #ffb6c1;
             border-radius: 30px 30px 0 0;
             position: relative;
             z-index: 2;
-            margin-top: 30px;
+            margin-top: 20px;
         }
         
         .footer::before {
             content: "✨";
             position: absolute;
-            top: -25px;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             background: white;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
             border: 3px dashed #ffb6c1;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
         }
         
         .footer-text {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .footer-subtext {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #a68faa;
         }
         
@@ -447,33 +454,34 @@
             }
         }
         
-        /* ===== RESPONSIVE DESIGN ===== */
+        /* ===== RESPONSIVE DESIGN - MEJORADO ===== */
         @media (max-width: 768px) {
             .main-container {
-                padding: 15px;
+                padding: 15px 12px;
             }
             
             .main-title {
-                font-size: 2.2rem;
-                padding: 0 20px;
+                font-size: 2rem;
+                padding: 0 15px;
             }
             
             .main-title::before, .main-title::after {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             
             .subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
+                padding: 0 5px;
             }
             
             .options-container {
-                gap: 20px;
-                padding: 0 10px 30px 10px;
+                gap: 18px;
+                padding: 0 8px 25px 8px;
             }
             
             .option-card {
-                padding: 20px 25px;
-                gap: 20px;
+                padding: 22px 20px;
+                gap: 18px;
             }
             
             .option-icon {
@@ -481,15 +489,19 @@
                 height: 60px;
                 min-width: 60px;
                 font-size: 1.8rem;
-                border-radius: 15px;
+                border-radius: 16px;
             }
             
             .option-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             
             .option-description {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
+            }
+            
+            .option-arrow {
+                font-size: 1.5rem;
             }
             
             .loading-content, .transition-content {
@@ -503,42 +515,77 @@
         
         @media (max-width: 480px) {
             .main-title {
-                font-size: 1.9rem;
-                padding: 0 15px;
+                font-size: 1.8rem;
+                padding: 0 12px;
             }
             
             .subtitle {
-                font-size: 1rem;
-                padding: 0 10px;
+                font-size: 0.95rem;
+                padding: 0;
             }
             
+            .options-container {
+                gap: 16px;
+                padding: 0 5px 20px 5px;
+            }
+            
+            /* DISEÑO VERTICAL MEJORADO PARA MÓVIL */
             .option-card {
                 flex-direction: column;
                 text-align: center;
-                padding: 25px 20px;
-                gap: 20px;
+                padding: 25px 18px;
+                gap: 16px;
+                width: 100%;
             }
             
             .option-card::before {
                 width: 100%;
                 height: 8px;
                 border-radius: 25px 25px 0 0;
+                top: 0;
+                left: 0;
             }
             
             .option-content {
                 width: 100%;
+                order: 2;
+            }
+            
+            .option-icon {
+                order: 1;
+                width: 70px;
+                height: 70px;
+                min-width: 70px;
+                margin-bottom: 5px;
             }
             
             .option-title {
                 justify-content: center;
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .option-description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+                margin-bottom: 10px;
             }
             
             .option-arrow {
-                display: none;
+                display: none; /* Ocultamos la flecha en móvil vertical */
+            }
+            
+            /* Añadir flecha móvil alternativa */
+            .mobile-arrow {
+                display: block;
+                font-size: 1.8rem;
+                color: #ff6b9d;
+                margin-top: 10px;
+                animation: arrowPulse 2s ease-in-out infinite;
             }
             
             .loading-content, .transition-content {
-                padding: 20px 15px;
+                padding: 22px 18px;
             }
             
             .loading-title, .transition-text {
@@ -546,17 +593,70 @@
             }
             
             .footer {
-                padding: 20px 15px;
+                padding: 18px 12px;
+            }
+            
+            .footer::before {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+                top: -18px;
             }
         }
         
         @media (max-width: 360px) {
             .main-title {
-                font-size: 1.7rem;
+                font-size: 1.6rem;
             }
             
             .option-card {
                 padding: 20px 15px;
+                gap: 14px;
+            }
+            
+            .option-icon {
+                width: 65px;
+                height: 65px;
+                min-width: 65px;
+                font-size: 1.7rem;
+            }
+            
+            .option-title {
+                font-size: 1.35rem;
+            }
+            
+            .option-description {
+                font-size: 0.9rem;
+            }
+            
+            .loading-content, .transition-content {
+                padding: 20px 15px;
+            }
+            
+            .loading-title, .transition-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* ===== DISEÑO VERTICAL EXTREMO ===== */
+        @media (max-height: 700px) and (max-width: 480px) {
+            .main-title {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+            
+            .options-container {
+                gap: 12px;
+            }
+            
+            .option-card {
+                padding: 18px 15px;
+                gap: 12px;
             }
             
             .option-icon {
@@ -568,22 +668,28 @@
             
             .option-title {
                 font-size: 1.3rem;
+                margin-bottom: 6px;
+            }
+            
+            .option-description {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
             }
         }
         
         /* ===== SCROLLBAR STYLING ===== */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
         
         ::-webkit-scrollbar-track {
             background: #fff5f7;
-            border-radius: 10px;
+            border-radius: 8px;
         }
         
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
-            border-radius: 10px;
+            border-radius: 8px;
             border: 2px solid #fff5f7;
         }
         
@@ -605,17 +711,48 @@
             outline: 3px solid #ff6b9d;
             outline-offset: 3px;
         }
+        
+        /* ===== ANIMACIONES ADICIONALES PARA MÓVIL ===== */
+        @keyframes arrowPulse {
+            0%, 100% { 
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translateY(5px);
+                opacity: 1;
+            }
+        }
+        
+        /* ===== MEJORAS DE TÁCTIL ===== */
+        .option-card {
+            -webkit-touch-callout: none;
+            -webkit-user-drag: none;
+        }
+        
+        /* ===== PREVENIR ZOOM PERO PERMITIR SCROLL ===== */
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                touch-action: pan-y pinch-zoom;
+            }
+            
+            /* Mejorar feedback táctil */
+            .option-card:active {
+                background: #f8f0f5;
+                transition: background 0.1s ease;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Background Elements -->
     <div class="background-elements">
-        <div class="floating-element">💖</div>
-        <div class="floating-element">✨</div>
-        <div class="floating-element">🎀</div>
-        <div class="floating-element">🎁</div>
-        <div class="floating-element">🌟</div>
-        <div class="floating-element">💝</div>
+        <div class="floating-element">🎨</div>
+        <div class="floating-element">📄</div>
+        <div class="floating-element">🎂</div>
+        <div class="floating-element">🍕</div>
+        <div class="floating-element">🎭</div>
+        <div class="floating-element">🍽️</div>
     </div>
     
     <!-- Loading Overlay -->
@@ -624,8 +761,8 @@
             <div class="loading-icon">
                 <i class="fas fa-spinner"></i>
             </div>
-            <h1 class="loading-title">HAPPY PANEL</h1>
-            <p class="loading-subtitle">Cargando experiencia mágica...</p>
+            <h1 class="loading-title">HAPPY EXPERIENCES</h1>
+            <p class="loading-subtitle">Cargando servicios especializados...</p>
             <div class="dots-loading">
                 <div class="dot"></div>
                 <div class="dot"></div>
@@ -653,101 +790,119 @@
     <!-- Main Content -->
     <div class="main-container">
         <header class="header">
-            <h1 class="main-title">PANEL DE OPCIONES</h1>
-            <p class="subtitle">Selecciona una opción para explorar contenido especial. Cada opción te llevará a una experiencia única.</p>
+            <h1 class="main-title">SERVICIOS ESPECIALIZADOS</h1>
+            <p class="subtitle">Selecciona una categoría para explorar nuestros servicios especializados.</p>
         </header>
         
         <div class="options-container">
-            <!-- Opción 1 -->
+            <!-- Opción 1 - DECORACIONES PERSONALIZADAS -->
             <a href="#" class="option-card" data-id="1" target="_blank">
                 <div class="option-icon">
-                    <i class="fas fa-gift"></i>
+                    <i class="fas fa-palette"></i>
                 </div>
                 <div class="option-content">
                     <h3 class="option-title">
-                        <span>DECORACIONES PERSONALIZADA</span>
+                        <span>DECORACIONES PERSONALIZADAS</span>
                     </h3>
-                    <p class="option-description">TRANSFORMANDO ESPACIOS, CREANDO MOMENTO ESPECIALES.</p>
+                    <p class="option-description">Transformando espacios, creando momentos especiales.</p>
+                    <div class="mobile-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
                 </div>
                 <div class="option-arrow">
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </a>
             
-            <!-- Opción 2 -->
+            <!-- Opción 2 - PAPELERÍA CREATIVA -->
             <a href="#" class="option-card" data-id="2" target="_blank">
                 <div class="option-icon">
-                    <i class="fas fa-camera"></i>
+                    <i class="fas fa-file-invoice"></i>
                 </div>
                 <div class="option-content">
                     <h3 class="option-title">
-                        <span>PAPELERIA CREATIVA</span>
+                        <span>PAPELERÍA CREATIVA</span>
                     </h3>
-                    <p class="option-description">ADORNA TU FIESTAS CON DETALLES UNICOS Y EXCLUSIVOS.</p>
+                    <p class="option-description">Adorna tus fiestas con detalles únicos y exclusivos.</p>
+                    <div class="mobile-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
                 </div>
                 <div class="option-arrow">
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </a>
             
-            <!-- Opción 3 -->
+            <!-- Opción 3 - TORTAS Y POSTRES -->
             <a href="#" class="option-card" data-id="3" target="_blank">
                 <div class="option-icon">
-                    <i class="fas fa-calendar-check"></i>
+                    <i class="fas fa-birthday-cake"></i>
                 </div>
                 <div class="option-content">
                     <h3 class="option-title">
                         <span>TORTAS Y POSTRES</span>
                     </h3>
-                    <p class="option-description">UN TOQUE DE AMOR EN CADA BOCADO.</p>
+                    <p class="option-description">Un toque de amor en cada bocado.</p>
+                    <div class="mobile-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
                 </div>
                 <div class="option-arrow">
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </a>
             
-            <!-- Opción 4 -->
+            <!-- Opción 4 - SNACKS -->
             <a href="#" class="option-card" data-id="4" target="_blank">
                 <div class="option-icon">
-                    <i class="fas fa-comments-dollar"></i>
+                    <i class="fas fa-pizza-slice"></i>
                 </div>
                 <div class="option-content">
                     <h3 class="option-title">
                         <span>SNACKS</span>
                     </h3>
-                    <p class="option-description">DELICIAS PARA CADA MOMENTO.</p>
+                    <p class="option-description">Delicias para cada momento.</p>
+                    <div class="mobile-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
                 </div>
                 <div class="option-arrow">
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </a>
             
-            <!-- Opción 5 -->
+            <!-- Opción 5 - ANIMACIÓN Y RECREACIÓN -->
             <a href="#" class="option-card" data-id="5" target="_blank">
                 <div class="option-icon">
-                    <i class="fas fa-headset"></i>
+                    <i class="fas fa-gamepad"></i>
                 </div>
                 <div class="option-content">
                     <h3 class="option-title">
                         <span>ANIMACIÓN Y RECREACIÓN</span>
                     </h3>
-                    <p class="option-description">JUEGOS, RISAS Y MOMENTOS INNOLVIDABLES.</p>
+                    <p class="option-description">Juegos, risas y momentos inolvidables.</p>
+                    <div class="mobile-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
                 </div>
                 <div class="option-arrow">
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </a>
             
-            <!-- Opción 6 -->
+            <!-- Opción 6 - BUFFET Y PICADAS -->
             <a href="#" class="option-card" data-id="6" target="_blank">
                 <div class="option-icon">
-                    <i class="fas fa-star"></i>
+                    <i class="fas fa-utensils"></i>
                 </div>
                 <div class="option-content">
                     <h3 class="option-title">
                         <span>BUFFET Y PICADAS</span>
                     </h3>
-                    <p class="option-description">EXPERIENCIAS GASTRONOMICA PARA TODO TIPO DE EVENTOS.</p>
+                    <p class="option-description">Experiencias gastronómicas para todo tipo de eventos.</p>
+                    <div class="mobile-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
                 </div>
                 <div class="option-arrow">
                     <i class="fas fa-arrow-right"></i>
@@ -766,12 +921,12 @@
         // ===== CONFIGURACIÓN DE LINKS =====
         // CAMBIA ESTOS LINKS POR LOS TUYOS
         const optionLinks = {
-            1: "https://ejemplo.com/paquetes",      // Paquetes Happy
-            2: "https://ejemplo.com/galeria",       // Galería
-            3: "https://ejemplo.com/reservas",      // Reservas
-            4: "https://ejemplo.com/cotizaciones",  // Cotizaciones
-            5: "https://ejemplo.com/soporte",       // Soporte
-            6: "https://ejemplo.com/promociones"    // Promociones
+            1: "https://ejemplo.com/decoraciones",      // Decoraciones Personalizadas
+            2: "https://ejemplo.com/papeleria",        // Papelería Creativa
+            3: "https://ejemplo.com/tortas",           // Tortas y Postres
+            4: "https://ejemplo.com/snacks",           // Snacks
+            5: "https://ejemplo.com/animacion",        // Animación y Recreación
+            6: "https://ejemplo.com/buffet"            // Buffet y Picadas
         };
         
         // ===== VARIABLES GLOBALES =====
@@ -779,46 +934,88 @@
         const pageTransition = document.getElementById('pageTransition');
         const optionCards = document.querySelectorAll('.option-card');
         let isTransitioning = false;
+        let isScrolling = false;
+        let lastTouchY = 0;
         
-        // ===== PREVENIR ZOOM =====
-        function preventZoom() {
+        // ===== MEJORAR SCROLL TÁCTIL =====
+        function improveTouchScroll() {
+            // Permitir scroll táctil normal
+            document.addEventListener('touchstart', function(e) {
+                lastTouchY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', function(e) {
+                // Permitir movimiento vertical normal
+                const currentTouchY = e.touches[0].clientY;
+                const deltaY = currentTouchY - lastTouchY;
+                
+                // Si hay movimiento vertical significativo, permitirlo
+                if (Math.abs(deltaY) > 5) {
+                    isScrolling = true;
+                }
+                lastTouchY = currentTouchY;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            }, { passive: true });
+            
+            // Mejorar scroll en iOS
+            document.body.style.webkitOverflowScrolling = 'touch';
+            
+            // Prevenir zoom pero permitir scroll
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
             }, { passive: false });
             
-            document.addEventListener('touchmove', function(e) {
-                if (e.scale !== 1) {
-                    e.preventDefault();
-                }
+            document.addEventListener('gesturechange', function(e) {
+                e.preventDefault();
             }, { passive: false });
             
+            document.addEventListener('gestureend', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+        }
+        
+        // ===== PREVENIR ZOOM PERO PERMITIR SCROLL =====
+        function preventZoomAllowScroll() {
+            // Permitir scroll con rueda del mouse
             document.addEventListener('wheel', function(e) {
                 if (e.ctrlKey) {
                     e.preventDefault();
                 }
             }, { passive: false });
             
-            // Prevenir doble tap para zoom en móviles
+            // Permitir doble tap para móviles (normalmente usado para zoom)
             let lastTouchEnd = 0;
             document.addEventListener('touchend', function(e) {
                 const now = Date.now();
                 if (now - lastTouchEnd <= 300) {
-                    e.preventDefault();
+                    // Permitir doble tap para mejor UX
+                    // e.preventDefault(); // Comentado para permitir doble tap
                 }
                 lastTouchEnd = now;
-            }, { passive: false });
+            }, { passive: true });
         }
         
         // ===== INICIALIZACIÓN =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Prevenir zoom
-            preventZoom();
+            // Mejorar scroll táctil
+            improveTouchScroll();
+            
+            // Prevenir zoom pero permitir scroll
+            preventZoomAllowScroll();
             
             // Configurar links de las opciones
             setupOptionLinks();
             
             // Iniciar carga de la página
             initPageLoad();
+            
+            // Añadir estilos para móviles
+            addMobileStyles();
         });
         
         // ===== CONFIGURAR LINKS DE OPCIONES =====
@@ -831,16 +1028,32 @@
                     card.href = optionLinks[cardId];
                 }
                 
-                // Agregar evento de clic
+                // Agregar evento de clic mejorado para táctil
                 card.addEventListener('click', function(e) {
+                    // Si está ocurriendo scroll, prevenir el clic
+                    if (isScrolling) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
+                    
                     handleOptionClick(e, cardId);
                 });
+                
+                // Mejorar feedback táctil
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-3px) scale(0.99)';
+                }, { passive: true });
+                
+                card.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                }, { passive: true });
             });
         }
         
         // ===== MANEJAR CLIC EN OPCIÓN =====
         function handleOptionClick(e, optionId) {
-            if (isTransitioning) {
+            if (isTransitioning || isScrolling) {
                 e.preventDefault();
                 return;
             }
@@ -867,14 +1080,14 @@
                 setTimeout(() => {
                     pageTransition.classList.remove('active');
                     isTransitioning = false;
-                }, 1500);
-            }, 800);
+                }, 1200);
+            }, 600);
         }
         
         // ===== INICIALIZAR CARGA DE PÁGINA =====
         function initPageLoad() {
             // Simular carga de recursos
-            const minLoadTime = 800; // Tiempo mínimo de carga (ms)
+            const minLoadTime = 600; // Tiempo reducido de carga (ms)
             const startTime = Date.now();
             
             // Ocultar loading cuando todo esté listo
@@ -888,19 +1101,51 @@
                     // Remover completamente después de la animación
                     setTimeout(() => {
                         loadingOverlay.style.display = 'none';
-                    }, 500);
+                    }, 400);
                 }, remainingTime);
             });
             
-            // Fallback: si la página tarda mucho, ocultar loading después de 2 segundos
+            // Fallback: si la página tarda mucho, ocultar loading
             setTimeout(() => {
                 if (loadingOverlay.classList.contains('hidden') === false) {
                     loadingOverlay.classList.add('hidden');
                     setTimeout(() => {
                         loadingOverlay.style.display = 'none';
-                    }, 500);
+                    }, 400);
                 }
-            }, 2000);
+            }, 1500);
+        }
+        
+        // ===== AÑADIR ESTILOS ADICIONALES PARA MÓVILES =====
+        function addMobileStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                @media (max-width: 480px) {
+                    .mobile-arrow {
+                        display: block;
+                    }
+                    
+                    .option-card {
+                        touch-action: manipulation;
+                    }
+                    
+                    /* Mejorar visualización en móviles */
+                    body {
+                        -webkit-overflow-scrolling: touch;
+                        overflow-scrolling: touch;
+                    }
+                    
+                    .main-container {
+                        padding-bottom: 10px;
+                    }
+                }
+                
+                /* Feedback visual para clics táctiles */
+                .option-card:active {
+                    background: #f8f0f5 !important;
+                }
+            `;
+            document.head.appendChild(style);
         }
         
         // ===== NOTIFICACIÓN TEMPORAL =====
@@ -934,6 +1179,7 @@
                 align-items: center;
                 gap: 12px;
                 max-width: 350px;
+                touch-action: none;
             `;
             
             // Agregar al DOM
@@ -968,7 +1214,7 @@
                 loadingOverlay.classList.add('hidden');
                 setTimeout(() => {
                     loadingOverlay.style.display = 'none';
-                }, 500);
+                }, 400);
                 
                 showNotification('Error al cargar recursos', 'error');
             }
@@ -997,25 +1243,17 @@
         // Inicializar scroll suave
         smoothScroll();
         
-        // ===== MEJORA DE RENDIMIENTO =====
-        // Precargar recursos importantes
-        function preloadCriticalResources() {
-            // Puedes agregar aquí la precarga de fuentes o imágenes críticas
-            const criticalResources = [
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
-            ];
-            
-            criticalResources.forEach(resource => {
-                const link = document.createElement('link');
-                link.rel = 'preload';
-                link.href = resource;
-                link.as = 'style';
-                document.head.appendChild(link);
-            });
+        // ===== DETECTAR DISPOSITIVO TÁCTIL =====
+        function isTouchDevice() {
+            return 'ontouchstart' in window || 
+                   navigator.maxTouchPoints > 0 || 
+                   navigator.msMaxTouchPoints > 0;
         }
         
-        // Llamar a precarga
-        preloadCriticalResources();
+        // Ajustar estilos según el dispositivo
+        if (isTouchDevice()) {
+            document.body.classList.add('touch-device');
+        }
     </script>
 </body>
 </html>
