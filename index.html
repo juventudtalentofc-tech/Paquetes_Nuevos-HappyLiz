@@ -338,7 +338,7 @@
             margin-top: 5px;
         }
         
-        /* Visualización de imagen en pantalla completa */
+        /* Visualización de imagen en pantalla completa - MEJORADO */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -360,10 +360,17 @@
             visibility: visible;
         }
         
-        .close-button {
+        /* Botones del visor - NUEVO DISEÑO CON OJITO */
+        .viewer-controls {
             position: absolute;
             top: 35px;
             right: 35px;
+            display: flex;
+            gap: 20px;
+            z-index: 2001;
+        }
+        
+        .viewer-button {
             width: 75px;
             height: 75px;
             background: white;
@@ -377,8 +384,12 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 4px solid #ffb6c1;
             box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
-            z-index: 2001;
             animation: buttonPulse 2s ease-in-out infinite alternate;
+        }
+        
+        .viewer-button:hover {
+            transform: scale(1.2);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.7);
         }
         
         .close-button:hover {
@@ -386,7 +397,18 @@
             color: white;
             transform: rotate(90deg) scale(1.2);
             border-color: #ff6b9d;
-            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.7);
+        }
+        
+        .eye-button {
+            background: linear-gradient(135deg, #a685ff, #85b8ff);
+            border-color: #9e8cff;
+            color: white;
+            animation-delay: 0.3s;
+        }
+        
+        .eye-button:hover {
+            background: linear-gradient(135deg, #9580ff, #75aaff);
+            border-color: #8a7aff;
         }
         
         .full-image-container {
@@ -418,7 +440,43 @@
             display: block;
         }
         
-        /* NO HAY TÍTULO EN EL VISOR - SOLO LA IMAGEN */
+        /* NUEVO: Información de la imagen */
+        .image-info {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 2001;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.3s;
+        }
+        
+        .image-viewer.active .image-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .image-title {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 40px;
+            border-radius: 60px;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ff6b9d;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5);
+            border: 5px solid #ffb6c1;
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+        }
+        
+        .image-title:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.7);
+        }
         
         /* Pull-to-refresh */
         .refresh-indicator {
@@ -680,9 +738,13 @@
                 font-size: 1.5rem;
             }
             
-            .close-button {
+            .viewer-controls {
                 top: 25px;
                 right: 25px;
+                gap: 15px;
+            }
+            
+            .viewer-button {
                 width: 65px;
                 height: 65px;
                 font-size: 2rem;
@@ -691,6 +753,15 @@
             .full-image-container {
                 border-width: 15px;
                 border-radius: 30px;
+            }
+            
+            .image-info {
+                bottom: 20px;
+            }
+            
+            .image-title {
+                font-size: 1.6rem;
+                padding: 15px 30px;
             }
             
             .footer {
@@ -729,9 +800,13 @@
                 height: 320px;
             }
             
-            .close-button {
+            .viewer-controls {
                 top: 20px;
                 right: 20px;
+                gap: 10px;
+            }
+            
+            .viewer-button {
                 width: 60px;
                 height: 60px;
                 font-size: 1.8rem;
@@ -740,6 +815,15 @@
             .full-image-container {
                 border-width: 10px;
                 border-radius: 25px;
+            }
+            
+            .image-info {
+                bottom: 15px;
+            }
+            
+            .image-title {
+                font-size: 1.4rem;
+                padding: 12px 20px;
             }
             
             .footer::before {
@@ -798,6 +882,98 @@
                 filter: brightness(1);
             }
         }
+        
+        /* NUEVO: Modal de zoom */
+        .zoom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .zoom-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .zoom-image {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            transform: scale(0.9);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 10px;
+            box-shadow: 0 0 80px rgba(255, 182, 193, 0.4);
+        }
+        
+        .zoom-modal.active .zoom-image {
+            transform: scale(1);
+        }
+        
+        .close-zoom {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .close-zoom:hover {
+            background: rgba(255, 107, 157, 0.8);
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        /* Notificación bonita */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #ffb6c1, #d8b4fe);
+            color: white;
+            padding: 20px 35px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.5);
+            z-index: 2002;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .notification i {
+            font-size: 1.5rem;
+            animation: spin 2s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -819,14 +995,38 @@
         </div>
     </div>
     
-    <!-- Visualizador de imagen en pantalla completa -->
+    <!-- Visualizador de imagen en pantalla completa - MEJORADO -->
     <div class="image-viewer" id="imageViewer">
-        <div class="close-button" id="closeViewer">
-            <i class="fas fa-times"></i>
+        <div class="viewer-controls">
+            <div class="viewer-button close-button" id="closeViewer">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="viewer-button eye-button" id="eyeButton" title="Ver detalles">
+                <i class="fas fa-eye"></i>
+            </div>
         </div>
+        
         <div class="full-image-container">
             <img src="" alt="Imagen en pantalla completa" class="full-image" id="fullImage">
         </div>
+        
+        <div class="image-info">
+            <div class="image-title" id="imageTitle"></div>
+        </div>
+    </div>
+    
+    <!-- Modal de zoom para el botón de ojito -->
+    <div class="zoom-modal" id="zoomModal">
+        <div class="close-zoom" id="closeZoom">
+            <i class="fas fa-times"></i>
+        </div>
+        <img src="" alt="Zoom" class="zoom-image" id="zoomImage">
+    </div>
+    
+    <!-- Notificación -->
+    <div class="notification" id="notification">
+        <i class="fas fa-star"></i>
+        <span id="notificationText">¡Imagen ampliada!</span>
     </div>
     
     <!-- Contenido principal -->
@@ -855,7 +1055,7 @@
                 image: "01.png",
                 price: "$195,000"
             },
-                        {
+            {
                 id: 1,
                 title: "Happy Express",
                 image: "1.png",
@@ -898,6 +1098,17 @@
         const fullImage = document.getElementById('fullImage');
         const closeViewer = document.getElementById('closeViewer');
         const backgroundHearts = document.getElementById('backgroundHearts');
+        const eyeButton = document.getElementById('eyeButton');
+        const imageTitle = document.getElementById('imageTitle');
+        const zoomModal = document.getElementById('zoomModal');
+        const zoomImage = document.getElementById('zoomImage');
+        const closeZoom = document.getElementById('closeZoom');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        
+        // Variables para rastrear el flayer actual
+        let currentFlayer = null;
+        let currentImageSrc = '';
         
         // Array para rastrear imágenes precargadas
         const preloadedImages = {};
@@ -1001,7 +1212,7 @@
                 
                 // Agregar evento para abrir imagen - USANDO IMAGEN PRECARGADA
                 flayerCard.addEventListener('click', function() {
-                    openImageViewerInstant(flayer.image);
+                    openImageViewerInstant(flayer);
                 });
                 
                 // Verificar si la imagen YA está cargada en caché
@@ -1018,9 +1229,15 @@
         // 3. ABRIR IMAGEN EN VISOR INSTANTÁNEAMENTE
         // ============================================
         
-        function openImageViewerInstant(imageSrc) {
+        function openImageViewerInstant(flayer) {
+            currentFlayer = flayer;
+            currentImageSrc = flayer.image;
+            
             // Usar la imagen YA PRECARGADA
-            fullImage.src = imageSrc;
+            fullImage.src = flayer.image;
+            
+            // Establecer título de la imagen
+            imageTitle.textContent = `${flayer.title} - ${flayer.price}`;
             
             // Mostrar visor
             imageViewer.classList.add('active');
@@ -1028,6 +1245,9 @@
             
             // Ajustar tamaño de la imagen en el visor
             adjustImageSize();
+            
+            // Mostrar notificación bonita
+            showNotification(`Abriendo ${flayer.title}`);
         }
         
         function adjustImageSize() {
@@ -1047,7 +1267,41 @@
         }
         
         // ============================================
-        // 4. CONFIGURACIÓN INICIAL
+        // 4. FUNCIONALIDAD DEL BOTÓN DE OJITO (ZOOM)
+        // ============================================
+        
+        function setupEyeButton() {
+            eyeButton.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevenir que se cierre el visor
+                
+                if (currentImageSrc) {
+                    // Abrir modal de zoom
+                    zoomImage.src = currentImageSrc;
+                    zoomModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Mostrar notificación
+                    showNotification("¡Zoom activado! Toca para salir");
+                }
+            });
+        }
+        
+        // ============================================
+        // 5. NOTIFICACIÓN BONITA
+        // ============================================
+        
+        function showNotification(text) {
+            notificationText.textContent = text;
+            notification.classList.add('active');
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                notification.classList.remove('active');
+            }, 3000);
+        }
+        
+        // ============================================
+        // 6. CONFIGURACIÓN INICIAL
         // ============================================
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -1059,6 +1313,12 @@
             
             // Configurar visor
             setupImageViewer();
+            
+            // Configurar botón de ojito
+            setupEyeButton();
+            
+            // Configurar modal de zoom
+            setupZoomModal();
             
             // Prevenir zoom
             preventZoom();
@@ -1108,10 +1368,33 @@
             fullImage.fetchPriority = 'high';
         }
         
+        // Configurar modal de zoom
+        function setupZoomModal() {
+            closeZoom.addEventListener('click', closeZoomModal);
+            
+            zoomModal.addEventListener('click', function(e) {
+                if (e.target === zoomModal) {
+                    closeZoomModal();
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && zoomModal.classList.contains('active')) {
+                    closeZoomModal();
+                }
+            });
+        }
+        
         // Cerrar visor
         function closeImageViewer() {
             imageViewer.classList.remove('active');
             document.body.style.overflow = 'auto';
+        }
+        
+        // Cerrar modal de zoom
+        function closeZoomModal() {
+            zoomModal.classList.remove('active');
+            document.body.style.overflow = 'hidden'; // Mantener oculto porque el visor sigue abierto
         }
         
         // Animar tarjetas
@@ -1138,7 +1421,7 @@
         }
         
         // ============================================
-        // 5. VERIFICACIÓN Y RECARGA DE IMÁGENES
+        // 7. VERIFICACIÓN Y RECARGA DE IMÁGENES
         // ============================================
         
         // Verificar cada 500ms que las imágenes estén cargadas
