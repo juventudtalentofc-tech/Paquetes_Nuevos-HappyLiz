@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy - Catálogo de Paquetes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', 'Segoe UI', 'Arial Rounded MT Bold', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f7 0%, #fef9ff 50%, #fff0f5 100%);
+            color: #5a3d5c;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            touch-action: pan-y;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Prevención de zoom */
+        html, body {
+            touch-action: manipulation;
+            overflow-x: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Decoraciones de fondo - Elementos lindos */
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 182, 193, 0.3);
+            animation: float-heart 20s linear infinite;
+        }
+        
+        .star {
+            position: absolute;
+            font-size: 18px;
+            color: rgba(255, 215, 0, 0.2);
+            animation: twinkle 15s linear infinite;
+        }
+        
+        /* Pantalla de bienvenida - MÁS RÁPIDA Y MÁS PEQUEÑA */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffd6e7 0%, #e1c6ff 50%, #c6e8ff 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow: hidden;
+            animation: welcomeExit 0.5s ease forwards;
+            animation-delay: 1.2s; /* REDUCIDO AÚN MÁS */
+        }
+        
+        .welcome-content {
+            text-align: center;
+            padding: 20px; /* REDUCIDO */
+            max-width: 500px; /* MÁS PEQUEÑO */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px; /* MÁS PEQUEÑO */
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+            position: relative;
+            z-index: 2;
+            border: 6px solid white; /* MÁS DELGADO */
+            animation: welcomeFloat 2s ease-in-out infinite alternate;
+            transform: scale(0.9); /* MÁS PEQUEÑO */
+        }
+        
+        .welcome-ornament {
+            position: absolute;
+            width: 80px; /* MÁS PEQUEÑO */
+            height: 80px; /* MÁS PEQUEÑO */
+            background: #ffb6c1;
+            border-radius: 50%;
+            top: -40px; /* AJUSTADO */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px; /* MÁS PEQUEÑO */
+            color: white;
+            box-shadow: 0 8px 15px rgba(255, 182, 193, 0.4);
+            z-index: 3;
+            animation: ornamentSpin 3s linear infinite; /* MÁS RÁPIDO */
+        }
+        
+        .welcome-title {
+            font-size: 2.2rem; /* MÁS PEQUEÑO */
+            font-weight: 900;
+            margin-bottom: 10px; /* REDUCIDO */
+            background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            animation: titleGlow 1.5s ease-in-out infinite alternate; /* MÁS RÁPIDO */
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.4rem; /* MÁS PEQUEÑO */
+            margin-bottom: 15px; /* REDUCIDO */
+            color: #ff6b9d;
+            font-weight: 700;
+            animation: bounce 1.5s ease-in-out infinite; /* MÁS RÁPIDO */
+        }
+        
+        .welcome-text {
+            font-size: 1rem; /* MÁS PEQUEÑO */
+            line-height: 1.4;
+            color: #8a6fa8;
+            margin-bottom: 25px; /* REDUCIDO */
+            max-width: 400px; /* MÁS PEQUEÑO */
+            font-weight: 500;
+            animation: textPulse 2s ease-in-out infinite; /* MÁS RÁPIDO */
+        }
+        
+        .loading-container {
+            width: 250px; /* MÁS PEQUEÑO */
+            height: 10px; /* MÁS DELGADO */
+            background: rgba(255, 182, 193, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 15px; /* REDUCIDO */
+            position: relative;
+            border: 2px solid white;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
+            border-radius: 15px;
+            animation: loading 1s cubic-bezier(0.65, 0, 0.35, 1) forwards; /* MUCHO MÁS RÁPIDO */
+        }
+        
+        /* Contenido principal */
+        .main-content {
+            display: none;
+            padding: 20px 15px 0 15px;
+            opacity: 0;
+            animation: contentFadeIn 0.5s ease forwards;
+            animation-delay: 1.3s; /* AJUSTADO */
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px; /* REDUCIDO */
+            padding: 0 15px;
+        }
+        
+        .main-title {
+            font-size: 2.5rem; /* MÁS PEQUEÑO */
+            font-weight: 900;
+            margin-bottom: 15px; /* REDUCIDO */
+            background: linear-gradient(to right, #ff85a2, #a685ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            position: relative;
+            display: inline-block;
+            padding: 0 20px; /* REDUCIDO */
+        }
+        
+        .main-title::before, .main-title::after {
+            content: "✨";
+            position: absolute;
+            color: #ffb6c1;
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .main-title::before {
+            left: -10px; /* AJUSTADO */
+        }
+        
+        .main-title::after {
+            right: -10px; /* AJUSTADO */
+        }
+        
+        .subtitle {
+            font-size: 1.1rem; /* MÁS PEQUEÑO */
+            color: #8a6fa8;
+            max-width: 600px; /* MÁS PEQUEÑO */
+            margin: 0 auto;
+            line-height: 1.5;
+            font-weight: 500;
+            padding: 0 15px; /* REDUCIDO */
+        }
+        
+        /* Contenedor de flayers */
+        .flayers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 15px 30px 15px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .flayer-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 6px solid white; /* MÁS DELGADO */
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            cursor: pointer;
+        }
+        
+        .flayer-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .flayer-card:hover {
+            transform: translateY(-15px) scale(1.03); /* MÁS SUAVE */
+            box-shadow: 0 25px 50px rgba(255, 182, 193, 0.4);
+        }
+        
+        .flayer-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px; /* MÁS DELGADO */
+            background: linear-gradient(to right, #ffb6c1, #d8b4fe, #a5b4fc);
+            z-index: 2;
+        }
+        
+        .flayer-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 380px; /* MÁS PEQUEÑO */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f8f8, #f0f0f0);
+        }
+        
+        .flayer-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        
+        .flayer-card:hover .flayer-image {
+            transform: scale(1.06); /* MÁS SUAVE */
+        }
+        
+        .flayer-price-container {
+            padding: 20px; /* REDUCIDO */
+            text-align: center;
+            background: linear-gradient(to right, #fff5f9, #f9f5ff);
+            border-top: 3px dashed #ffb6c1; /* MÁS DELGADO */
+            position: relative;
+        }
+        
+        .flayer-price-container::before {
+            content: "💖";
+            position: absolute;
+            left: 20px; /* AJUSTADO */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
+        }
+        
+        .flayer-price-container::after {
+            content: "💖";
+            position: absolute;
+            right: 20px; /* AJUSTADO */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
+        }
+        
+        .price-tag {
+            font-size: 2rem; /* MÁS PEQUEÑO */
+            font-weight: 900;
+            color: #ff6b9d;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            padding: 8px 25px; /* REDUCIDO */
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.3);
+            margin-bottom: 8px; /* REDUCIDO */
+        }
+        
+        .flayer-name {
+            font-size: 1.5rem; /* MÁS PEQUEÑO */
+            font-weight: 800;
+            color: #8a6fa8;
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        /* Visualización de imagen en pantalla completa - SIMPLIFICADO */
+        .image-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 245, 247, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .image-viewer.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Botones del visor - SIMPLIFICADOS */
+        .viewer-controls {
+            position: absolute;
+            top: 25px; /* MÁS PEQUEÑO */
+            right: 25px; /* MÁS PEQUEÑO */
+            display: flex;
+            gap: 15px; /* REDUCIDO */
+            z-index: 2001;
+        }
+        
+        .viewer-button {
+            width: 60px; /* MÁS PEQUEÑO */
+            height: 60px; /* MÁS PEQUEÑO */
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem; /* MÁS PEQUEÑO */
+            color: #ff6b9d;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid #ffb6c1; /* MÁS DELGADO */
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+        }
+        
+        .viewer-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.5);
+        }
+        
+        .close-button:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+            border-color: #ff6b9d;
+        }
+        
+        .eye-button {
+            background: linear-gradient(135deg, #a685ff, #85b8ff);
+            border-color: #9e8cff;
+            color: white;
+            text-decoration: none; /* Para el link */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .eye-button:hover {
+            background: linear-gradient(135deg, #9580ff, #75aaff);
+            border-color: #8a7aff;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .full-image-container {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 30px; /* MÁS PEQUEÑO */
+            overflow: hidden;
+            box-shadow: 0 35px 80px rgba(255, 182, 193, 0.5);
+            border: 15px solid white; /* MÁS DELGADO */
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
+            position: relative;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-viewer.active .full-image-container {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .full-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        /* INFORMACIÓN DE LA IMAGEN - SOLO INFORMACIÓN DE LA IMAGEN ACTUAL */
+        .image-info {
+            position: absolute;
+            bottom: 25px; /* MÁS PEQUEÑO */
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 2001;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.2s;
+        }
+        
+        .image-viewer.active .image-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .image-title {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px; /* REDUCIDO */
+            border-radius: 50px;
+            font-size: 1.6rem; /* MÁS PEQUEÑO */
+            font-weight: 900;
+            color: #ff6b9d;
+            box-shadow: 0 12px 30px rgba(255, 182, 193, 0.4);
+            border: 4px solid #ffb6c1; /* MÁS DELGADO */
+            backdrop-filter: blur(8px);
+        }
+        
+        /* Footer - MÁS PEQUEÑO */
+        .footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #8a6fa8;
+            font-size: 0.95rem; /* MÁS PEQUEÑO */
+            border-top: 3px dashed #ffb6c1; /* MÁS DELGADO */
+            background: white;
+            border-radius: 30px 30px 0 0; /* MÁS PEQUEÑO */
+            box-shadow: 0 -12px 30px rgba(255, 182, 193, 0.12);
+            width: 100%;
+            margin-top: auto;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: "✨";
+            position: absolute;
+            top: -20px; /* AJUSTADO */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem; /* MÁS PEQUEÑO */
+            background: white;
+            width: 60px; /* MÁS PEQUEÑO */
+            height: 60px; /* MÁS PEQUEÑO */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 3px dashed #ffb6c1; /* MÁS DELGADO */
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
+        }
+        
+        .footer-text {
+            font-size: 1rem; /* MÁS PEQUEÑO */
+            margin-bottom: 12px; /* REDUCIDO */
+            font-weight: 600;
+        }
+        
+        .footer-subtext {
+            font-size: 0.9rem; /* MÁS PEQUEÑO */
+            color: #a68faa;
+        }
+        
+        /* Animaciones - MÁS RÁPIDAS */
+        @keyframes welcomeFloat {
+            0% {
+                transform: translateY(0) scale(0.9);
+            }
+            100% {
+                transform: translateY(-10px) scale(0.92);
+            }
+        }
+        
+        @keyframes ornamentSpin {
+            0% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+        
+        @keyframes titleGlow {
+            0% {
+                filter: drop-shadow(0 0 4px rgba(255, 182, 193, 0.5));
+            }
+            100% {
+                filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.7));
+            }
+        }
+        
+        @keyframes textPulse {
+            0%, 100% {
+                opacity: 0.9;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes float-heart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px); /* MÁS SUAVE */
+            }
+        }
+        
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+        
+        @keyframes welcomeExit {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100%);
+                opacity: 0;
+                display: none;
+            }
+        }
+        
+        @keyframes contentFadeIn {
+            0% {
+                opacity: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            100% {
+                opacity: 1;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes buttonPulse {
+            0% {
+                box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+            }
+            100% {
+                box-shadow: 0 10px 35px rgba(255, 107, 157, 0.6);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 25px;
+            }
+            
+            .flayer-image-container {
+                height: 340px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 1.9rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-text {
+                font-size: 0.95rem;
+            }
+            
+            .welcome-content {
+                padding: 18px;
+                margin: 0 15px;
+                max-width: 400px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 20px;
+                padding: 0 10px 25px 10px;
+            }
+            
+            .flayer-image-container {
+                height: 320px;
+            }
+            
+            .price-tag {
+                font-size: 1.8rem;
+            }
+            
+            .flayer-name {
+                font-size: 1.3rem;
+            }
+            
+            .viewer-controls {
+                top: 20px;
+                right: 20px;
+                gap: 12px;
+            }
+            
+            .viewer-button {
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+            
+            .full-image-container {
+                border-width: 12px;
+                border-radius: 25px;
+            }
+            
+            .image-info {
+                bottom: 20px;
+            }
+            
+            .image-title {
+                font-size: 1.4rem;
+                padding: 12px 25px;
+            }
+            
+            .footer {
+                padding: 20px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .flayers-container {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+                gap: 20px;
+            }
+            
+            .welcome-title {
+                font-size: 1.7rem;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+                padding: 0 15px;
+            }
+            
+            .main-title::before, .main-title::after {
+                font-size: 1.3rem;
+            }
+            
+            .welcome-ornament {
+                width: 70px;
+                height: 70px;
+                top: -35px;
+                font-size: 30px;
+            }
+            
+            .flayer-image-container {
+                height: 300px;
+            }
+            
+            .viewer-controls {
+                top: 15px;
+                right: 15px;
+                gap: 10px;
+            }
+            
+            .viewer-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .full-image-container {
+                border-width: 10px;
+                border-radius: 20px;
+            }
+            
+            .image-info {
+                bottom: 15px;
+            }
+            
+            .image-title {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+            
+            .footer::before {
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+                top: -15px;
+            }
+            
+            .loading-container {
+                width: 200px;
+            }
+        }
+        
+        /* Scroll personalizado */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #fff5f7;
+            border-radius: 8px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
+            border-radius: 8px;
+            border: 2px solid #fff5f7;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #ff9ebb, #c9a8ff);
+        }
+        
+        /* Efecto de brillo para imágenes cargadas */
+        .image-loaded {
+            animation: imageGlow 0.4s ease;
+        }
+        
+        @keyframes imageGlow {
+            0% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.08);
+            }
+            100% {
+                filter: brightness(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decoraciones de fondo -->
+    <div class="background-hearts" id="backgroundHearts"></div>
+    
+    <!-- Pantalla de bienvenida - MÁS RÁPIDA Y PEQUEÑA -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <div class="welcome-ornament">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h1 class="welcome-title">Papeleria Happy</h1>
+            <h2 class="welcome-subtitle">PARA TUS FIESTAS ✨</h2>
+            <p class="welcome-text">Descubre nuestra exclusiva línea de papeleria.</p>
+            <div class="loading-container">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Visualizador de imagen en pantalla completa - SIMPLIFICADO -->
+    <div class="image-viewer" id="imageViewer">
+        <div class="viewer-controls">
+            <div class="viewer-button close-button" id="closeViewer">
+                <i class="fas fa-times"></i>
+            </div>
+            <!-- Botón de ojito con link - CAMBIA EL "#" POR TU LINK -->
+            <a href="#" class="viewer-button eye-button" id="eyeButton" title="Más información" target="_blank">
+                <i class="fas fa-eye"></i>
+            </a>
+        </div>
+        
+        <div class="full-image-container">
+            <img src="" alt="Imagen en pantalla completa" class="full-image" id="fullImage">
+        </div>
+        
+        <!-- SOLO INFORMACIÓN DE LA IMAGEN ACTUAL -->
+        <div class="image-info">
+            <div class="image-title" id="imageTitle"></div>
+        </div>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="main-content" id="mainContent">
+        <header class="header">
+            <h1 class="main-title">Catalogo papelera</h1>
+            <p class="subtitle">Toca cualquier imagen para verla en pantalla completa</p>
+        </header>
+        
+        <div class="flayers-container" id="flayersContainer">
+            <!-- Los flayers se cargarán INSTANTÁNEAMENTE -->
+        </div>
+        
+        <footer class="footer">
+            <p class="footer-text">© 2026 Los mejores catalogo de papelera | ¡Haz tus momentos innolvidable!</p>
+            <p class="footer-subtext">❤️ Toca las imágenes para ver en pantalla completa ❤️</p>
+        </footer>
+    </div>
+
+    <script>
+        // Datos de los flayers
+        const flayers = [
+            {
+                id: 0.1,
+                title: "...",
+                image: ".png",
+                price: "$000,000"
+            },
+            {
+                id: 1,
+                title: "C...",
+                image: ".png",
+                price: "$000,000"
+            }
+            
+        ];
+        
+        // Variables globales
+        const imageViewer = document.getElementById('imageViewer');
+        const fullImage = document.getElementById('fullImage');
+        const closeViewer = document.getElementById('closeViewer');
+        const eyeButton = document.getElementById('eyeButton');
+        const imageTitle = document.getElementById('imageTitle');
+        const backgroundHearts = document.getElementById('backgroundHearts');
+        
+        // Variable para el link del ojito - CAMBIA ESTA VARIABLE PARA CADA IMAGEN
+        let currentEyeLink = "#";
+        
+        // Array para rastrear imágenes precargadas
+        const preloadedImages = {};
+        
+        // ============================================
+        // 1. PRECARGAR IMÁGENES AL INSTANTE
+        // ============================================
+        
+        // Función para precargar imágenes de forma AGRESIVA
+        function preloadImagesAggressive() {
+            console.log("🚀 Iniciando precarga ULTRA RÁPIDA de imágenes...");
+            
+            // Crear array de promesas para todas las imágenes
+            const preloadPromises = flayers.map(flayer => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = flayer.image;
+                    
+                    // Configuración PARA MÁXIMA VELOCIDAD
+                    img.loading = 'eager';
+                    img.decoding = 'sync';
+                    img.fetchPriority = 'high';
+                    
+                    // Marcar como precargada cuando cargue
+                    img.onload = () => {
+                        console.log(`✅ Precargada: ${flayer.image}`);
+                        preloadedImages[flayer.image] = true;
+                        resolve();
+                    };
+                    
+                    // Si hay error, intentar de nuevo
+                    img.onerror = () => {
+                        console.warn(`⚠️ Error precargando ${flayer.image}, reintentando...`);
+                        setTimeout(() => {
+                            img.src = flayer.image + '?retry=' + Date.now();
+                        }, 100);
+                    };
+                    
+                    // Forzar carga insertando en DOM
+                    document.body.appendChild(img);
+                    img.style.display = 'none';
+                });
+            });
+            
+            // Esperar a que todas se precarguen
+            Promise.all(preloadPromises)
+                .then(() => {
+                    console.log("🎉 TODAS las imágenes precargadas con éxito!");
+                    
+                    // Mostrar contenido principal MUY RÁPIDO
+                    setTimeout(() => {
+                        document.getElementById('welcomeScreen').style.display = 'none';
+                        const mainContent = document.getElementById('mainContent');
+                        mainContent.style.display = 'flex';
+                        mainContent.style.flexDirection = 'column';
+                        mainContent.style.opacity = '1';
+                        
+                        // Generar flayers con imágenes YA CARGADAS
+                        generateFlayersInstant();
+                        
+                        // Animar tarjetas
+                        animateCardsOnScroll();
+                    }, 50); // SOLO 50ms de espera!
+                })
+                .catch(() => {
+                    console.log("Algunas imágenes no se precargaron, pero continuamos...");
+                });
+        }
+        
+        // ============================================
+        // 2. GENERAR FLYERS CON IMÁGENES YA CARGADAS
+        // ============================================
+        
+        function generateFlayersInstant() {
+            const container = document.getElementById('flayersContainer');
+            container.innerHTML = '';
+            
+            flayers.forEach((flayer, index) => {
+                const flayerCard = document.createElement('div');
+                flayerCard.className = 'flayer-card';
+                flayerCard.setAttribute('data-id', flayer.id);
+                
+                // Crear la tarjeta CON LA IMAGEN YA EN CACHÉ
+                flayerCard.innerHTML = `
+                    <div class="flayer-image-container">
+                        <img src="${flayer.image}" 
+                             alt="${flayer.title}" 
+                             class="flayer-image"
+                             loading="eager"
+                             decoding="sync"
+                             fetchpriority="high"
+                             onload="this.classList.add('image-loaded');">
+                    </div>
+                    <div class="flayer-price-container">
+                        <div class="price-tag">${flayer.price}</div>
+                        <div class="flayer-name">${flayer.title}</div>
+                    </div>
+                `;
+                
+                container.appendChild(flayerCard);
+                
+                // Agregar evento para abrir imagen
+                flayerCard.addEventListener('click', function() {
+                    openImageViewerInstant(flayer);
+                });
+                
+                // Verificar si la imagen YA está cargada en caché
+                setTimeout(() => {
+                    const cardImg = flayerCard.querySelector('.flayer-image');
+                    if (cardImg.complete) {
+                        cardImg.classList.add('image-loaded');
+                    }
+                }, 10);
+            });
+        }
+        
+        // ============================================
+        // 3. ABRIR IMAGEN EN VISOR
+        // ============================================
+        
+        function openImageViewerInstant(flayer) {
+            // Usar la imagen YA PRECARGADA
+            fullImage.src = flayer.image;
+            
+            // Establecer título de la imagen
+            imageTitle.textContent = `${flayer.title} - ${flayer.price}`;
+            
+            // Configurar link del botón de ojito - AQUÍ PUEDES CAMBIAR EL LINK PARA CADA IMAGEN
+            // Ejemplo: if (flayer.id === 1) { eyeButton.href = "https://tulink.com/express"; }
+            // Por ahora todos van al mismo link, pero puedes personalizar
+            eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+            
+            // Mostrar visor
+            imageViewer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Ajustar tamaño de la imagen en el visor
+            adjustImageSize();
+        }
+        
+        function adjustImageSize() {
+            if (fullImage.complete) {
+                const imgRatio = fullImage.naturalWidth / fullImage.naturalHeight;
+                
+                if (imgRatio < 0.7) {
+                    fullImage.style.padding = '15px 30px';
+                } else if (imgRatio > 1.3) {
+                    fullImage.style.padding = '30px 15px';
+                } else {
+                    fullImage.style.padding = '20px';
+                }
+            } else {
+                fullImage.onload = adjustImageSize;
+            }
+        }
+        
+        // ============================================
+        // 4. CONFIGURACIÓN INICIAL
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Crear decoraciones de fondo
+            createBackgroundDecorations();
+            
+            // INICIAR PRECARGA INMEDIATAMENTE
+            preloadImagesAggressive();
+            
+            // Configurar visor
+            setupImageViewer();
+            
+            // Prevenir zoom
+            preventZoom();
+        });
+        
+        // Crear decoraciones de fondo
+        function createBackgroundDecorations() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 20}s`;
+                backgroundHearts.appendChild(heart);
+            }
+            
+            for (let i = 0; i < 15; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '✨';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 15}s`;
+                backgroundHearts.appendChild(star);
+            }
+        }
+        
+        // Configurar visor de imágenes
+        function setupImageViewer() {
+            closeViewer.addEventListener('click', closeImageViewer);
+            
+            imageViewer.addEventListener('click', function(e) {
+                if (e.target === imageViewer) {
+                    closeImageViewer();
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && imageViewer.classList.contains('active')) {
+                    closeImageViewer();
+                }
+            });
+            
+            // Configurar imagen del visor para carga rápida
+            fullImage.loading = 'eager';
+            fullImage.decoding = 'sync';
+            fullImage.fetchPriority = 'high';
+        }
+        
+        // Cerrar visor
+        function closeImageViewer() {
+            imageViewer.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Animar tarjetas
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.flayer-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 80);
+            });
+        }
+        
+        // Prevenir zoom
+        function preventZoom() {
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        }
+        
+        // ============================================
+        // 5. VERIFICACIÓN Y RECARGA DE IMÁGENES
+        // ============================================
+        
+        // Cuando la página termine de cargar
+        window.addEventListener('load', function() {
+            console.log("✅ Página completamente cargada");
+            
+            // Forzar recarga de cualquier imagen que no se cargó
+            setTimeout(() => {
+                const allImages = document.querySelectorAll('img');
+                allImages.forEach(img => {
+                    if (!img.complete || img.naturalWidth === 0) {
+                        const currentSrc = img.src;
+                        img.src = '';
+                        setTimeout(() => {
+                            img.src = currentSrc;
+                        }, 50);
+                    }
+                });
+            }, 500);
+        });
+        
+        // Función para cambiar el link del botón de ojito según la imagen
+        function setEyeButtonLink(flayerId) {
+            // Aquí puedes personalizar el link para cada imagen
+            // Ejemplo:
+            /*
+            switch(flayerId) {
+                case 0.1:
+                    eyeButton.href = "https://tulink.com/flash";
+                    break;
+                case 1:
+                    eyeButton.href = "https://tulink.com/express";
+                    break;
+                case 2:
+                    eyeButton.href = "https://tulink.com/basic";
+                    break;
+                case 3:
+                    eyeButton.href = "https://tulink.com/plus";
+                    break;
+                case 4:
+                    eyeButton.href = "https://tulink.com/pro";
+                    break;
+                case 5:
+                    eyeButton.href = "https://tulink.com/glam";
+                    break;
+                case 6:
+                    eyeButton.href = "https://tulink.com/premium";
+                    break;
+                default:
+                    eyeButton.href = "#";
+            }
+            */
+           
+           // Por defecto, todos van al mismo link
+           eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+        }
+    </script>
+</body>
+</html>
+
