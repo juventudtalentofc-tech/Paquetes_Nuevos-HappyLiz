@@ -3,1259 +3,890 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy - Panel de Opciones</title>
+    <title>Happy Events - Sistema de Licencia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== RESET & BASE STYLES ===== */
+        /* RESET Y CONFIGURACIÓN BÁSICA */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Comic Neue', 'Arial Rounded MT Bold', sans-serif;
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
         }
         
+        /* PREVENCIÓN TOTAL DE ZOOM */
         html, body {
             width: 100%;
             height: 100%;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+            touch-action: none;
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #fff5f7 0%, #fef9ff 50%, #fff0f5 100%);
-            color: #5a3d5c;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            -webkit-overflow-scrolling: touch; /* Mejor scroll en iOS */
-        }
-        
-        /* ===== SCROLL PERMITTED ===== */
-        body, html {
-            overflow-y: auto; /* Permitir scroll vertical */
-            overflow-x: hidden; /* Prevenir scroll horizontal */
-            touch-action: pan-y; /* Permitir desplazamiento vertical */
-            -webkit-user-select: none;
+            -moz-text-size-adjust: 100%;
             user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
         }
         
-        /* ===== BACKGROUND DECORATIONS ===== */
-        .background-elements {
+        /* Estilos para prevenir zoom y gestos */
+        body {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Pantalla de bloqueo por licencia */
+        .license-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .floating-element {
-            position: absolute;
-            opacity: 0.3;
-            animation: float 25s linear infinite;
-        }
-        
-        .floating-element:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-        .floating-element:nth-child(2) { top: 20%; right: 10%; animation-delay: 3s; }
-        .floating-element:nth-child(3) { bottom: 30%; left: 15%; animation-delay: 6s; }
-        .floating-element:nth-child(4) { bottom: 20%; right: 20%; animation-delay: 9s; }
-        .floating-element:nth-child(5) { top: 50%; left: 8%; animation-delay: 12s; }
-        .floating-element:nth-child(6) { top: 60%; right: 15%; animation-delay: 15s; }
-        
-        /* ===== LOADING OVERLAY ===== */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ffd6e7 0%, #e1c6ff 50%, #c6e8ff 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            opacity: 1;
-            transition: opacity 0.5s ease;
+            color: white;
+            overflow-y: auto;
+            padding: 20px;
         }
         
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .loading-content {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
-            border: 5px solid white;
-            max-width: 400px;
-            width: 90%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .loading-icon {
-            font-size: 3.5rem;
-            color: #ff6b9d;
-            margin-bottom: 20px;
-            animation: spin 1.5s linear infinite;
-        }
-        
-        .loading-title {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .loading-subtitle {
-            font-size: 1.1rem;
-            color: #8a6fa8;
-            margin-bottom: 25px;
-        }
-        
-        .dots-loading {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        
-        .dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: linear-gradient(to right, #ff9ebb, #9e8cff);
-            animation: dotsBounce 1.4s ease-in-out infinite;
-        }
-        
-        .dot:nth-child(1) { animation-delay: -0.32s; }
-        .dot:nth-child(2) { animation-delay: -0.16s; }
-        .dot:nth-child(3) { animation-delay: 0s; }
-        
-        /* ===== MAIN CONTENT ===== */
-        .main-container {
-            flex: 1;
-            width: 100%;
+        .license-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
             max-width: 800px;
-            margin: 0 auto;
-            padding: 20px 15px;
-            position: relative;
-            z-index: 2;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-            animation-delay: 0.5s;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 0 10px;
-        }
-        
-        .main-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #ff85a2, #a685ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            display: inline-block;
-            padding: 0 20px;
-            line-height: 1.2;
-        }
-        
-        .main-title::before, .main-title::after {
-            content: "✨";
-            position: absolute;
-            color: #ffb6c1;
-            font-size: 1.8rem;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .main-title::before { left: -5px; }
-        .main-title::after { right: -5px; }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: #8a6fa8;
-            line-height: 1.5;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* ===== OPTIONS CONTAINER ===== */
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 0 10px 30px 10px;
             width: 100%;
-        }
-        
-        /* ===== OPTION CARD ===== */
-        .option-card {
-            background: white;
-            border-radius: 25px;
-            padding: 25px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.25);
-            border: 4px solid transparent;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            -webkit-tap-highlight-color: rgba(0,0,0,0);
         }
         
-        .option-card:nth-child(1) { animation-delay: 0.1s; }
-        .option-card:nth-child(2) { animation-delay: 0.2s; }
-        .option-card:nth-child(3) { animation-delay: 0.3s; }
-        .option-card:nth-child(4) { animation-delay: 0.4s; }
-        .option-card:nth-child(5) { animation-delay: 0.5s; }
-        .option-card:nth-child(6) { animation-delay: 0.6s; }
-        
-        .option-card::before {
+        /* Efecto de partículas de fondo */
+        .license-container::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 8px;
-            height: 100%;
-            background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
-            border-radius: 25px 0 0 25px;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: float 20s linear infinite;
+            z-index: -1;
         }
         
-        .option-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 60px rgba(255, 182, 193, 0.4);
-            border-color: #ffb6c1;
+        .license-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
         }
         
-        .option-card:active {
-            transform: translateY(-3px) scale(0.99);
+        .license-icon {
+            font-size: 70px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
         }
         
-        .option-icon {
-            width: 65px;
-            height: 65px;
-            min-width: 65px;
-            background: linear-gradient(135deg, #ffb6c1, #d8b4fe);
-            border-radius: 18px;
+        .license-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .license-subtitle {
+            font-size: 1.2rem;
+            color: #a0a0c0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        /* Contenedor de información de licencia */
+        .license-info {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .info-label {
+            color: #a0a0c0;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: white;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Sección de pago */
+        .payment-section {
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px dashed rgba(255, 107, 107, 0.3);
+        }
+        
+        .payment-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+        
+        .price-tag {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .payment-description {
+            color: #a0a0c0;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        /* Botones de acción */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            gap: 10px;
+            min-width: 200px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
             color: white;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        /* Campo de serial */
+        .serial-input-container {
+            margin-top: 25px;
+        }
+        
+        .serial-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #a0a0c0;
+            font-weight: 500;
+        }
+        
+        .serial-input {
+            width: 100%;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            letter-spacing: 2px;
             transition: all 0.3s ease;
         }
         
-        .option-card:hover .option-icon {
-            transform: rotate(10deg) scale(1.1);
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.6);
+        .serial-input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
         }
         
-        .option-content {
-            flex: 1;
-            min-width: 0; /* Para evitar desbordamiento en móvil */
+        /* Footer de licencia */
+        .license-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #707090;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
         
-        .option-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #ff6b9d;
-            margin-bottom: 8px;
+        .contact-info {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            line-height: 1.3;
+            color: #a0a0c0;
         }
         
-        .option-description {
-            font-size: 0.95rem;
-            color: #8a6fa8;
-            line-height: 1.4;
-        }
-        
-        .option-arrow {
-            font-size: 1.6rem;
-            color: #d8b4fe;
-            transition: all 0.3s ease;
-            min-width: 24px;
-        }
-        
-        .option-card:hover .option-arrow {
-            color: #ff6b9d;
-            transform: translateX(8px);
-        }
-        
-        /* ===== PAGE TRANSITION OVERLAY ===== */
-        .page-transition {
+        /* Modal de confirmación */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ffd6e7 0%, #e1c6ff 50%, #c6e8ff 100%);
-            z-index: 9999;
-            display: flex;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
+            z-index: 10001;
+            backdrop-filter: blur(5px);
         }
         
-        .page-transition.active {
-            opacity: 1;
-            pointer-events: all;
+        .modal-overlay.active {
+            display: flex;
         }
         
-        .transition-content {
-            text-align: center;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
-            border: 5px solid white;
-            max-width: 350px;
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
             width: 90%;
-        }
-        
-        .transition-icon {
-            font-size: 2.8rem;
-            color: #ff6b9d;
-            margin-bottom: 20px;
-            animation: spin 1s linear infinite;
-        }
-        
-        .transition-text {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #ff85a2, #a685ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
-        }
-        
-        .transition-subtext {
-            font-size: 1rem;
-            color: #8a6fa8;
-        }
-        
-        /* ===== FOOTER ===== */
-        .footer {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             text-align: center;
-            padding: 20px 15px;
-            color: #8a6fa8;
-            background: white;
-            border-top: 3px dashed #ffb6c1;
-            border-radius: 30px 30px 0 0;
-            position: relative;
-            z-index: 2;
+        }
+        
+        .modal-icon {
+            font-size: 60px;
+            color: #4ecdc4;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .modal-text {
+            color: #a0a0c0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        /* Contador de intentos */
+        .attempts-counter {
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            padding: 15px;
             margin-top: 20px;
-        }
-        
-        .footer::before {
-            content: "✨";
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.2rem;
-            background: white;
-            width: 55px;
-            height: 55px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            border: 3px dashed #ffb6c1;
-            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
-        }
-        
-        .footer-text {
-            font-size: 0.95rem;
+            text-align: center;
+            color: #ff6b6b;
             font-weight: 600;
-            margin-bottom: 8px;
+            display: none;
         }
         
-        .footer-subtext {
-            font-size: 0.85rem;
-            color: #a68faa;
+        .attempts-counter.active {
+            display: block;
         }
         
-        /* ===== ANIMATIONS ===== */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            33% {
-                transform: translateY(-20px) rotate(120deg);
-            }
-            66% {
-                transform: translateY(20px) rotate(240deg);
-            }
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
+        /* Animaciones */
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
-        @keyframes dotsBounce {
-            0%, 80%, 100% { 
-                transform: scale(0);
-                opacity: 0.5;
-            }
-            40% { 
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-30px, -30px) rotate(360deg); }
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
         }
         
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .shake {
+            animation: shake 0.5s ease-in-out;
         }
         
-        /* ===== RESPONSIVE DESIGN - MEJORADO ===== */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .main-container {
-                padding: 15px 12px;
+            .license-container {
+                padding: 25px;
+                margin: 10px;
             }
             
-            .main-title {
+            .license-title {
                 font-size: 2rem;
-                padding: 0 15px;
             }
             
-            .main-title::before, .main-title::after {
-                font-size: 1.5rem;
+            .price-tag {
+                font-size: 2.5rem;
             }
             
-            .subtitle {
-                font-size: 1rem;
-                padding: 0 5px;
+            .btn {
+                min-width: 100%;
+                padding: 14px 20px;
             }
             
-            .options-container {
-                gap: 18px;
-                padding: 0 8px 25px 8px;
+            .action-buttons {
+                flex-direction: column;
             }
             
-            .option-card {
-                padding: 22px 20px;
-                gap: 18px;
+            .info-item {
+                flex-direction: column;
+                gap: 5px;
             }
             
-            .option-icon {
-                width: 60px;
-                height: 60px;
-                min-width: 60px;
-                font-size: 1.8rem;
-                border-radius: 16px;
-            }
-            
-            .option-title {
-                font-size: 1.4rem;
-            }
-            
-            .option-description {
-                font-size: 0.9rem;
-            }
-            
-            .option-arrow {
-                font-size: 1.5rem;
-            }
-            
-            .loading-content, .transition-content {
-                padding: 25px 20px;
-            }
-            
-            .loading-title, .transition-text {
-                font-size: 1.8rem;
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
             }
         }
         
         @media (max-width: 480px) {
-            .main-title {
+            .license-container {
+                padding: 20px;
+            }
+            
+            .license-title {
                 font-size: 1.8rem;
-                padding: 0 12px;
             }
             
-            .subtitle {
-                font-size: 0.95rem;
-                padding: 0;
+            .license-subtitle {
+                font-size: 1rem;
             }
             
-            .options-container {
-                gap: 16px;
-                padding: 0 5px 20px 5px;
+            .payment-section, .license-info {
+                padding: 20px;
             }
             
-            /* DISEÑO VERTICAL MEJORADO PARA MÓVIL */
-            .option-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 25px 18px;
-                gap: 16px;
-                width: 100%;
-            }
-            
-            .option-card::before {
-                width: 100%;
-                height: 8px;
-                border-radius: 25px 25px 0 0;
-                top: 0;
-                left: 0;
-            }
-            
-            .option-content {
-                width: 100%;
-                order: 2;
-            }
-            
-            .option-icon {
-                order: 1;
-                width: 70px;
-                height: 70px;
-                min-width: 70px;
-                margin-bottom: 5px;
-            }
-            
-            .option-title {
-                justify-content: center;
-                font-size: 1.5rem;
-                margin-bottom: 10px;
-            }
-            
-            .option-description {
-                font-size: 0.95rem;
-                line-height: 1.5;
-                margin-bottom: 10px;
-            }
-            
-            .option-arrow {
-                display: none; /* Ocultamos la flecha en móvil vertical */
-            }
-            
-            /* Añadir flecha móvil alternativa */
-            .mobile-arrow {
-                display: block;
-                font-size: 1.8rem;
-                color: #ff6b9d;
-                margin-top: 10px;
-                animation: arrowPulse 2s ease-in-out infinite;
-            }
-            
-            .loading-content, .transition-content {
-                padding: 22px 18px;
-            }
-            
-            .loading-title, .transition-text {
-                font-size: 1.6rem;
-            }
-            
-            .footer {
-                padding: 18px 12px;
-            }
-            
-            .footer::before {
-                width: 50px;
-                height: 50px;
-                font-size: 1.8rem;
-                top: -18px;
+            .modal-content {
+                padding: 25px;
             }
         }
         
-        @media (max-width: 360px) {
-            .main-title {
-                font-size: 1.6rem;
-            }
-            
-            .option-card {
-                padding: 20px 15px;
-                gap: 14px;
-            }
-            
-            .option-icon {
-                width: 65px;
-                height: 65px;
-                min-width: 65px;
-                font-size: 1.7rem;
-            }
-            
-            .option-title {
-                font-size: 1.35rem;
-            }
-            
-            .option-description {
-                font-size: 0.9rem;
-            }
-            
-            .loading-content, .transition-content {
-                padding: 20px 15px;
-            }
-            
-            .loading-title, .transition-text {
-                font-size: 1.5rem;
-            }
-        }
-        
-        /* ===== DISEÑO VERTICAL EXTREMO ===== */
-        @media (max-height: 700px) and (max-width: 480px) {
-            .main-title {
-                font-size: 1.5rem;
-                margin-bottom: 10px;
-            }
-            
-            .subtitle {
-                font-size: 0.9rem;
-                margin-bottom: 20px;
-            }
-            
-            .options-container {
-                gap: 12px;
-            }
-            
-            .option-card {
-                padding: 18px 15px;
-                gap: 12px;
-            }
-            
-            .option-icon {
-                width: 55px;
-                height: 55px;
-                min-width: 55px;
-                font-size: 1.6rem;
-            }
-            
-            .option-title {
-                font-size: 1.3rem;
-                margin-bottom: 6px;
-            }
-            
-            .option-description {
-                font-size: 0.85rem;
-                margin-bottom: 8px;
-            }
-        }
-        
-        /* ===== SCROLLBAR STYLING ===== */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #fff5f7;
-            border-radius: 8px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #ffb6c1, #d8b4fe);
-            border-radius: 8px;
-            border: 2px solid #fff5f7;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, #ff9ebb, #c9a8ff);
-        }
-        
-        /* ===== ACCESSIBILITY ===== */
-        @media (prefers-reduced-motion: reduce) {
-            *, ::before, ::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        
-        /* ===== FOCUS STATES ===== */
-        .option-card:focus-visible {
-            outline: 3px solid #ff6b9d;
-            outline-offset: 3px;
-        }
-        
-        /* ===== ANIMACIONES ADICIONALES PARA MÓVIL ===== */
-        @keyframes arrowPulse {
-            0%, 100% { 
-                transform: translateY(0);
-                opacity: 0.7;
-            }
-            50% { 
-                transform: translateY(5px);
-                opacity: 1;
-            }
-        }
-        
-        /* ===== MEJORAS DE TÁCTIL ===== */
-        .option-card {
+        /* Prevenir selección de texto */
+        .no-select {
             -webkit-touch-callout: none;
-            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
-        /* ===== PREVENIR ZOOM PERO PERMITIR SCROLL ===== */
-        @media (hover: none) and (pointer: coarse) {
-            body {
-                touch-action: pan-y pinch-zoom;
-            }
-            
-            /* Mejorar feedback táctil */
-            .option-card:active {
-                background: #f8f0f5;
-                transition: background 0.1s ease;
-            }
+        /* Evitar clic derecho */
+        body {
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
-<body>
-    <!-- Background Elements -->
-    <div class="background-elements">
-        <div class="floating-element">🎨</div>
-        <div class="floating-element">📄</div>
-        <div class="floating-element">🎂</div>
-        <div class="floating-element">🍕</div>
-        <div class="floating-element">🎭</div>
-        <div class="floating-element">🍽️</div>
-    </div>
-    
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="loading-icon">
-                <i class="fas fa-spinner"></i>
+<body class="no-select">
+    <!-- Pantalla de bloqueo por licencia -->
+    <div class="license-screen" id="licenseScreen">
+        <div class="license-container">
+            <div class="license-header">
+                <div class="license-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h1 class="license-title">LICENCIA REQUERIDA</h1>
+                <p class="license-subtitle">
+                    Su sistema Happy Events ha sido bloqueado. Para continuar utilizando el software, 
+                    debe adquirir una licencia de soporte válida.
+                </p>
             </div>
-            <h1 class="loading-title">HAPPY EXPERIENCES</h1>
-            <p class="loading-subtitle">Cargando servicios especializados...</p>
-            <div class="dots-loading">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            
+            <div class="license-info">
+                <div class="info-item">
+                    <span class="info-label">ID del Sistema:</span>
+                    <span class="info-value" id="systemId">HAPPY-EV-7A83B2C9</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Fecha de Bloqueo:</span>
+                    <span class="info-value" id="blockDate">15/03/2024</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Estado de Licencia:</span>
+                    <span class="info-value" style="color: #ff6b6b;">NO VÁLIDA / EXPIRADA</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Serial de Activación:</span>
+                    <span class="info-value">ESPERANDO ACTIVACIÓN</span>
+                </div>
+            </div>
+            
+            <div class="payment-section">
+                <h2 class="payment-title">ADQUIRIR LICENCIA DE SOPORTE</h2>
+                <div class="price-tag">$11.00 USD</div>
+                <p class="payment-description">
+                    Licencia válida por 1 año incluye: Soporte técnico 24/7, Actualizaciones de seguridad, 
+                    Acceso a nuevas funciones y Asistencia prioritaria.
+                </p>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="buyLicenseBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        COMPRAR LICENCIA
+                    </button>
+                    <button class="btn btn-secondary" id="contactSupportBtn">
+                        <i class="fas fa-headset"></i>
+                        CONTACTAR SOPORTE
+                    </button>
+                </div>
+                
+                <div class="serial-input-container">
+                    <label class="serial-label">Si ya posee un serial, introdúzcalo aquí:</label>
+                    <input type="text" class="serial-input" id="serialInput" 
+                           placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19">
+                    <button class="btn btn-secondary" id="activateBtn" style="margin-top: 15px; width: 100%;">
+                        <i class="fas fa-key"></i>
+                        ACTIVAR LICENCIA
+                    </button>
+                </div>
+                
+                <div class="attempts-counter" id="attemptsCounter">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Intentos restantes: <span id="attemptsLeft">3</span>
+                </div>
+            </div>
+            
+            <div class="license-footer">
+                <p>© 2024 Happy Events System. Todos los derechos reservados.</p>
+                <p>El uso no autorizado de este software es ilegal y está sujeto a acciones legales.</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <span>www.happyevents.com/licencias</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>soporte@happyevents.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-HELP</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- Page Transition Overlay -->
-    <div class="page-transition" id="pageTransition">
-        <div class="transition-content">
-            <div class="transition-icon">
-                <i class="fas fa-spinner"></i>
+    <!-- Modal de confirmación de compra -->
+    <div class="modal-overlay" id="purchaseModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-credit-card"></i>
             </div>
-            <div class="transition-text">Redirigiendo</div>
-            <p class="transition-subtext">Preparando contenido especial...</p>
-            <div class="dots-loading">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <h2 class="modal-title">CONFIRMAR COMPRA</h2>
+            <p class="modal-text">
+                Será redirigido a nuestro portal seguro de pagos para completar la transacción.
+                <br><br>
+                <strong>Importante:</strong> Después del pago, recibirá su serial de activación por email.
+            </p>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="confirmPurchaseBtn">
+                    <i class="fas fa-check"></i>
+                    CONTINUAR AL PAGO
+                </button>
+                <button class="btn btn-secondary" id="cancelPurchaseBtn">
+                    <i class="fas fa-times"></i>
+                    CANCELAR
+                </button>
             </div>
         </div>
     </div>
     
-    <!-- Main Content -->
-    <div class="main-container">
-        <header class="header">
-            <h1 class="main-title">SERVICIOS ESPECIALIZADOS</h1>
-            <p class="subtitle">Selecciona una categoría para explorar nuestros servicios especializados.</p>
-        </header>
-        
-        <div class="options-container">
-            <!-- Opción 1 - DECORACIONES PERSONALIZADAS -->
-            <a href="#" class="option-card" data-id="1" target="_blank">
-                <div class="option-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <div class="option-content">
-                    <h3 class="option-title">
-                        <span>DECORACIONES PERSONALIZADAS</span>
-                    </h3>
-                    <p class="option-description">Transformando espacios, creando momentos especiales.</p>
-                    <div class="mobile-arrow">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                </div>
-                <div class="option-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
+    <!-- Modal de serial válido -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="modal-title">LICENCIA ACTIVADA</h2>
+            <p class="modal-text">
+                ¡Felicidades! Su licencia ha sido activada exitosamente.
+                <br><br>
+                <strong>Serial:</strong> <span id="activatedSerial"></span>
+                <br>
+                <strong>Válido hasta:</strong> <span id="expiryDate">15/03/2025</span>
+            </p>
             
-            <!-- Opción 2 - PAPELERÍA CREATIVA -->
-            <a href="#" class="option-card" data-id="2" target="_blank">
-                <div class="option-icon">
-                    <i class="fas fa-file-invoice"></i>
-                </div>
-                <div class="option-content">
-                    <h3 class="option-title">
-                        <span>PAPELERÍA CREATIVA</span>
-                    </h3>
-                    <p class="option-description">Adorna tus fiestas con detalles únicos y exclusivos.</p>
-                    <div class="mobile-arrow">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                </div>
-                <div class="option-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
-            
-            <!-- Opción 3 - TORTAS Y POSTRES -->
-            <a href="#" class="option-card" data-id="3" target="_blank">
-                <div class="option-icon">
-                    <i class="fas fa-birthday-cake"></i>
-                </div>
-                <div class="option-content">
-                    <h3 class="option-title">
-                        <span>TORTAS Y POSTRES</span>
-                    </h3>
-                    <p class="option-description">Un toque de amor en cada bocado.</p>
-                    <div class="mobile-arrow">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                </div>
-                <div class="option-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
-            
-            <!-- Opción 4 - SNACKS -->
-            <a href="#" class="option-card" data-id="4" target="_blank">
-                <div class="option-icon">
-                    <i class="fas fa-pizza-slice"></i>
-                </div>
-                <div class="option-content">
-                    <h3 class="option-title">
-                        <span>SNACKS</span>
-                    </h3>
-                    <p class="option-description">Delicias para cada momento.</p>
-                    <div class="mobile-arrow">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                </div>
-                <div class="option-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
-            
-            <!-- Opción 5 - ANIMACIÓN Y RECREACIÓN -->
-            <a href="#" class="option-card" data-id="5" target="_blank">
-                <div class="option-icon">
-                    <i class="fas fa-gamepad"></i>
-                </div>
-                <div class="option-content">
-                    <h3 class="option-title">
-                        <span>ANIMACIÓN Y RECREACIÓN</span>
-                    </h3>
-                    <p class="option-description">Juegos, risas y momentos inolvidables.</p>
-                    <div class="mobile-arrow">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                </div>
-                <div class="option-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
-            
-            <!-- Opción 6 - BUFFET Y PICADAS -->
-            <a href="#" class="option-card" data-id="6" target="_blank">
-                <div class="option-icon">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <div class="option-content">
-                    <h3 class="option-title">
-                        <span>BUFFET Y PICADAS</span>
-                    </h3>
-                    <p class="option-description">Experiencias gastronómicas para todo tipo de eventos.</p>
-                    <div class="mobile-arrow">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                </div>
-                <div class="option-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
+            <button class="btn btn-primary" id="continueBtn" style="width: 100%;">
+                <i class="fas fa-play"></i>
+                CONTINUAR AL SISTEMA
+            </button>
         </div>
     </div>
     
-    <!-- Footer -->
-    <footer class="footer">
-        <p class="footer-text">© 2026 Happy Experiences - Todos los derechos reservados</p>
-        <p class="footer-subtext">Diseñado con 💖 para crear momentos inolvidables</p>
-    </footer>
+    <!-- Modal de error -->
+    <div class="modal-overlay" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h2 class="modal-title">ERROR DE ACTIVACIÓN</h2>
+            <p class="modal-text" id="errorMessage">
+                El serial introducido no es válido o ha expirado.
+            </p>
+            
+            <button class="btn btn-secondary" id="closeErrorBtn" style="width: 100%;">
+                <i class="fas fa-redo"></i>
+                INTENTAR NUEVAMENTE
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenido principal (bloqueado hasta activación) -->
+    <div id="mainContent" style="display: none;">
+        <!-- Tu contenido de la aplicación iría aquí -->
+        <div style="padding: 50px; text-align: center;">
+            <h1>Happy Events - Sistema Principal</h1>
+            <p>Contenido de la aplicación desbloqueado</p>
+        </div>
+    </div>
 
     <script>
-        // ===== CONFIGURACIÓN DE LINKS =====
-        // CAMBIA ESTOS LINKS POR LOS TUYOS
-        const optionLinks = {
-            1: "happyliz.html",                        // Decoraciones Personalizadas
-            2: "papeleria_creativa.html",              // Papelería Creativa
-            3: "Happy_sweet.html",                     // Tortas y Postres
-            4: "snacks.html",                          // Snacks
-            5: "Animacion_recreacion.html",            // Animación y Recreación
-            6: "buffet.html"                           // Buffet y Picadas
+        // Configuración del sistema de licencia
+        const LICENSE_CONFIG = {
+            price: 11.00,
+            validSerials: [
+                "HAPPY-2024-7A83B2C9",
+                "EVENTS-PRO-5F1E8D3A",
+                "SUPPORT-2024-9B4C6D2E",
+                "LICENSE-2024-3D8F7A1C"
+            ],
+            maxAttempts: 3,
+            licenseDuration: 365 // días
         };
         
-        // ===== VARIABLES GLOBALES =====
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const pageTransition = document.getElementById('pageTransition');
-        const optionCards = document.querySelectorAll('.option-card');
-        let isTransitioning = false;
-        let isScrolling = false;
-        let lastTouchY = 0;
+        // Estado del sistema
+        let systemState = {
+            isLicensed: false,
+            attemptsLeft: LICENSE_CONFIG.maxAttempts,
+            systemId: generateSystemId(),
+            blockedDate: new Date().toLocaleDateString(),
+            enteredSerial: ""
+        };
         
-        // ===== MEJORAR SCROLL TÁCTIL =====
-        function improveTouchScroll() {
-            // Permitir scroll táctil normal
-            document.addEventListener('touchstart', function(e) {
-                lastTouchY = e.touches[0].clientY;
-            }, { passive: true });
+        // Elementos del DOM
+        const licenseScreen = document.getElementById('licenseScreen');
+        const mainContent = document.getElementById('mainContent');
+        const systemIdElement = document.getElementById('systemId');
+        const blockDateElement = document.getElementById('blockDate');
+        const serialInput = document.getElementById('serialInput');
+        const attemptsCounter = document.getElementById('attemptsCounter');
+        const attemptsLeftElement = document.getElementById('attemptsLeft');
+        
+        // Modales
+        const purchaseModal = document.getElementById('purchaseModal');
+        const successModal = document.getElementById('successModal');
+        const errorModal = document.getElementById('errorModal');
+        
+        // Inicialización del sistema
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevenir zoom y gestos
+            preventZoomAndGestures();
             
-            document.addEventListener('touchmove', function(e) {
-                // Permitir movimiento vertical normal
-                const currentTouchY = e.touches[0].clientY;
-                const deltaY = currentTouchY - lastTouchY;
-                
-                // Si hay movimiento vertical significativo, permitirlo
-                if (Math.abs(deltaY) > 5) {
-                    isScrolling = true;
-                }
-                lastTouchY = currentTouchY;
-            }, { passive: true });
+            // Configurar información del sistema
+            systemIdElement.textContent = systemState.systemId;
+            blockDateElement.textContent = systemState.blockedDate;
             
-            document.addEventListener('touchend', function() {
-                setTimeout(() => {
-                    isScrolling = false;
-                }, 100);
-            }, { passive: true });
+            // Verificar si ya hay una licencia válida (simulación)
+            checkExistingLicense();
             
-            // Mejorar scroll en iOS
-            document.body.style.webkitOverflowScrolling = 'touch';
+            // Configurar eventos
+            setupEventListeners();
             
-            // Prevenir zoom pero permitir scroll
+            // Formatear input de serial
+            formatSerialInput();
+        });
+        
+        // Prevenir zoom y gestos completamente
+        function preventZoomAndGestures() {
+            // Deshabilitar gestos de zoom
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
-            }, { passive: false });
+                return false;
+            });
             
-            document.addEventListener('gesturechange', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-            
-            document.addEventListener('gestureend', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-        }
-        
-        // ===== PREVENIR ZOOM PERO PERMITIR SCROLL =====
-        function preventZoomAllowScroll() {
-            // Permitir scroll con rueda del mouse
+            // Prevenir zoom con Ctrl+Scroll
             document.addEventListener('wheel', function(e) {
                 if (e.ctrlKey) {
                     e.preventDefault();
+                    return false;
                 }
             }, { passive: false });
             
-            // Permitir doble tap para móviles (normalmente usado para zoom)
+            // Prevenir zoom con touch
             let lastTouchEnd = 0;
             document.addEventListener('touchend', function(e) {
                 const now = Date.now();
                 if (now - lastTouchEnd <= 300) {
-                    // Permitir doble tap para mejor UX
-                    // e.preventDefault(); // Comentado para permitir doble tap
+                    e.preventDefault();
                 }
                 lastTouchEnd = now;
-            }, { passive: true });
-        }
-        
-        // ===== INICIALIZACIÓN =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mejorar scroll táctil
-            improveTouchScroll();
+            }, { passive: false });
             
-            // Prevenir zoom pero permitir scroll
-            preventZoomAllowScroll();
-            
-            // Configurar links de las opciones
-            setupOptionLinks();
-            
-            // Iniciar carga de la página
-            initPageLoad();
-            
-            // Añadir estilos para móviles
-            addMobileStyles();
-        });
-        
-        // ===== CONFIGURAR LINKS DE OPCIONES =====
-        function setupOptionLinks() {
-            optionCards.forEach(card => {
-                const cardId = card.getAttribute('data-id');
-                
-                // Asignar el link correspondiente
-                if (optionLinks[cardId]) {
-                    card.href = optionLinks[cardId];
-                }
-                
-                // Agregar evento de clic mejorado para táctil
-                card.addEventListener('click', function(e) {
-                    // Si está ocurriendo scroll, prevenir el clic
-                    if (isScrolling) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        return;
-                    }
-                    
-                    handleOptionClick(e, cardId);
-                });
-                
-                // Mejorar feedback táctil
-                card.addEventListener('touchstart', function() {
-                    this.style.transform = 'translateY(-3px) scale(0.99)';
-                }, { passive: true });
-                
-                card.addEventListener('touchend', function() {
-                    this.style.transform = '';
-                }, { passive: true });
-            });
-        }
-        
-        // ===== MANEJAR CLIC EN OPCIÓN =====
-        function handleOptionClick(e, optionId) {
-            if (isTransitioning || isScrolling) {
+            // Prevenir clic derecho
+            document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
-                return;
-            }
-            
-            // Solo procesar si el link es válido
-            if (!optionLinks[optionId] || optionLinks[optionId] === '#') {
-                e.preventDefault();
-                showNotification('Opción en desarrollo', 'info');
-                return;
-            }
-            
-            // Mostrar transición
-            e.preventDefault();
-            isTransitioning = true;
-            
-            // Mostrar overlay de transición
-            pageTransition.classList.add('active');
-            
-            // Redirigir después de mostrar la animación
-            setTimeout(() => {
-                window.open(optionLinks[optionId], '_blank');
-                
-                // Ocultar transición después de un tiempo
-                setTimeout(() => {
-                    pageTransition.classList.remove('active');
-                    isTransitioning = false;
-                }, 1200);
-            }, 600);
-        }
-        
-        // ===== INICIALIZAR CARGA DE PÁGINA =====
-        function initPageLoad() {
-            // Simular carga de recursos
-            const minLoadTime = 600; // Tiempo reducido de carga (ms)
-            const startTime = Date.now();
-            
-            // Ocultar loading cuando todo esté listo
-            window.addEventListener('load', function() {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
-                
-                setTimeout(() => {
-                    loadingOverlay.classList.add('hidden');
-                    
-                    // Remover completamente después de la animación
-                    setTimeout(() => {
-                        loadingOverlay.style.display = 'none';
-                    }, 400);
-                }, remainingTime);
+                return false;
             });
             
-            // Fallback: si la página tarda mucho, ocultar loading
-            setTimeout(() => {
-                if (loadingOverlay.classList.contains('hidden') === false) {
-                    loadingOverlay.classList.add('hidden');
-                    setTimeout(() => {
-                        loadingOverlay.style.display = 'none';
-                    }, 400);
-                }
-            }, 1500);
-        }
-        
-        // ===== AÑADIR ESTILOS ADICIONALES PARA MÓVILES =====
-        function addMobileStyles() {
-            const style = document.createElement('style');
-            style.textContent = `
-                @media (max-width: 480px) {
-                    .mobile-arrow {
-                        display: block;
-                    }
-                    
-                    .option-card {
-                        touch-action: manipulation;
-                    }
-                    
-                    /* Mejorar visualización en móviles */
-                    body {
-                        -webkit-overflow-scrolling: touch;
-                        overflow-scrolling: touch;
-                    }
-                    
-                    .main-container {
-                        padding-bottom: 10px;
-                    }
-                }
-                
-                /* Feedback visual para clics táctiles */
-                .option-card:active {
-                    background: #f8f0f5 !important;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // ===== NOTIFICACIÓN TEMPORAL =====
-        function showNotification(message, type = 'info') {
-            // Crear elemento de notificación
-            const notification = document.createElement('div');
-            notification.className = 'notification-temp';
-            notification.innerHTML = `
-                <div class="notification-content">
-                    <i class="fas fa-${type === 'info' ? 'info-circle' : 'exclamation-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            // Estilos para la notificación
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'info' ? 'linear-gradient(135deg, #ffb6c1, #d8b4fe)' : 'linear-gradient(135deg, #ff6b6b, #ff9e9e)'};
-                color: white;
-                padding: 15px 25px;
-                border-radius: 50px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                z-index: 10001;
-                opacity: 0;
-                transform: translateX(100px);
-                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                max-width: 350px;
-                touch-action: none;
-            `;
-            
-            // Agregar al DOM
-            document.body.appendChild(notification);
-            
-            // Mostrar animación
-            setTimeout(() => {
-                notification.style.opacity = '1';
-                notification.style.transform = 'translateX(0)';
-            }, 10);
-            
-            // Ocultar después de 3 segundos
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translateX(100px)';
-                
-                // Remover del DOM
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 400);
-            }, 3000);
-        }
-        
-        // ===== MANEJAR ERRORES =====
-        window.addEventListener('error', function(e) {
-            console.error('Error detectado:', e.error);
-            
-            // Ocultar loading si hay error
-            if (loadingOverlay.classList.contains('hidden') === false) {
-                loadingOverlay.classList.add('hidden');
-                setTimeout(() => {
-                    loadingOverlay.style.display = 'none';
-                }, 400);
-                
-                showNotification('Error al cargar recursos', 'error');
-            }
-        });
-        
-        // ===== SCROLL SUAVE =====
-        function smoothScroll() {
-            // Configurar scroll suave para enlaces internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
+            // Prevenir teclas de zoom (Ctrl+/-)
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
                     e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+                    return false;
+                }
             });
         }
         
-        // Inicializar scroll suave
-        smoothScroll();
-        
-        // ===== DETECTAR DISPOSITIVO TÁCTIL =====
-        function isTouchDevice() {
-            return 'ontouchstart' in window || 
-                   navigator.maxTouchPoints > 0 || 
-                   navigator.msMaxTouchPoints > 0;
+        // Generar ID único del sistema
+        function generateSystemId() {
+            const chars = '0123456789ABCDEF';
+            let id = 'HAPPY-EV-';
+            for (let i = 0; i < 8; i++) {
+                id += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return id;
         }
         
-        // Ajustar estilos según el dispositivo
-        if (isTouchDevice()) {
-            document.body.classList.add('touch-device');
+        // Verificar licencia existente
+        function checkExistingLicense() {
+            const savedLicense = localStorage.getItem('happyEventsLicense');
+            if (savedLicense) {
+                const licenseData = JSON.parse(savedLicense);
+                const expiryDate = new Date(licenseData.expiryDate);
+                const today = new Date();
+                
+                if (expiryDate > today && LICENSE_CONFIG.validSerials.includes(licenseData.serial)) {
+                    systemState.isLicensed = true;
+                    unlockSystem(licenseData.serial, licenseData.expiryDate);
+                }
+            }
         }
+        
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Botón de comprar licencia
+            document.getElementById('buyLicenseBtn').addEventListener('click', function() {
+                purchaseModal.classList.add('active');
+            });
+            
+            // Botón de contactar soporte
+            document.getElementById('contactSupportBtn').addEventListener('click', function() {
+                window.open('mailto:soporte@happyevents.com?subject=Soporte%20Licencia%20Happy%20Events', '_blank');
+            });
+            
+            // Botón de activar licencia
+            document.getElementById('activateBtn').addEventListener('click', activateLicense);
+            
+            // Confirmar compra
+            document.getElementById('confirmPurchaseBtn').addEventListener('click', function() {
+                // Simular procesamiento de pago
+                simulatePayment();
+                purchaseModal.classList.remove('active');
+            });
+            
+            // Cancelar compra
+            document.getElementById('cancelPurchaseBtn').addEventListener('click', function() {
+                purchaseModal.classList.remove('active');
+            });
+            
+            // Continuar al sistema después de activación
+            document.getElementById('continueBtn').addEventListener('click', function() {
+                successModal.classList.remove('active');
+                unlockSystem(systemState.enteredSerial, calculateExpiryDate());
+            });
+            
+            // Cerrar error
+            document.getElementById('closeErrorBtn').addEventListener('click', function() {
+                errorModal.classList.remove('active');
+            });
+            
+            // Permitir activación con Enter
+            serialInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    activateLicense();
+                }
+            });
+        }
+        
+        // Formatear input de serial
+        function formatSerialInput() {
+            serialInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^A-Z0-9-]/gi, '');
+                value = value.replace(/(.{4})(?=.)/g, '$1-');
+                e.target.value = value.substring(0, 19).toUpperCase();
+            });
+        }
+        
+        // Activar licencia
+        function activateLicense() {
+            const serial = serialInput.value.trim().toUpperCase();
+            
+            if (!serial) {
+                showError('Por favor, introduzca un serial de activación.');
+                return;
+            }
+            
+            if (systemState.attemptsLeft <= 0) {
+                showError('Ha excedido el número máximo de intentos. Contacte a soporte.');
+                return;
+            }
+            
+            // Verificar serial
+            if (LICENSE_CONFIG.validSerials.includes(serial)) {
+                // Serial válido
+                systemState.enteredSerial = serial;
+                systemState.attemptsLeft = LICENSE_CONFIG.maxAttempts;
+                
+                // Mostrar éxito
+                document.getElementById('activatedSerial').textContent = serial;
+                successModal.classList.add('active');
+                attemptsCounter.classList.remove('active');
+            } else {
+                // Serial inválido
+                systemState.attemptsLeft--;
+                updateAttemptsCounter();
+                
+                if (systemState.attemptsLeft > 0) {
+                    showError(`Serial inválido. Intentos restantes: ${systemState.attemptsLeft}`);
+                    serialInput.classList.add('shake');
+                    setTimeout(() => serialInput.classList.remove('shake'), 500);
+                } else {
+                    showError('Serial inválido. Ha agotado todos los intentos. Contacte a soporte.');
+                    attemptsCounter.classList.add('active');
+                }
+                
+                serialInput.value = '';
+                serialInput.focus();
+            }
+        }
+        
+        // Simular procesamiento de pago
+        function simulatePayment() {
+            // En un sistema real, aquí redirigiría a pasarela de pago
+            // Por ahora, generamos un serial aleatorio
+            const randomSerial = LICENSE_CONFIG.validSerials[
+                Math.floor(Math.random() * LICENSE_CONFIG.validSerials.length)
+            ];
+            
+            // Mostrar mensaje con el serial
+            alert(`Pago simulado exitoso.\n\nSu serial de activación es:\n${randomSerial}\n\nPor favor, copie este serial y actívelo en el sistema.`);
+            
+            // Autorellenar el campo de serial
+            serialInput.value = randomSerial;
+            serialInput.focus();
+        }
+        
+        // Mostrar error
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            errorModal.classList.add('active');
+        }
+        
+        // Actualizar contador de intentos
+        function updateAttemptsCounter() {
+            attemptsLeftElement.textContent = systemState.attemptsLeft;
+            if (systemState.attemptsLeft < LICENSE_CONFIG.maxAttempts) {
+                attemptsCounter.classList.add('active');
+            }
+        }
+        
+        // Calcular fecha de expiración
+        function calculateExpiryDate() {
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + LICENSE_CONFIG.licenseDuration);
+            return expiryDate;
+        }
+        
+        // Desbloquear sistema
+        function unlockSystem(serial, expiryDate) {
+            // Guardar licencia en localStorage
+            const licenseData = {
+                serial: serial,
+                expiryDate: expiryDate.toISOString(),
+                activatedDate: new Date().toISOString(),
+                systemId: systemState.systemId
+            };
+            
+            localStorage.setItem('happyEventsLicense', JSON.stringify(licenseData));
+            
+            // Ocultar pantalla de licencia y mostrar contenido principal
+            licenseScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+            systemState.isLicensed = true;
+            
+            // Registrar activación
+            console.log(`Sistema desbloqueado con serial: ${serial}`);
+        }
+        
+        // Función para probar el sistema (solo para desarrollo)
+        function testSystem() {
+            console.log('Estado del sistema:', systemState);
+            console.log('Licencia guardada:', localStorage.getItem('happyEventsLicense'));
+        }
+        
+        // Exponer función de prueba para consola
+        window.testLicenseSystem = testSystem;
     </script>
 </body>
 </html>
-
-
