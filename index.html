@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Events - Sistema de Licencia</title>
+    <title>Sistema de Licencia - Soporte Técnico 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* RESET Y CONFIGURACIÓN BÁSICA */
@@ -11,28 +11,39 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
         
-        /* PREVENCIÓN TOTAL DE ZOOM */
-        html, body {
-            width: 100%;
+        /* CONTROL DE SCROLL Y ZOOM */
+        html {
             height: 100%;
             overflow: hidden;
-            touch-action: none;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            -moz-text-size-adjust: 100%;
-            user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
         }
         
-        /* Estilos para prevenir zoom y gestos */
         body {
-            position: fixed;
-            width: 100%;
             height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        /* Permitir scroll pero controlado */
+        .license-screen {
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Prevenir zoom pero permitir desplazamiento */
+        @media (pointer: coarse) {
+            body {
+                touch-action: pan-y;
+            }
         }
         
         /* Pantalla de bloqueo por licencia */
@@ -42,229 +53,276 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             z-index: 10000;
-            color: white;
             overflow-y: auto;
             padding: 20px;
         }
         
         .license-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: white;
+            border-radius: 12px;
             padding: 40px;
             max-width: 800px;
             width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin: auto;
             position: relative;
-            overflow: hidden;
         }
         
-        /* Efecto de partículas de fondo */
-        .license-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: float 20s linear infinite;
-            z-index: -1;
-        }
-        
+        /* Header profesional */
         .license-header {
             text-align: center;
             margin-bottom: 40px;
-            position: relative;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e9ecef;
         }
         
-        .license-icon {
-            font-size: 70px;
-            color: #ff6b6b;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
         }
         
         .license-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 28px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
         }
         
         .license-subtitle {
-            font-size: 1.2rem;
-            color: #a0a0c0;
-            margin-bottom: 30px;
+            font-size: 16px;
+            color: #718096;
             line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        /* Contenedor de información de licencia */
-        .license-info {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 25px;
+        /* Información del sistema - Estilo empresarial */
+        .system-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
-            border-left: 4px solid #ff6b6b;
         }
         
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .info-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
         }
         
         .info-label {
-            color: #a0a0c0;
-            font-weight: 500;
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         
         .info-value {
-            color: white;
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #2d3748;
+            font-weight: 500;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
         }
         
-        /* Sección de pago */
-        .payment-section {
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 15px;
-            padding: 25px;
+        /* Sección de licencia */
+        .license-section {
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 30px;
             margin-bottom: 30px;
-            text-align: center;
-            border: 2px dashed rgba(255, 107, 107, 0.3);
+            border: 1px solid #e2e8f0;
         }
         
-        .payment-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ff6b6b;
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #667eea;
+        }
+        
+        /* Precio y detalles */
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
         .price-tag {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #4ecdc4;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .price-amount {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .price-period {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .features-list {
+            flex: 1;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 10px;
-            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            color: #4a5568;
         }
         
-        .payment-description {
-            color: #a0a0c0;
-            margin-bottom: 20px;
-            line-height: 1.5;
+        .feature-item i {
+            color: #48bb78;
         }
         
-        /* Botones de acción */
+        /* Input de serial */
+        .serial-container {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 25px;
+        }
+        
+        .serial-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .serial-input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .serial-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            letter-spacing: 1px;
+            color: #2d3748;
+        }
+        
+        .serial-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        /* Botones profesionales */
         .action-buttons {
             display: flex;
-            flex-wrap: wrap;
             gap: 15px;
-            justify-content: center;
+            flex-wrap: wrap;
         }
         
         .btn {
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            flex: 1;
             min-width: 200px;
         }
         
         .btn-primary {
-            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
         
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: white;
+            color: #667eea;
+            border: 2px solid #e2e8f0;
         }
         
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-3px);
+            background: #f7fafc;
+            border-color: #667eea;
         }
         
-        /* Campo de serial */
-        .serial-input-container {
-            margin-top: 25px;
+        /* Contador de intentos */
+        .attempts-warning {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            color: #c53030;
+            font-size: 14px;
         }
         
-        .serial-label {
-            display: block;
-            margin-bottom: 10px;
-            color: #a0a0c0;
-            font-weight: 500;
+        .attempts-warning.active {
+            display: flex;
         }
         
-        .serial-input {
-            width: 100%;
-            padding: 18px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: white;
-            font-size: 1.1rem;
-            font-family: 'Courier New', monospace;
-            text-align: center;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-        }
-        
-        .serial-input:focus {
-            outline: none;
-            border-color: #4ecdc4;
-            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
-        }
-        
-        /* Footer de licencia */
+        /* Footer corporativo */
         .license-footer {
             text-align: center;
-            margin-top: 30px;
-            color: #707090;
-            font-size: 0.9rem;
-            line-height: 1.6;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e9ecef;
+            color: #718096;
+            font-size: 14px;
         }
         
         .contact-info {
-            margin-top: 15px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
         
@@ -272,22 +330,29 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #a0a0c0;
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.2s ease;
         }
         
-        /* Modal de confirmación */
+        .contact-item:hover {
+            color: #764ba2;
+        }
+        
+        /* Modales */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 10001;
-            backdrop-filter: blur(5px);
+            padding: 20px;
         }
         
         .modal-overlay.active {
@@ -295,281 +360,321 @@
         }
         
         .modal-content {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 20px;
+            background: white;
+            border-radius: 12px;
             padding: 40px;
             max-width: 500px;
-            width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
             text-align: center;
+            margin-bottom: 30px;
         }
         
         .modal-icon {
-            font-size: 60px;
-            color: #4ecdc4;
-            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin: 0 auto 20px;
         }
         
         .modal-title {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
         }
         
         .modal-text {
-            color: #a0a0c0;
-            margin-bottom: 30px;
+            color: #718096;
             line-height: 1.6;
-        }
-        
-        /* Contador de intentos */
-        .attempts-counter {
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
+            margin-bottom: 30px;
             text-align: center;
-            color: #ff6b6b;
-            font-weight: 600;
-            display: none;
-        }
-        
-        .attempts-counter.active {
-            display: block;
-        }
-        
-        /* Animaciones */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-30px, -30px) rotate(360deg); }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-            20%, 40%, 60%, 80% { transform: translateX(10px); }
-        }
-        
-        .shake {
-            animation: shake 0.5s ease-in-out;
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
             .license-container {
-                padding: 25px;
+                padding: 30px 20px;
                 margin: 10px;
             }
             
-            .license-title {
-                font-size: 2rem;
+            .price-container {
+                flex-direction: column;
+                align-items: stretch;
             }
             
             .price-tag {
-                font-size: 2.5rem;
+                width: 100%;
+            }
+            
+            .serial-input-group {
+                flex-direction: column;
+            }
+            
+            .serial-input {
+                min-width: 100%;
             }
             
             .btn {
                 min-width: 100%;
-                padding: 14px 20px;
             }
             
             .action-buttons {
                 flex-direction: column;
             }
             
-            .info-item {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
             .contact-info {
                 flex-direction: column;
+                gap: 15px;
                 align-items: center;
-                gap: 10px;
+            }
+            
+            .system-info {
+                grid-template-columns: 1fr;
             }
         }
         
         @media (max-width: 480px) {
             .license-container {
-                padding: 20px;
+                padding: 20px 15px;
             }
             
             .license-title {
-                font-size: 1.8rem;
+                font-size: 24px;
             }
             
-            .license-subtitle {
-                font-size: 1rem;
-            }
-            
-            .payment-section, .license-info {
-                padding: 20px;
+            .section-title {
+                font-size: 18px;
             }
             
             .modal-content {
-                padding: 25px;
+                padding: 25px 20px;
             }
         }
         
-        /* Prevenir selección de texto */
-        .no-select {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+        /* Animaciones sutiles */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Evitar clic derecho */
-        body {
-            -webkit-tap-highlight-color: transparent;
+        .license-container {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        /* Estilos para el contenido principal (cuando se desbloquea) */
+        #mainContent {
+            display: none;
+            min-height: 100vh;
+            background: white;
+        }
+        
+        .app-header {
+            background: white;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .app-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .license-status {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .app-content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
     </style>
 </head>
-<body class="no-select">
+<body>
     <!-- Pantalla de bloqueo por licencia -->
     <div class="license-screen" id="licenseScreen">
         <div class="license-container">
             <div class="license-header">
-                <div class="license-icon">
-                    <i class="fas fa-lock"></i>
+                <div class="company-logo">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <h1 class="license-title">LICENCIA REQUERIDA</h1>
+                <h1 class="license-title">Sistema de Licencia Requerido</h1>
                 <p class="license-subtitle">
-                    Su sistema Happy Events ha sido bloqueado. Para continuar utilizando el software, 
-                    debe adquirir una licencia de soporte válida.
+                    El acceso a este sistema de soporte técnico requiere una licencia válida. 
+                    Para continuar, active su licencia existente o adquiera una nueva suscripción.
                 </p>
             </div>
             
-            <div class="license-info">
-                <div class="info-item">
-                    <span class="info-label">ID del Sistema:</span>
-                    <span class="info-value" id="systemId">HAPPY-EV-7A83B2C9</span>
+            <div class="system-info">
+                <div class="info-card">
+                    <div class="info-label">ID del Sistema</div>
+                    <div class="info-value" id="systemId">SRV-2026-8C4A9B3D</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">Fecha de Bloqueo:</span>
-                    <span class="info-value" id="blockDate">15/03/2024</span>
+                <div class="info-card">
+                    <div class="info-label">Última Verificación</div>
+                    <div class="info-value" id="checkDate">26/03/2026 14:30</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">Estado de Licencia:</span>
-                    <span class="info-value" style="color: #ff6b6b;">NO VÁLIDA / EXPIRADA</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Serial de Activación:</span>
-                    <span class="info-value">ESPERANDO ACTIVACIÓN</span>
+                <div class="info-card">
+                    <div class="info-label">Estado</div>
+                    <div class="info-value" style="color: #e53e3e;">LICENCIA REQUERIDA</div>
                 </div>
             </div>
             
-            <div class="payment-section">
-                <h2 class="payment-title">ADQUIRIR LICENCIA DE SOPORTE</h2>
-                <div class="price-tag">$11.00 USD</div>
-                <p class="payment-description">
-                    Licencia válida por 1 año incluye: Soporte técnico 24/7, Actualizaciones de seguridad, 
-                    Acceso a nuevas funciones y Asistencia prioritaria.
-                </p>
+            <div class="license-section">
+                <h2 class="section-title">
+                    <i class="fas fa-key"></i>
+                    Activar Licencia de Soporte
+                </h2>
+                
+                <div class="price-container">
+                    <div class="price-tag">
+                        <div class="price-amount">$11.00</div>
+                        <div class="price-period">por año</div>
+                    </div>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Soporte técnico prioritario 24/7</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Actualizaciones de seguridad garantizadas</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Acceso a todas las funcionalidades</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Certificación y cumplimiento</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="serial-container">
+                    <label class="serial-label">Introduzca su clave de licencia:</label>
+                    <div class="serial-input-group">
+                        <input type="text" class="serial-input" id="serialInput" 
+                               placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19">
+                        <button class="btn btn-primary" id="activateBtn">
+                            <i class="fas fa-unlock"></i>
+                            Activar Licencia
+                        </button>
+                    </div>
+                    
+                    <div class="attempts-warning" id="attemptsWarning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Intentos restantes: <span id="attemptsLeft">3</span> - Contacte soporte si necesita ayuda</span>
+                    </div>
+                </div>
                 
                 <div class="action-buttons">
                     <button class="btn btn-primary" id="buyLicenseBtn">
                         <i class="fas fa-shopping-cart"></i>
-                        COMPRAR LICENCIA
+                        Adquirir Nueva Licencia
                     </button>
                     <button class="btn btn-secondary" id="contactSupportBtn">
                         <i class="fas fa-headset"></i>
-                        CONTACTAR SOPORTE
+                        Contactar Soporte Técnico
                     </button>
-                </div>
-                
-                <div class="serial-input-container">
-                    <label class="serial-label">Si ya posee un serial, introdúzcalo aquí:</label>
-                    <input type="text" class="serial-input" id="serialInput" 
-                           placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19">
-                    <button class="btn btn-secondary" id="activateBtn" style="margin-top: 15px; width: 100%;">
-                        <i class="fas fa-key"></i>
-                        ACTIVAR LICENCIA
-                    </button>
-                </div>
-                
-                <div class="attempts-counter" id="attemptsCounter">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Intentos restantes: <span id="attemptsLeft">3</span>
                 </div>
             </div>
             
             <div class="license-footer">
-                <p>© 2024 Happy Events System. Todos los derechos reservados.</p>
-                <p>El uso no autorizado de este software es ilegal y está sujeto a acciones legales.</p>
+                <p>© 2026 Sistema de Soporte Técnico. Todos los derechos reservados.</p>
+                <p>El uso no autorizado de este software está estrictamente prohibido.</p>
                 
                 <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-globe"></i>
-                        <span>www.happyevents.com/licencias</span>
-                    </div>
-                    <div class="contact-item">
+                    <a href="mailto:soporte@tecnico2026.com" class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>soporte@happyevents.com</span>
-                    </div>
-                    <div class="contact-item">
+                        soporte@tecnico2026.com
+                    </a>
+                    <a href="tel:+15551234567" class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <span>+1 (555) 123-HELP</span>
-                    </div>
+                        +1 (555) 123-4567
+                    </a>
+                    <a href="https://licencias.tecnico2026.com" class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        licencias.tecnico2026.com
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Modal de confirmación de compra -->
+    <!-- Modal de compra -->
     <div class="modal-overlay" id="purchaseModal">
         <div class="modal-content">
-            <div class="modal-icon">
-                <i class="fas fa-credit-card"></i>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h2 class="modal-title">Proceso de Adquisición</h2>
+                <p class="modal-text">
+                    Será redirigido a nuestro portal seguro de pagos para completar la transacción.
+                    Recibirá su clave de licencia por email inmediatamente después del pago.
+                </p>
             </div>
-            <h2 class="modal-title">CONFIRMAR COMPRA</h2>
-            <p class="modal-text">
-                Será redirigido a nuestro portal seguro de pagos para completar la transacción.
-                <br><br>
-                <strong>Importante:</strong> Después del pago, recibirá su serial de activación por email.
-            </p>
             
             <div class="action-buttons">
                 <button class="btn btn-primary" id="confirmPurchaseBtn">
-                    <i class="fas fa-check"></i>
-                    CONTINUAR AL PAGO
+                    <i class="fas fa-external-link-alt"></i>
+                    Continuar al Portal de Pagos
                 </button>
                 <button class="btn btn-secondary" id="cancelPurchaseBtn">
-                    <i class="fas fa-times"></i>
-                    CANCELAR
+                    Cancelar
                 </button>
             </div>
         </div>
     </div>
     
-    <!-- Modal de serial válido -->
+    <!-- Modal de activación exitosa -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-content">
-            <div class="modal-icon">
-                <i class="fas fa-check-circle"></i>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2 class="modal-title">Licencia Activada</h2>
+                <p class="modal-text">
+                    Su licencia ha sido activada exitosamente. El sistema se reiniciará automáticamente.
+                </p>
             </div>
-            <h2 class="modal-title">LICENCIA ACTIVADA</h2>
-            <p class="modal-text">
-                ¡Felicidades! Su licencia ha sido activada exitosamente.
-                <br><br>
-                <strong>Serial:</strong> <span id="activatedSerial"></span>
-                <br>
-                <strong>Válido hasta:</strong> <span id="expiryDate">15/03/2025</span>
-            </p>
             
-            <button class="btn btn-primary" id="continueBtn" style="width: 100%;">
+            <div class="system-info" style="margin: 30px 0; background: #f1f5f9; padding: 20px; border-radius: 8px;">
+                <div class="info-card" style="border-left-color: #48bb78;">
+                    <div class="info-label">Licencia</div>
+                    <div class="info-value" id="activatedSerial">SRV-PRO-2026-ABCD1234</div>
+                </div>
+                <div class="info-card" style="border-left-color: #48bb78;">
+                    <div class="info-label">Válida hasta</div>
+                    <div class="info-value" id="expiryDate">26/03/2027</div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" id="continueBtn">
                 <i class="fas fa-play"></i>
-                CONTINUAR AL SISTEMA
+                Continuar al Sistema
             </button>
         </div>
     </div>
@@ -577,39 +682,67 @@
     <!-- Modal de error -->
     <div class="modal-overlay" id="errorModal">
         <div class="modal-content">
-            <div class="modal-icon">
-                <i class="fas fa-times-circle"></i>
+            <div class="modal-header">
+                <div class="modal-icon" style="background: #e53e3e;">
+                    <i class="fas fa-times"></i>
+                </div>
+                <h2 class="modal-title">Error de Activación</h2>
+                <p class="modal-text" id="errorMessage">
+                    La clave de licencia introducida no es válida o ha expirado.
+                </p>
             </div>
-            <h2 class="modal-title">ERROR DE ACTIVACIÓN</h2>
-            <p class="modal-text" id="errorMessage">
-                El serial introducido no es válido o ha expirado.
-            </p>
             
-            <button class="btn btn-secondary" id="closeErrorBtn" style="width: 100%;">
+            <button class="btn btn-secondary" id="closeErrorBtn">
                 <i class="fas fa-redo"></i>
-                INTENTAR NUEVAMENTE
+                Intentar Nuevamente
             </button>
         </div>
     </div>
 
-    <!-- Contenido principal (bloqueado hasta activación) -->
-    <div id="mainContent" style="display: none;">
-        <!-- Tu contenido de la aplicación iría aquí -->
-        <div style="padding: 50px; text-align: center;">
-            <h1>Happy Events - Sistema Principal</h1>
-            <p>Contenido de la aplicación desbloqueado</p>
+    <!-- Contenido principal (oculto hasta activación) -->
+    <div id="mainContent">
+        <header class="app-header">
+            <div class="app-title">
+                <i class="fas fa-tools"></i>
+                Sistema de Soporte Técnico 2026
+            </div>
+            <div class="license-status">
+                <i class="fas fa-shield-alt"></i>
+                Licencia Professional Activa
+            </div>
+        </header>
+        
+        <div class="app-content">
+            <h1>Panel de Control Principal</h1>
+            <p>Bienvenido al sistema de soporte técnico. Todas las funcionalidades están ahora disponibles.</p>
+            
+            <div class="system-info" style="margin-top: 30px;">
+                <div class="info-card">
+                    <div class="info-label">Usuario Activo</div>
+                    <div class="info-value">admin@empresa.com</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Sesión Iniciada</div>
+                    <div class="info-value" id="sessionTime">26/03/2026 14:35</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Estado del Sistema</div>
+                    <div class="info-value" style="color: #48bb78;">OPERATIVO</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Configuración del sistema de licencia
-        const LICENSE_CONFIG = {
+        // Configuración del sistema
+        const SYSTEM_CONFIG = {
             price: 11.00,
-            validSerials: [
-                "HAPPY-2024-7A83B2C9",
-                "EVENTS-PRO-5F1E8D3A",
-                "SUPPORT-2024-9B4C6D2E",
-                "LICENSE-2024-3D8F7A1C"
+            validLicenses: [
+                "SRV-PRO-2026-ABCD1234",
+                "SRV-ENT-2026-EFGH5678",
+                "SRV-TECH-2026-IJKL9012",
+                "SRV-SUPPORT-2026-MNOP3456",
+                "SRV-PREMIUM-2026-QRST7890"
             ],
             maxAttempts: 3,
             licenseDuration: 365 // días
@@ -618,19 +751,19 @@
         // Estado del sistema
         let systemState = {
             isLicensed: false,
-            attemptsLeft: LICENSE_CONFIG.maxAttempts,
+            attemptsLeft: SYSTEM_CONFIG.maxAttempts,
             systemId: generateSystemId(),
-            blockedDate: new Date().toLocaleDateString(),
-            enteredSerial: ""
+            lastCheck: getCurrentDateTime(),
+            enteredLicense: ""
         };
         
         // Elementos del DOM
         const licenseScreen = document.getElementById('licenseScreen');
         const mainContent = document.getElementById('mainContent');
         const systemIdElement = document.getElementById('systemId');
-        const blockDateElement = document.getElementById('blockDate');
+        const checkDateElement = document.getElementById('checkDate');
         const serialInput = document.getElementById('serialInput');
-        const attemptsCounter = document.getElementById('attemptsCounter');
+        const attemptsWarning = document.getElementById('attemptsWarning');
         const attemptsLeftElement = document.getElementById('attemptsLeft');
         
         // Modales
@@ -638,87 +771,56 @@
         const successModal = document.getElementById('successModal');
         const errorModal = document.getElementById('errorModal');
         
-        // Inicialización del sistema
+        // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
-            // Prevenir zoom y gestos
-            preventZoomAndGestures();
-            
             // Configurar información del sistema
             systemIdElement.textContent = systemState.systemId;
-            blockDateElement.textContent = systemState.blockedDate;
+            checkDateElement.textContent = systemState.lastCheck;
             
-            // Verificar si ya hay una licencia válida (simulación)
+            // Verificar licencia existente
             checkExistingLicense();
             
             // Configurar eventos
             setupEventListeners();
             
-            // Formatear input de serial
-            formatSerialInput();
+            // Formatear input de licencia
+            formatLicenseInput();
+            
+            // Actualizar hora de sesión
+            updateSessionTime();
         });
         
-        // Prevenir zoom y gestos completamente
-        function preventZoomAndGestures() {
-            // Deshabilitar gestos de zoom
-            document.addEventListener('gesturestart', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            
-            // Prevenir zoom con Ctrl+Scroll
-            document.addEventListener('wheel', function(e) {
-                if (e.ctrlKey) {
-                    e.preventDefault();
-                    return false;
-                }
-            }, { passive: false });
-            
-            // Prevenir zoom con touch
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', function(e) {
-                const now = Date.now();
-                if (now - lastTouchEnd <= 300) {
-                    e.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, { passive: false });
-            
-            // Prevenir clic derecho
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            
-            // Prevenir teclas de zoom (Ctrl+/-)
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
+        // Generar ID del sistema
+        function generateSystemId() {
+            const timestamp = Date.now().toString(36).toUpperCase();
+            const random = Math.random().toString(36).substr(2, 6).toUpperCase();
+            return `SRV-2026-${timestamp.substr(-4)}${random.substr(0, 4)}`;
         }
         
-        // Generar ID único del sistema
-        function generateSystemId() {
-            const chars = '0123456789ABCDEF';
-            let id = 'HAPPY-EV-';
-            for (let i = 0; i < 8; i++) {
-                id += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return id;
+        // Obtener fecha y hora actual
+        function getCurrentDateTime() {
+            const now = new Date();
+            return now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
         }
         
         // Verificar licencia existente
         function checkExistingLicense() {
-            const savedLicense = localStorage.getItem('happyEventsLicense');
+            const savedLicense = localStorage.getItem('supportSystemLicense');
             if (savedLicense) {
-                const licenseData = JSON.parse(savedLicense);
-                const expiryDate = new Date(licenseData.expiryDate);
-                const today = new Date();
-                
-                if (expiryDate > today && LICENSE_CONFIG.validSerials.includes(licenseData.serial)) {
-                    systemState.isLicensed = true;
-                    unlockSystem(licenseData.serial, licenseData.expiryDate);
+                try {
+                    const licenseData = JSON.parse(savedLicense);
+                    const expiryDate = new Date(licenseData.expiryDate);
+                    const today = new Date();
+                    
+                    if (expiryDate > today && SYSTEM_CONFIG.validLicenses.includes(licenseData.licenseKey)) {
+                        systemState.isLicensed = true;
+                        unlockSystem(licenseData.licenseKey, licenseData.expiryDate);
+                    }
+                } catch (e) {
+                    console.error('Error al cargar licencia:', e);
                 }
             }
         }
@@ -732,7 +834,7 @@
             
             // Botón de contactar soporte
             document.getElementById('contactSupportBtn').addEventListener('click', function() {
-                window.open('mailto:soporte@happyevents.com?subject=Soporte%20Licencia%20Happy%20Events', '_blank');
+                window.open('mailto:soporte@tecnico2026.com?subject=Soporte%20Técnico%20-%20Licencia', '_blank');
             });
             
             // Botón de activar licencia
@@ -740,7 +842,6 @@
             
             // Confirmar compra
             document.getElementById('confirmPurchaseBtn').addEventListener('click', function() {
-                // Simular procesamiento de pago
                 simulatePayment();
                 purchaseModal.classList.remove('active');
             });
@@ -750,18 +851,19 @@
                 purchaseModal.classList.remove('active');
             });
             
-            // Continuar al sistema después de activación
+            // Continuar al sistema
             document.getElementById('continueBtn').addEventListener('click', function() {
                 successModal.classList.remove('active');
-                unlockSystem(systemState.enteredSerial, calculateExpiryDate());
+                unlockSystem(systemState.enteredLicense, calculateExpiryDate());
             });
             
             // Cerrar error
             document.getElementById('closeErrorBtn').addEventListener('click', function() {
                 errorModal.classList.remove('active');
+                serialInput.focus();
             });
             
-            // Permitir activación con Enter
+            // Activar con Enter
             serialInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     activateLicense();
@@ -769,8 +871,8 @@
             });
         }
         
-        // Formatear input de serial
-        function formatSerialInput() {
+        // Formatear input de licencia
+        function formatLicenseInput() {
             serialInput.addEventListener('input', function(e) {
                 let value = e.target.value.replace(/[^A-Z0-9-]/gi, '');
                 value = value.replace(/(.{4})(?=.)/g, '$1-');
@@ -780,40 +882,38 @@
         
         // Activar licencia
         function activateLicense() {
-            const serial = serialInput.value.trim().toUpperCase();
+            const licenseKey = serialInput.value.trim().toUpperCase();
             
-            if (!serial) {
-                showError('Por favor, introduzca un serial de activación.');
+            if (!licenseKey) {
+                showError('Por favor, introduzca una clave de licencia válida.');
                 return;
             }
             
             if (systemState.attemptsLeft <= 0) {
-                showError('Ha excedido el número máximo de intentos. Contacte a soporte.');
+                showError('Ha excedido el número máximo de intentos. Contacte a soporte técnico.');
                 return;
             }
             
-            // Verificar serial
-            if (LICENSE_CONFIG.validSerials.includes(serial)) {
-                // Serial válido
-                systemState.enteredSerial = serial;
-                systemState.attemptsLeft = LICENSE_CONFIG.maxAttempts;
+            // Verificar licencia
+            if (SYSTEM_CONFIG.validLicenses.includes(licenseKey)) {
+                // Licencia válida
+                systemState.enteredLicense = licenseKey;
+                systemState.attemptsLeft = SYSTEM_CONFIG.maxAttempts;
                 
                 // Mostrar éxito
-                document.getElementById('activatedSerial').textContent = serial;
+                document.getElementById('activatedSerial').textContent = licenseKey;
                 successModal.classList.add('active');
-                attemptsCounter.classList.remove('active');
+                attemptsWarning.classList.remove('active');
             } else {
-                // Serial inválido
+                // Licencia inválida
                 systemState.attemptsLeft--;
-                updateAttemptsCounter();
+                updateAttemptsWarning();
                 
                 if (systemState.attemptsLeft > 0) {
-                    showError(`Serial inválido. Intentos restantes: ${systemState.attemptsLeft}`);
-                    serialInput.classList.add('shake');
-                    setTimeout(() => serialInput.classList.remove('shake'), 500);
+                    showError(`Clave de licencia inválida. Intentos restantes: ${systemState.attemptsLeft}`);
                 } else {
-                    showError('Serial inválido. Ha agotado todos los intentos. Contacte a soporte.');
-                    attemptsCounter.classList.add('active');
+                    showError('Clave de licencia inválida. Ha agotado todos los intentos. Contacte a soporte técnico.');
+                    attemptsWarning.classList.add('active');
                 }
                 
                 serialInput.value = '';
@@ -823,17 +923,28 @@
         
         // Simular procesamiento de pago
         function simulatePayment() {
-            // En un sistema real, aquí redirigiría a pasarela de pago
-            // Por ahora, generamos un serial aleatorio
-            const randomSerial = LICENSE_CONFIG.validSerials[
-                Math.floor(Math.random() * LICENSE_CONFIG.validSerials.length)
+            // En producción, aquí iría la integración con la pasarela de pagos
+            
+            // Generar una licencia aleatoria para la demostración
+            const randomLicense = SYSTEM_CONFIG.validLicenses[
+                Math.floor(Math.random() * SYSTEM_CONFIG.validLicenses.length)
             ];
             
-            // Mostrar mensaje con el serial
-            alert(`Pago simulado exitoso.\n\nSu serial de activación es:\n${randomSerial}\n\nPor favor, copie este serial y actívelo en el sistema.`);
+            // Mostrar diálogo con la licencia
+            const paymentResult = `
+                ✅ PAGO PROCESADO EXITOSAMENTE
+                
+                Clave de licencia generada:
+                ${randomLicense}
+                
+                Esta clave ha sido enviada a su correo electrónico.
+                Cópiela y péguela en el campo de activación.
+            `;
             
-            // Autorellenar el campo de serial
-            serialInput.value = randomSerial;
+            alert(paymentResult);
+            
+            // Autorellenar el campo de licencia
+            serialInput.value = randomLicense;
             serialInput.focus();
         }
         
@@ -843,50 +954,58 @@
             errorModal.classList.add('active');
         }
         
-        // Actualizar contador de intentos
-        function updateAttemptsCounter() {
+        // Actualizar advertencia de intentos
+        function updateAttemptsWarning() {
             attemptsLeftElement.textContent = systemState.attemptsLeft;
-            if (systemState.attemptsLeft < LICENSE_CONFIG.maxAttempts) {
-                attemptsCounter.classList.add('active');
+            if (systemState.attemptsLeft < SYSTEM_CONFIG.maxAttempts) {
+                attemptsWarning.classList.add('active');
             }
         }
         
         // Calcular fecha de expiración
         function calculateExpiryDate() {
             const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + LICENSE_CONFIG.licenseDuration);
+            expiryDate.setDate(expiryDate.getDate() + SYSTEM_CONFIG.licenseDuration);
             return expiryDate;
         }
         
         // Desbloquear sistema
-        function unlockSystem(serial, expiryDate) {
-            // Guardar licencia en localStorage
+        function unlockSystem(licenseKey, expiryDate) {
+            // Guardar licencia
             const licenseData = {
-                serial: serial,
+                licenseKey: licenseKey,
                 expiryDate: expiryDate.toISOString(),
-                activatedDate: new Date().toISOString(),
+                activationDate: new Date().toISOString(),
                 systemId: systemState.systemId
             };
             
-            localStorage.setItem('happyEventsLicense', JSON.stringify(licenseData));
+            localStorage.setItem('supportSystemLicense', JSON.stringify(licenseData));
             
-            // Ocultar pantalla de licencia y mostrar contenido principal
+            // Ocultar pantalla de licencia
             licenseScreen.style.display = 'none';
             mainContent.style.display = 'block';
             systemState.isLicensed = true;
             
+            // Actualizar interfaz
+            updateSessionTime();
+            
             // Registrar activación
-            console.log(`Sistema desbloqueado con serial: ${serial}`);
+            console.log(`Sistema desbloqueado con licencia: ${licenseKey}`);
         }
         
-        // Función para probar el sistema (solo para desarrollo)
-        function testSystem() {
+        // Actualizar hora de sesión
+        function updateSessionTime() {
+            const sessionTimeElement = document.getElementById('sessionTime');
+            if (sessionTimeElement) {
+                sessionTimeElement.textContent = getCurrentDateTime();
+            }
+        }
+        
+        // Función para pruebas
+        window.testLicenseSystem = function() {
             console.log('Estado del sistema:', systemState);
-            console.log('Licencia guardada:', localStorage.getItem('happyEventsLicense'));
-        }
-        
-        // Exponer función de prueba para consola
-        window.testLicenseSystem = testSystem;
+            console.log('Licencia guardada:', localStorage.getItem('supportSystemLicense'));
+        };
     </script>
 </body>
 </html>
