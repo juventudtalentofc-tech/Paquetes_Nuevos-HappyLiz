@@ -867,8 +867,8 @@
             <div class="viewer-button close-button" id="closeViewer">
                 <i class="fas fa-times"></i>
             </div>
-            <!-- Botón de ojito con link - CAMBIA EL "#" POR TU LINK -->
-            <a href="#" class="viewer-button eye-button" id="eyeButton" title="Más información" target="_blank">
+            <!-- Botón de ojito con link - AHORA DIRIGE A FOLDER3.HTML -->
+            <a href="#" class="viewer-button eye-button" id="eyeButton" title="Ver más información" target="_blank">
                 <i class="fas fa-eye"></i>
             </a>
         </div>
@@ -901,7 +901,7 @@
     </div>
 
     <script>
-        // Datos de los flayers
+        // Datos de los flayers - AQUÍ VAN TUS IMÁGENES
         const flayers = [
             {
                 id: 0.1,
@@ -915,7 +915,6 @@
                 image: "plus.png",
                 price: "$295,000"
             }
-            
         ];
         
         // Variables globales
@@ -926,8 +925,8 @@
         const imageTitle = document.getElementById('imageTitle');
         const backgroundHearts = document.getElementById('backgroundHearts');
         
-        // Variable para el link del ojito - CAMBIA ESTA VARIABLE PARA CADA IMAGEN
-        let currentEyeLink = "#";
+        // Variable para el link del ojito - AHORA TODOS VAN A FOLDER3.HTML
+        let currentEyeLink = "folder3.html";
         
         // Array para rastrear imágenes precargadas
         const preloadedImages = {};
@@ -1055,10 +1054,8 @@
             // Establecer título de la imagen
             imageTitle.textContent = `${flayer.title} - ${flayer.price}`;
             
-            // Configurar link del botón de ojito - AQUÍ PUEDES CAMBIAR EL LINK PARA CADA IMAGEN
-            // Ejemplo: if (flayer.id === 1) { eyeButton.href = "https://tulink.com/express"; }
-            // Por ahora todos van al mismo link, pero puedes personalizar
-            eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+            // Configurar link del botón de ojito - TODOS VAN A FOLDER3.HTML
+            eyeButton.href = "folder3.html";
             
             // Mostrar visor
             imageViewer.classList.add('active');
@@ -1200,40 +1197,9 @@
         
         // Función para cambiar el link del botón de ojito según la imagen
         function setEyeButtonLink(flayerId) {
-            // Aquí puedes personalizar el link para cada imagen
-            // Ejemplo:
-            /*
-            switch(flayerId) {
-                case 0.1:
-                    eyeButton.href = "https://tulink.com/flash";
-                    break;
-                case 1:
-                    eyeButton.href = "https://tulink.com/express";
-                    break;
-                case 2:
-                    eyeButton.href = "https://tulink.com/basic";
-                    break;
-                case 3:
-                    eyeButton.href = "https://tulink.com/plus";
-                    break;
-                case 4:
-                    eyeButton.href = "https://tulink.com/pro";
-                    break;
-                case 5:
-                    eyeButton.href = "https://tulink.com/glam";
-                    break;
-                case 6:
-                    eyeButton.href = "https://tulink.com/premium";
-                    break;
-                default:
-                    eyeButton.href = "#";
-            }
-            */
-           
-           // Por defecto, todos van al mismo link
-           eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+            // TODOS los botones de ojito ahora van a folder3.html
+            eyeButton.href = "folder3.html";
         }
     </script>
 </body>
 </html>
-
