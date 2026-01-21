@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy - Catálogo de Paquetes</title>
+    <title>Happy - Catálogo de Buffet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* RESET ULTRA MINIMALISTA - CERO PESO */
+        /* RESET RÁPIDO */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Arial', sans-serif; }
         
         body {
@@ -19,10 +19,9 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        /* BLOQUEAR ZOOM PARA ESTABILIDAD */
         html, body { touch-action: manipulation; overflow-x: hidden; width: 100%; }
         
-        /* BIENVENIDA SUPER RÁPIDA - 0.8s máximo */
+        /* BIENVENIDA SUPER RÁPIDA */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -37,12 +36,12 @@
             z-index: 1000;
             overflow: hidden;
             animation: welcomeExit 0.8s ease forwards;
-            animation-delay: 0.6s; /* REDUCIDO AL MÁXIMO */
+            animation-delay: 0.6s;
         }
         
         .welcome-content {
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             max-width: 400px;
             background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
@@ -52,9 +51,9 @@
         }
         
         .welcome-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 900;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -63,19 +62,19 @@
         }
         
         .welcome-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
             color: #ff6b9d;
             font-weight: 700;
         }
         
         .loading-container {
-            width: 200px;
+            width: 250px;
             height: 8px;
             background: rgba(255, 182, 193, 0.3);
             border-radius: 15px;
             overflow: hidden;
-            margin-top: 10px;
+            margin-top: 15px;
             border: 1px solid white;
         }
         
@@ -87,11 +86,11 @@
             animation: loading 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
         }
         
-        /* CONTENIDO PRINCIPAL - VISIBLE INMEDIATAMENTE */
+        /* CONTENIDO PRINCIPAL */
         .main-content {
             display: flex;
             flex-direction: column;
-            padding: 15px 10px 0 10px;
+            padding: 15px;
             opacity: 1;
             position: relative;
             z-index: 2;
@@ -100,12 +99,12 @@
         
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             padding: 0 10px;
         }
         
         .main-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
             margin-bottom: 10px;
             background: linear-gradient(to right, #ff85a2, #a685ff);
@@ -116,21 +115,22 @@
         }
         
         .subtitle {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #8a6fa8;
             max-width: 500px;
             margin: 0 auto;
-            line-height: 1.4;
+            line-height: 1.5;
         }
         
-        /* CONTENEDOR DE FLYERS - SIMPLE Y RÁPIDO */
+        /* CONTENEDOR DE FLYERS - MEJOR DISEÑO */
         .flayers-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 0 10px 20px 10px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 0 10px 30px 10px;
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
         }
         
         .flayer-card {
@@ -139,28 +139,36 @@
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2);
             transition: all 0.3s ease;
-            border: 4px solid white;
+            border: 5px solid white;
             cursor: pointer;
             opacity: 0;
             transform: translateY(10px);
             animation: cardAppear 0.4s ease forwards;
+            display: flex;
+            flex-direction: column;
+            height: 420px; /* ALTURA FIJA PARA CONSISTENCIA */
         }
         
         .flayer-image-container {
             position: relative;
             overflow: hidden;
-            height: 320px;
+            height: 320px; /* MÁS ALTO PARA MEJOR VISUALIZACIÓN */
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f8f8f8;
+            padding: 10px;
+            flex: 1;
         }
         
         .flayer-image {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain; /* MANTIENE PROPORCIONES */
+            object-position: center;
             transition: transform 0.4s ease;
+            max-width: 100%;
+            max-height: 100%;
         }
         
         .flayer-card:hover .flayer-image {
@@ -168,31 +176,36 @@
         }
         
         .flayer-price-container {
-            padding: 15px;
+            padding: 18px;
             text-align: center;
             background: linear-gradient(to right, #fff5f9, #f9f5ff);
-            border-top: 2px dashed #ffb6c1;
+            border-top: 3px dashed #ffb6c1;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .price-tag {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: #ff6b9d;
-            padding: 6px 20px;
+            padding: 8px 25px;
             background: white;
             border-radius: 50px;
             box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            display: inline-block;
         }
         
         .flayer-name {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: #8a6fa8;
-            margin-top: 3px;
+            margin-top: 5px;
         }
         
-        /* VISUALIZADOR DE IMAGEN - SIMPLIFICADO */
+        /* VISUALIZADOR DE IMAGEN - MEJORADO */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -204,6 +217,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            padding: 20px;
         }
         
         .image-viewer.active {
@@ -212,39 +226,43 @@
         }
         
         .viewer-controls {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
             display: flex;
-            gap: 12px;
+            gap: 15px;
             z-index: 2001;
         }
         
         .viewer-button {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #ff6b9d;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 2px solid #ffb6c1;
+            border: 3px solid #ffb6c1;
             box-shadow: 0 6px 20px rgba(255, 182, 193, 0.3);
             text-decoration: none;
         }
         
         .full-image-container {
-            max-width: 90%;
-            max-height: 85%;
+            max-width: 95%;
+            max-height: 90%;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 25px 60px rgba(255, 182, 193, 0.4);
-            border: 10px solid white;
+            box-shadow: 0 30px 60px rgba(255, 182, 193, 0.5);
+            border: 12px solid white;
             background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
         }
         
         .full-image {
@@ -252,24 +270,26 @@
             max-height: 100%;
             object-fit: contain;
             display: block;
+            width: auto;
+            height: auto;
         }
         
-        /* FOOTER MINIMALISTA */
+        /* FOOTER */
         .footer {
             text-align: center;
-            padding: 20px 15px;
+            padding: 25px 15px;
             color: #8a6fa8;
-            font-size: 0.9rem;
-            border-top: 2px dashed #ffb6c1;
+            font-size: 0.95rem;
+            border-top: 3px dashed #ffb6c1;
             background: white;
-            border-radius: 20px 20px 0 0;
+            border-radius: 25px 25px 0 0;
             margin-top: auto;
         }
         
-        /* ANIMACIONES MÍNIMAS ESENCIALES */
+        /* ANIMACIONES */
         @keyframes welcomeFloat {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
+            100% { transform: translateY(-10px); }
         }
         
         @keyframes loading {
@@ -292,41 +312,86 @@
             100% { opacity: 1; }
         }
         
-        /* RESPONSIVE MÍNIMO */
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 18px;
+            }
+            
+            .flayer-card {
+                height: 400px;
+            }
+            
+            .flayer-image-container {
+                height: 300px;
+            }
+            
+            .welcome-content {
+                max-width: 350px;
+                padding: 15px;
+            }
+            
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 15px;
+            }
+            
+            .flayer-card {
+                height: 380px;
             }
             
             .flayer-image-container {
                 height: 280px;
-            }
-            
-            .welcome-content {
-                max-width: 320px;
-                padding: 12px;
-            }
-            
-            .welcome-title {
-                font-size: 1.5rem;
             }
         }
         
         @media (max-width: 480px) {
             .flayers-container {
                 grid-template-columns: 1fr;
-                max-width: 300px;
+                max-width: 320px;
+                gap: 20px;
             }
             
             .main-title {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
+            }
+            
+            .flayer-card {
+                height: 400px;
+            }
+            
+            .flayer-image-container {
+                height: 300px;
+            }
+            
+            .full-image-container {
+                max-width: 98%;
+                max-height: 85%;
+                border-width: 8px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- BIENVENIDA SUPER RÁPIDA -->
+    <!-- BIENVENIDA RÁPIDA -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-content">
             <h1 class="welcome-title">Buffet Happy</h1>
@@ -353,7 +418,7 @@
         </div>
     </div>
     
-    <!-- CONTENIDO PRINCIPAL - CARGA INMEDIATA -->
+    <!-- CONTENIDO PRINCIPAL -->
     <div class="main-content" id="mainContent">
         <header class="header">
             <h1 class="main-title">Catálogo buffet</h1>
@@ -361,7 +426,7 @@
         </header>
         
         <div class="flayers-container" id="flayersContainer">
-            <!-- LAS IMÁGENES SE CARGAN DIRECTAMENTE - SIN PRECARGA -->
+            <!-- IMÁGENES SE CARGAN DIRECTAMENTE -->
         </div>
         
         <footer class="footer">
@@ -370,54 +435,47 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN ULTRA OPTIMIZADA - SIN PRECARGAS, SIN BLOQUEOS
-        
-        // Datos de los flayers
+        // DATOS DE LAS IMÁGENES
         const flayers = [
-            { id: 1, title: "Combos", image: "001.jpg", price: "Valor único" },
-            { id: 2, title: "Combos", image: "0002.jpg", price: "Valor único" },
-            { id: 3, title: "Combos", image: "0003.jpg", price: "Valor único" }
+            { id: 1, title: "Combos", image: "001.jpg", price: "Valor único", link: "#" },
+            { id: 2, title: "Combos", image: "0002.jpg", price: "Valor único", link: "#" },
+            { id: 3, title: "Combos", image: "0003.jpg", price: "Valor único", link: "#" }
         ];
         
-        // Variables globales mínimas
+        // VARIABLES GLOBALES
         const imageViewer = document.getElementById('imageViewer');
         const fullImage = document.getElementById('fullImage');
         const eyeButton = document.getElementById('eyeButton');
         
-        // ============================================
-        // FUNCIÓN PRINCIPAL - CARGA INMEDIATA
-        // ============================================
-        
-        // 1. MOSTRAR CONTENIDO PRINCIPAL AL INSTANTE
+        // FUNCIÓN PARA MOSTRAR CONTENIDO INMEDIATAMENTE
         function showContentImmediately() {
-            // Ocultar bienvenida después de 0.8s máximo
+            // Ocultar bienvenida después de 0.8s
             setTimeout(() => {
                 document.getElementById('welcomeScreen').style.display = 'none';
             }, 800);
             
-            // Generar flayers INMEDIATAMENTE
-            generateFlayersFast();
+            // Generar flyers inmediatamente
+            generateFlayers();
         }
         
-        // 2. GENERAR FLYERS CON LAZY LOADING NATIVO
-        function generateFlayersFast() {
+        // FUNCIÓN PARA GENERAR FLYERS CON IMÁGENES BIEN AJUSTADAS
+        function generateFlayers() {
             const container = document.getElementById('flayersContainer');
             
-            // Crear todas las tarjetas de una vez
             flayers.forEach((flayer, index) => {
                 const flayerCard = document.createElement('div');
                 flayerCard.className = 'flayer-card';
                 flayerCard.style.animationDelay = (index * 0.1) + 's';
                 
-                // HTML mínimo y eficiente
+                // HTML optimizado - SIN mensaje de error visible
                 flayerCard.innerHTML = `
                     <div class="flayer-image-container">
                         <img src="${flayer.image}" 
                              alt="${flayer.title}" 
                              class="flayer-image"
-                             loading="lazy"  /* Lazy loading nativo del navegador */
+                             loading="lazy"
                              decoding="async"
-                             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 400\"><rect width=\"400\" height=\"400\" fill=\"%23f0f0f0\"/><text x=\"50%\" y=\"50%\" font-family=\"Arial\" font-size=\"20\" fill=\"%23999\" text-anchor=\"middle\" dy=\".3em\">Imagen no cargada</text></svg>'">
+                             onerror="handleImageError(this)">
                     </div>
                     <div class="flayer-price-container">
                         <div class="price-tag">${flayer.price}</div>
@@ -432,36 +490,64 @@
             });
         }
         
-        // 3. ABRIR VISOR DE IMAGEN - SIMPLE Y RÁPIDO
+        // MANEJADOR DE ERRORES DE IMAGEN - SILENCIOSO
+        function handleImageError(img) {
+            // Solo cambia a un color de fondo si falla, sin mostrar mensaje
+            img.style.display = 'none';
+            img.parentElement.style.background = 'linear-gradient(135deg, #ffd6e7, #e1c6ff)';
+            img.parentElement.innerHTML = '<div style="color:#8a6fa8; font-weight:bold; font-size:1.2rem;">Imagen no disponible</div>';
+        }
+        
+        // FUNCIÓN PARA ABRIR VISOR DE IMAGEN
         function openImageViewer(flayer) {
             // Establecer imagen
             fullImage.src = flayer.image;
             
-            // Configurar link del botón de ojito (PERSONALIZAR AQUÍ)
-            // EJEMPLO: if (flayer.id === 1) eyeButton.href = "https://tu-link.com";
-            eyeButton.href = "#"; // CAMBIA ESTO POR TU LINK
+            // Configurar link del botón de ojito (CAMBIA ESTOS LINKS)
+            eyeButton.href = flayer.link;
+            
+            // Ajustar tamaño de la imagen
+            setTimeout(() => {
+                adjustImageSize();
+            }, 50);
             
             // Mostrar visor
             imageViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
         
-        // 4. CERRAR VISOR
+        // AJUSTAR TAMAÑO DE IMAGEN EN EL VISOR
+        function adjustImageSize() {
+            if (fullImage.complete && fullImage.naturalWidth > 0) {
+                const imgRatio = fullImage.naturalWidth / fullImage.naturalHeight;
+                const container = document.querySelector('.full-image-container');
+                
+                // Ajustar padding según proporción
+                if (imgRatio > 1.5) { // Imagen muy ancha
+                    container.style.padding = '20px 10px';
+                } else if (imgRatio < 0.7) { // Imagen muy alta
+                    container.style.padding = '10px 20px';
+                } else { // Proporción normal
+                    container.style.padding = '15px';
+                }
+            } else {
+                // Si no está cargada, esperar y reintentar
+                fullImage.onload = adjustImageSize;
+            }
+        }
+        
+        // CERRAR VISOR
         function closeImageViewer() {
             imageViewer.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
         
-        // ============================================
-        // INICIALIZACIÓN - LO MÁS RÁPIDO POSIBLE
-        // ============================================
-        
-        // EJECUTAR AL CARGAR EL DOM - NO ESPERAR A window.onload
+        // INICIALIZACIÓN - CARGA INMEDIATA
         document.addEventListener('DOMContentLoaded', function() {
             // 1. Mostrar contenido principal INMEDIATAMENTE
             showContentImmediately();
             
-            // 2. Configurar eventos básicos del visor
+            // 2. Configurar eventos del visor
             document.getElementById('closeViewer').addEventListener('click', closeImageViewer);
             
             imageViewer.addEventListener('click', function(e) {
@@ -474,32 +560,20 @@
                 }
             });
             
-            // 3. Prevenir zoom (para estabilidad en móviles)
+            // 3. Prevenir zoom
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
             }, { passive: false });
         });
         
-        // ============================================
-        // MECANISMOS DE RECUPERACIÓN DE ERRORES
-        // ============================================
-        
-        // Si una imagen falla, no rompe nada
-        window.addEventListener('error', function(e) {
-            if (e.target.tagName === 'IMG') {
-                console.log('Imagen no cargada:', e.target.src);
-                // No hacemos nada - la imagen mostrará el fallback del onerror
-            }
-        }, true);
-        
-        // MEJORA PROGRESIVA: Cuando la página termina de cargar
+        // MEJORA PROGRESIVA: Cuando todo cargue
         window.addEventListener('load', function() {
-            console.log('✅ Página completamente cargada');
+            console.log('✅ Página cargada completamente');
             
-            // Opcional: mejorar imágenes que fallaron
+            // Forzar carga de imágenes que puedan estar fallando
             setTimeout(() => {
-                const failedImages = document.querySelectorAll('img[src*=".jpg"]:not([src*="data:"])');
-                failedImages.forEach(img => {
+                const images = document.querySelectorAll('.flayer-image');
+                images.forEach(img => {
                     if (!img.complete || img.naturalWidth === 0) {
                         const originalSrc = img.src;
                         img.src = originalSrc + '?retry=' + Date.now();
@@ -507,6 +581,10 @@
                 });
             }, 1000);
         });
+        
+        // PERSONALIZAR LINKS PARA CADA IMAGEN
+        // Cambia los valores de "link" en el array flayers arriba
+        // Ejemplo: { id: 1, title: "Combos", image: "001.jpg", price: "Valor único", link: "https://tulink.com/paquete1" }
     </script>
 </body>
 </html>
