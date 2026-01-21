@@ -6,7 +6,7 @@
     <title>Happy Recreación - Catálogo 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ESTILOS CRÍTICOS - CARGAN PRIMERO Y MÁS RÁPIDOS */
+        /* ESTILOS CRÍTICOS - CARGAN PRIMERO */
         :root {
             --rosa: #ff85a2;
             --rosa-claro: #ffb6c1;
@@ -24,217 +24,259 @@
         }
         
         body {
-            background: linear-gradient(135deg, #fff5f7 0%, #fef9ff 100%);
+            background: linear-gradient(135deg, #fff5f7 0%, #fef9ff 50%, #fff0f5 100%);
             color: var(--morado);
             overflow-x: hidden;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             -webkit-tap-highlight-color: transparent;
         }
         
-        /* WELCOME SCREEN - INSTANTÁNEO */
+        html, body { 
+            touch-action: manipulation; 
+            overflow-x: hidden; 
+            width: 100%; 
+        }
+        
+        /* WELCOME SCREEN - RÁPIDO Y LINDO */
         .welcome-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ffd6e7 0%, #e1c6ff 100%);
+            background: linear-gradient(135deg, #ffd6e7 0%, #e1c6ff 50%, #c6e8ff 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: welcomeExit 0.3s ease forwards;
-            animation-delay: 0.3s;
+            animation: welcomeExit 0.5s ease forwards;
+            animation-delay: 0.8s;
         }
         
         .welcome-content {
             text-align: center;
-            padding: 15px;
-            max-width: 380px;
+            padding: 25px;
+            max-width: 420px;
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 15px;
-            border: 4px solid white;
-            box-shadow: 0 6px 18px rgba(255, 182, 193, 0.2);
+            border-radius: 25px;
+            box-shadow: 0 12px 35px rgba(255, 182, 193, 0.3);
+            border: 5px solid white;
+            animation: welcomeFloat 2s ease-in-out infinite alternate;
         }
         
         .welcome-ornament {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             background: var(--rosa-claro);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
+            font-size: 28px;
             color: white;
-            margin: -30px auto 10px;
-            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
-            border: 2px solid white;
+            margin: -45px auto 15px;
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4);
+            border: 3px solid white;
+            animation: ornamentSpin 3s linear infinite;
         }
         
         .welcome-title {
-            font-size: 1.6rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            margin-bottom: 5px;
-            background: linear-gradient(to right, var(--rosa), var(--lila));
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--rosa), var(--lila), var(--azul));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
         }
         
         .welcome-subtitle {
-            font-size: 0.9rem;
-            margin-bottom: 8px;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
             color: #ff6b9d;
             font-weight: 700;
+            animation: bounce 1.5s ease-in-out infinite;
         }
         
         .loading-container {
-            width: 140px;
-            height: 4px;
-            background: rgba(255, 182, 193, 0.2);
-            border-radius: 4px;
+            width: 250px;
+            height: 8px;
+            background: rgba(255, 182, 193, 0.3);
+            border-radius: 10px;
             overflow: hidden;
-            margin: 10px auto 0;
+            margin-top: 20px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
         }
         
         .loading-progress {
             width: 0%;
             height: 100%;
-            background: linear-gradient(to right, #ff9ebb, #9e8cff);
-            border-radius: 4px;
-            animation: loading 0.3s linear forwards;
+            background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
+            border-radius: 10px;
+            animation: loading 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
         }
         
-        /* CONTENIDO PRINCIPAL - VISIBLE INMEDIATAMENTE */
+        /* CONTENIDO PRINCIPAL */
         .main-content {
-            opacity: 0;
-            animation: contentFadeIn 0.2s ease forwards;
-            animation-delay: 0.4s;
-            display: flex;
+            display: none;
             flex-direction: column;
-            min-height: 100vh;
+            padding: 20px 15px 0 15px;
+            opacity: 0;
+            animation: contentFadeIn 0.5s ease forwards;
+            animation-delay: 0.9s;
+            position: relative;
+            z-index: 2;
+            flex: 1;
         }
         
         .header {
             text-align: center;
-            margin: 15px 0;
-            padding: 0 12px;
+            margin-bottom: 35px;
+            padding: 0 15px;
         }
         
         .main-title {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            margin-bottom: 6px;
+            margin-bottom: 15px;
             background: linear-gradient(to right, var(--rosa), var(--lila));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
             position: relative;
             display: inline-block;
-            padding: 0 15px;
+            padding: 0 20px;
         }
         
-        .main-title::before,
-        .main-title::after {
+        .main-title::before, .main-title::after {
             content: "✨";
             position: absolute;
             color: var(--rosa-claro);
-            font-size: 1.2rem;
+            font-size: 1.8rem;
             top: 50%;
             transform: translateY(-50%);
         }
         
-        .main-title::before { left: 0; }
-        .main-title::after { right: 0; }
+        .main-title::before { left: -5px; }
+        .main-title::after { right: -5px; }
         
         .subtitle {
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             color: var(--morado);
-            max-width: 420px;
+            max-width: 600px;
             margin: 0 auto;
-            line-height: 1.3;
+            line-height: 1.5;
         }
         
-        /* CATÁLOGO - MÁXIMA VELOCIDAD */
+        /* CONTENEDOR DE FLYERS - DISEÑO BRUTAL */
         .flayers-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            padding: 0 12px 18px;
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 0 15px 30px 15px;
+            max-width: 1200px;
             margin: 0 auto;
-            flex: 1;
         }
         
         .flayer-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.1);
-            transition: transform 0.15s ease;
-            border: 3px solid white;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 5px solid white;
             cursor: pointer;
             opacity: 0;
-            transform: translateY(5px);
-            animation: cardAppear 0.25s ease forwards;
+            transform: translateY(15px) scale(0.95);
+        }
+        
+        .flayer-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
         
         .flayer-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 25px rgba(255, 182, 193, 0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
         }
         
         .flayer-image-container {
-            height: 250px;
+            position: relative;
+            overflow: hidden;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f8f8f8;
-            position: relative;
-            overflow: hidden;
         }
         
         .flayer-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 0.2s ease;
-            will-change: transform;
-            image-rendering: -webkit-optimize-contrast;
+            transition: transform 0.5s ease;
         }
         
         .flayer-card:hover .flayer-image {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
         
         .flayer-price-container {
-            padding: 12px;
+            padding: 20px;
             text-align: center;
-            background: #fff5f9;
-            border-top: 1px dashed var(--rosa-claro);
+            background: linear-gradient(to right, #fff5f9, #f9f5ff);
+            border-top: 3px dashed var(--rosa-claro);
+            position: relative;
+        }
+        
+        .flayer-price-container::before {
+            content: "💖";
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        
+        .flayer-price-container::after {
+            content: "💖";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
         }
         
         .price-tag {
-            font-size: 1.3rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: #ff6b9d;
-            margin-bottom: 3px;
-            background: white;
-            padding: 4px 14px;
-            border-radius: 30px;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
             display: inline-block;
-            box-shadow: 0 2px 8px rgba(255, 107, 157, 0.1);
+            padding: 8px 25px;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.2);
+            margin-bottom: 8px;
         }
         
         .flayer-name {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--morado);
+            text-align: center;
+            margin-top: 5px;
         }
         
-        /* VISOR DE IMÁGENES - RÁPIDO Y SIMPLE */
+        /* VISOR DE IMAGENES - BRUTAL */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -242,43 +284,55 @@
             width: 100%;
             height: 100%;
             background: rgba(255, 245, 247, 0.98);
-            display: none;
+            display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .image-viewer.active {
-            display: flex;
+            opacity: 1;
+            visibility: visible;
         }
         
         .viewer-controls {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 25px;
+            right: 25px;
             display: flex;
-            gap: 8px;
+            gap: 15px;
             z-index: 2001;
         }
         
         .viewer-button {
-            width: 42px;
-            height: 42px;
+            width: 55px;
+            height: 55px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.1rem;
+            font-size: 1.6rem;
             color: #ff6b9d;
             cursor: pointer;
-            border: 2px solid var(--rosa-claro);
-            box-shadow: 0 4px 12px rgba(255, 182, 193, 0.15);
-            transition: transform 0.1s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid var(--rosa-claro);
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
         }
         
         .viewer-button:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.5);
+        }
+        
+        .close-button:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+            border-color: #ff6b9d;
         }
         
         .eye-button {
@@ -288,14 +342,30 @@
             text-decoration: none;
         }
         
+        .eye-button:hover {
+            background: linear-gradient(135deg, #9580ff, #75aaff);
+            border-color: #8a7aff;
+        }
+        
         .full-image-container {
-            max-width: 84%;
-            max-height: 75%;
-            border-radius: 15px;
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 25px;
             overflow: hidden;
-            border: 6px solid white;
+            box-shadow: 0 30px 70px rgba(255, 182, 193, 0.5);
+            border: 12px solid white;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
             background: white;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-viewer.active .full-image-container {
+            opacity: 1;
+            transform: scale(1);
         }
         
         .full-image {
@@ -303,36 +373,49 @@
             max-height: 100%;
             object-fit: contain;
             display: block;
-            image-rendering: -webkit-optimize-contrast;
         }
         
         .image-info {
             position: absolute;
-            bottom: 15px;
+            bottom: 25px;
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 2001;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.2s;
+        }
+        
+        .image-viewer.active .image-info {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .image-title {
             display: inline-block;
             background: rgba(255, 255, 255, 0.95);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 1.1rem;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.4rem;
             font-weight: 900;
             color: #ff6b9d;
-            border: 2px solid var(--rosa-claro);
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+            border: 3px solid var(--rosa-claro);
+            backdrop-filter: blur(8px);
         }
         
         /* FOOTER */
         .footer {
             text-align: center;
-            padding: 16px 12px;
+            padding: 25px 15px;
             color: var(--morado);
-            border-top: 1px dashed var(--rosa-claro);
+            font-size: 0.95rem;
+            border-top: 3px dashed var(--rosa-claro);
             background: white;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -10px 25px rgba(255, 182, 193, 0.12);
+            width: 100%;
             margin-top: auto;
             position: relative;
         }
@@ -340,100 +423,33 @@
         .footer::before {
             content: "✨";
             position: absolute;
-            top: -18px;
+            top: -22px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 1.6rem;
+            font-size: 2rem;
             background: white;
-            width: 40px;
-            height: 40px;
+            width: 55px;
+            height: 55px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            border: 1px dashed var(--rosa-claro);
-            box-shadow: 0 3px 10px rgba(255, 182, 193, 0.15);
+            border: 3px dashed var(--rosa-claro);
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
         }
         
         .footer-text {
-            font-size: 0.8rem;
-            margin-bottom: 4px;
-            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         
         .footer-subtext {
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             color: #a68faa;
         }
         
-        /* ANIMACIONES MÍNIMAS */
-        @keyframes welcomeExit {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100%); opacity: 0; display: none; }
-        }
-        
-        @keyframes loading {
-            100% { width: 100%; }
-        }
-        
-        @keyframes contentFadeIn {
-            100% { opacity: 1; }
-        }
-        
-        @keyframes cardAppear {
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* RESPONSIVE DESIGN */
-        @media (max-width: 768px) {
-            .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 12px;
-                padding: 0 10px 15px;
-            }
-            
-            .flayer-image-container {
-                height: 220px;
-            }
-            
-            .main-title {
-                font-size: 1.6rem;
-            }
-            
-            .welcome-title {
-                font-size: 1.4rem;
-            }
-            
-            .viewer-button {
-                width: 38px;
-                height: 38px;
-                font-size: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .flayers-container {
-                grid-template-columns: 1fr;
-                max-width: 260px;
-                gap: 10px;
-            }
-            
-            .flayer-image-container {
-                height: 200px;
-            }
-            
-            .main-title {
-                font-size: 1.4rem;
-                padding: 0 12px;
-            }
-            
-            .welcome-content {
-                padding: 12px;
-                margin: 0 10px;
-            }
-        }
-        
-        /* BACKGROUND ELEMENTS - MÍNIMOS PARA VELOCIDAD */
+        /* BACKGROUND DECORATIONS */
         .background-hearts {
             position: fixed;
             top: 0;
@@ -445,45 +461,229 @@
             overflow: hidden;
         }
         
-        .heart, .star {
+        .heart {
             position: absolute;
-            opacity: 0.15;
-            animation: float 15s linear infinite;
+            font-size: 18px;
+            color: rgba(255, 182, 193, 0.2);
+            animation: float-heart 15s linear infinite;
         }
         
-        .heart { 
-            font-size: 14px; 
-            color: var(--rosa-claro); 
+        .star {
+            position: absolute;
+            font-size: 14px;
+            color: rgba(255, 215, 0, 0.15);
+            animation: twinkle 12s linear infinite;
         }
         
-        .star { 
-            font-size: 10px; 
-            color: #ffd700; 
+        /* ANIMACIONES */
+        @keyframes welcomeFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
         }
         
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
+        @keyframes ornamentSpin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
         }
         
-        /* PREVENCIÓN DE ZOOM */
-        html, body {
-            touch-action: manipulation;
-            overflow-x: hidden;
-            width: 100%;
-            height: 100%;
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
         
-        /* MEJORAS DE PERFORMANCE MÁXIMA */
-        .flayer-image, .full-image {
-            backface-visibility: hidden;
-            -webkit-font-smoothing: antialiased;
-            transform: translateZ(0);
+        @keyframes welcomeExit {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; display: none; }
+        }
+        
+        @keyframes contentFadeIn {
+            0% { opacity: 0; display: flex; }
+            100% { opacity: 1; display: flex; }
+        }
+        
+        @keyframes float-heart {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes cardAppear {
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 22px;
+            }
+            
+            .flayer-image-container {
+                height: 320px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .welcome-content {
+                padding: 20px;
+                margin: 0 15px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 20px;
+                padding: 0 10px 25px 10px;
+            }
+            
+            .flayer-image-container {
+                height: 300px;
+            }
+            
+            .price-tag {
+                font-size: 1.6rem;
+            }
+            
+            .flayer-name {
+                font-size: 1.3rem;
+            }
+            
+            .viewer-controls {
+                top: 20px;
+                right: 20px;
+                gap: 12px;
+            }
+            
+            .viewer-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+            }
+            
+            .full-image-container {
+                border-width: 10px;
+                border-radius: 20px;
+            }
+            
+            .image-info {
+                bottom: 20px;
+            }
+            
+            .image-title {
+                font-size: 1.2rem;
+                padding: 10px 25px;
+            }
+            
+            .footer {
+                padding: 20px 15px;
+            }
+            
+            .footer::before {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+                top: -20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .flayers-container {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+                gap: 20px;
+            }
+            
+            .welcome-title {
+                font-size: 1.6rem;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+                padding: 0 15px;
+            }
+            
+            .main-title::before, .main-title::after {
+                font-size: 1.3rem;
+            }
+            
+            .welcome-ornament {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                margin: -35px auto 10px;
+            }
+            
+            .flayer-image-container {
+                height: 280px;
+            }
+            
+            .viewer-controls {
+                top: 15px;
+                right: 15px;
+                gap: 10px;
+            }
+            
+            .viewer-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .full-image-container {
+                border-width: 8px;
+                border-radius: 18px;
+            }
+            
+            .image-info {
+                bottom: 15px;
+            }
+            
+            .image-title {
+                font-size: 1.1rem;
+                padding: 8px 20px;
+            }
+            
+            .footer::before {
+                width: 45px;
+                height: 45px;
+                font-size: 1.6rem;
+                top: -15px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- WELCOME SCREEN - INSTANTÁNEO -->
+    <!-- DECORACIONES DE FONDO -->
+    <div class="background-hearts" id="backgroundHearts"></div>
+    
+    <!-- PANTALLA DE BIENVENIDA -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-content">
             <div class="welcome-ornament">
@@ -491,17 +691,14 @@
             </div>
             <h1 class="welcome-title">Happy Recreación</h1>
             <h2 class="welcome-subtitle">PARA TUS FIESTAS ✨</h2>
-            <p class="welcome-text">Descubre nuestra exclusiva línea de papelería.</p>
+            <p class="welcome-text">Descubre nuestra exclusiva línea de recreación.</p>
             <div class="loading-container">
                 <div class="loading-progress"></div>
             </div>
         </div>
     </div>
     
-    <!-- BACKGROUND ELEMENTS - MÍNIMOS -->
-    <div class="background-hearts" id="backgroundHearts"></div>
-    
-    <!-- VISOR DE IMÁGENES -->
+    <!-- VISOR DE IMAGEN -->
     <div class="image-viewer" id="imageViewer">
         <div class="viewer-controls">
             <div class="viewer-button close-button" id="closeViewer">
@@ -530,7 +727,7 @@
         </header>
         
         <div class="flayers-container" id="flayersContainer">
-            <!-- CONTENIDO GENERADO INMEDIATAMENTE -->
+            <!-- LOS FLYERS SE CARGAN INSTANTÁNEAMENTE -->
         </div>
         
         <footer class="footer">
@@ -541,10 +738,10 @@
 
     <script>
         // ============================================
-        // CÓDIGO ULTRA RÁPIDO - SIN BLOQUEOS
+        // CÓDIGO BRUTAL - CARGA INSTANTÁNEA
         // ============================================
         
-        // Datos del catálogo
+        // Datos de las imágenes
         const flayers = [
             {
                 id: 1,
@@ -555,219 +752,183 @@
         ];
         
         // ============================================
-        // INICIALIZACIÓN INSTANTÁNEA - SIN ESPERAR
+        // INICIALIZACIÓN INMEDIATA
         // ============================================
         
-        // Ejecutar inmediatamente
-        (function init() {
-            // 1. Generar contenido INMEDIATAMENTE
-            generateContentImmediately();
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Crear decoraciones (rápido)
+            createBackgroundDecorations();
             
-            // 2. Configurar eventos (no bloquea)
-            setTimeout(setupEssentialEvents, 10);
+            // 2. Mostrar contenido inmediatamente
+            setTimeout(showMainContent, 50);
             
-            // 3. Carga de imágenes (background)
-            setTimeout(loadImagesIntelligently, 20);
+            // 3. Configurar eventos del visor
+            setupImageViewer();
             
-            // 4. Decoraciones mínimas (más tarde)
-            setTimeout(createBackgroundDecorations, 300);
-        })();
+            // 4. Prevenir zoom
+            preventZoom();
+        });
         
         // ============================================
-        // GENERAR CONTENIDO - SIN BLOQUEAR RENDER
+        // FUNCIONES PRINCIPALES
         // ============================================
         
-        function generateContentImmediately() {
+        function showMainContent() {
+            // Ocultar bienvenida después de 0.8s
+            setTimeout(() => {
+                document.getElementById('welcomeScreen').style.display = 'none';
+                const mainContent = document.getElementById('mainContent');
+                mainContent.style.display = 'flex';
+                mainContent.style.flexDirection = 'column';
+                mainContent.style.opacity = '1';
+                
+                // Generar flyers
+                generateFlayers();
+                
+                // Animar tarjetas
+                setTimeout(animateCards, 100);
+            }, 50);
+        }
+        
+        function generateFlayers() {
             const container = document.getElementById('flayersContainer');
             
-            // HTML mínimo para mostrar rápido
-            let html = '';
-            
             flayers.forEach((flayer, index) => {
-                html += `
-                <div class="flayer-card" data-id="${flayer.id}" 
-                     style="animation-delay: ${index * 0.04}s">
+                const flayerCard = document.createElement('div');
+                flayerCard.className = 'flayer-card';
+                flayerCard.setAttribute('data-id', flayer.id);
+                
+                // Crear tarjeta con carga optimizada
+                flayerCard.innerHTML = `
                     <div class="flayer-image-container">
                         <img src="${flayer.image}" 
-                             alt="${flayer.title}"
+                             alt="${flayer.title}" 
                              class="flayer-image"
                              loading="eager"
                              decoding="async"
-                             fetchpriority="high"
-                             style="opacity:0"
-                             onload="this.style.opacity='1'; this.style.transition='opacity 0.1s ease'">
+                             onload="this.classList.add('loaded');">
                     </div>
                     <div class="flayer-price-container">
                         <div class="price-tag">${flayer.price}</div>
                         <div class="flayer-name">${flayer.title}</div>
                     </div>
-                </div>
                 `;
-            });
-            
-            container.innerHTML = html;
-            
-            // Asignar eventos después de mostrar
-            setTimeout(assignCardEvents, 5);
-        }
-        
-        function assignCardEvents() {
-            document.querySelectorAll('.flayer-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const id = parseFloat(this.dataset.id);
-                    const flayer = flayers.find(f => f.id === id);
-                    if (flayer) openImageViewer(flayer);
-                }, { passive: true });
+                
+                container.appendChild(flayerCard);
+                
+                // Evento para abrir imagen
+                flayerCard.addEventListener('click', function() {
+                    openImageViewer(flayer);
+                });
             });
         }
         
-        // ============================================
-        // ABRIR VISOR DE IMAGEN - INSTANTÁNEO
-        // ============================================
+        function animateCards() {
+            const cards = document.querySelectorAll('.flayer-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 100);
+            });
+        }
         
         function openImageViewer(flayer) {
             const fullImage = document.getElementById('fullImage');
             const imageTitle = document.getElementById('imageTitle');
-            const imageViewer = document.getElementById('imageViewer');
             
             // Usar imagen del caché
             fullImage.src = flayer.image;
-            fullImage.style.opacity = '1';
+            
+            // Establecer título
             imageTitle.textContent = `${flayer.title} - ${flayer.price}`;
             
-            // El botón ya tiene href="folder5.html" en el HTML
+            // El botón ya tiene href="folder5.html" en el HTML original
             
             // Mostrar visor
+            const imageViewer = document.getElementById('imageViewer');
             imageViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
         
-        // ============================================
-        // CONFIGURAR EVENTOS ESENCIALES
-        // ============================================
-        
-        function setupEssentialEvents() {
-            // Cerrar visor
-            document.getElementById('closeViewer').addEventListener('click', closeImageViewer, { passive: true });
-            
-            // Cerrar al hacer clic fuera
-            document.getElementById('imageViewer').addEventListener('click', function(e) {
-                if (e.target === this) closeImageViewer();
-            }, { passive: true });
-            
-            // Cerrar con ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeImageViewer();
-            }, { passive: true });
-            
-            // Prevenir zoom
-            document.addEventListener('gesturestart', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-            
-            document.addEventListener('wheel', function(e) {
-                if (e.ctrlKey) e.preventDefault();
-            }, { passive: false });
-        }
-        
-        function closeImageViewer() {
-            document.getElementById('imageViewer').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-        
-        // ============================================
-        // CARGA INTELIGENTE DE IMÁGENES - SIN BLOQUEAR
-        // ============================================
-        
-        function loadImagesIntelligently() {
-            // Precarga en background sin bloqueos
-            flayers.forEach(flayer => {
-                const img = new Image();
-                
-                // Configuración máxima velocidad
-                img.loading = 'eager';
-                img.decoding = 'async';
-                img.fetchPriority = 'high';
-                
-                // Callback simple
-                img.onload = function() {
-                    updateVisibleImages(flayer.image);
-                };
-                
-                img.src = flayer.image;
-            });
-        }
-        
-        function updateVisibleImages(imageSrc) {
-            // Actualizar imágenes visibles
-            const visibleImages = document.querySelectorAll(`.flayer-image[src="${imageSrc}"]`);
-            visibleImages.forEach(img => {
-                if (img.complete) {
-                    img.style.opacity = '1';
-                }
-            });
-        }
-        
-        // ============================================
-        // DECORACIONES DE FONDO - MÍNIMAS
-        // ============================================
-        
         function createBackgroundDecorations() {
-            const container = document.getElementById('backgroundHearts');
-            if (!container) return;
+            const backgroundHearts = document.getElementById('backgroundHearts');
+            if (!backgroundHearts) return;
             
-            // Muy pocas decoraciones para velocidad
-            for (let i = 0; i < 6; i++) {
+            // Decoraciones mínimas para velocidad
+            for (let i = 0; i < 10; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '💖';
                 heart.style.left = `${Math.random() * 100}%`;
-                heart.style.animationDelay = `${Math.random() * 12}s`;
-                container.appendChild(heart);
+                heart.style.animationDelay = `${Math.random() * 15}s`;
+                backgroundHearts.appendChild(heart);
             }
             
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 8; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.innerHTML = '✨';
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 10}s`;
-                container.appendChild(star);
+                star.style.animationDelay = `${Math.random() * 12}s`;
+                backgroundHearts.appendChild(star);
             }
         }
         
-        // ============================================
-        // VERIFICACIÓN FINAL DE IMÁGENES
-        // ============================================
-        
-        // Verificar imágenes cuando cargue la página
-        window.addEventListener('load', function() {
-            // Verificar rápidamente
-            setTimeout(checkFailedImages, 200);
-        });
-        
-        function checkFailedImages() {
-            document.querySelectorAll('.flayer-image').forEach(img => {
-                if (!img.complete) {
-                    // Recarga simple
-                    const originalSrc = img.src;
-                    img.src = '';
-                    setTimeout(() => {
-                        img.src = originalSrc;
-                    }, 50);
+        function setupImageViewer() {
+            const closeViewer = document.getElementById('closeViewer');
+            const imageViewer = document.getElementById('imageViewer');
+            
+            closeViewer.addEventListener('click', closeImageViewer);
+            
+            imageViewer.addEventListener('click', function(e) {
+                if (e.target === imageViewer) {
+                    closeImageViewer();
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && imageViewer.classList.contains('active')) {
+                    closeImageViewer();
                 }
             });
         }
         
+        function closeImageViewer() {
+            const imageViewer = document.getElementById('imageViewer');
+            imageViewer.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function preventZoom() {
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        }
+        
         // ============================================
-        // FUNCIONES ÚTILES PARA INTEGRACIÓN
+        // MEJORA PROGRESIVA
         // ============================================
         
-        window.RecreacionCatalogAPI = {
-            openImageViewer,
-            closeImageViewer
-        };
+        window.addEventListener('load', function() {
+            console.log('✅ Página completamente cargada');
+            
+            // Verificar imágenes cargadas
+            setTimeout(() => {
+                const images = document.querySelectorAll('img');
+                images.forEach(img => {
+                    if (img.complete) {
+                        img.classList.add('loaded');
+                    }
+                });
+            }, 200);
+        });
     </script>
 </body>
 </html>
