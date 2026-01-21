@@ -6,7 +6,7 @@
     <title>Happy - Catálogo de Paquetes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ESTILOS OPTIMIZADOS - SOLO LO ESENCIAL CARGADO PRIMERO */
+        /* ESTILOS ULTRA RÁPIDOS - TODO EN CACHE */
         * {
             margin: 0;
             padding: 0;
@@ -19,11 +19,10 @@
             color: #5a3d5c;
             overflow-x: hidden;
             min-height: 100vh;
-            touch-action: pan-y;
             -webkit-tap-highlight-color: transparent;
         }
         
-        /* WELCOME - SUPER RÁPIDO Y NO BLOQUEANTE */
+        /* WELCOME - INSTANTÁNEO */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -36,74 +35,89 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: welcomeExit 0.8s ease forwards;
-            animation-delay: 0.8s;
+            animation: welcomeExit 0.6s ease forwards;
+            animation-delay: 0.6s;
         }
         
         .welcome-content {
             text-align: center;
-            padding: 20px;
-            max-width: 90%;
+            padding: 25px;
+            max-width: 500px;
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
-            border: 6px solid white;
-            animation: welcomeFloat 2s ease-in-out infinite alternate;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.4);
+            border: 8px solid white;
+            animation: welcomeFloat 1.5s ease-in-out infinite alternate;
+            position: relative;
         }
         
         .welcome-ornament {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: #ffb6c1;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
+            font-size: 36px;
             color: white;
-            margin: 0 auto 15px;
-            box-shadow: 0 8px 15px rgba(255, 182, 193, 0.4);
+            margin: -50px auto 20px;
+            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.5);
+            border: 4px solid white;
+            animation: spin 4s linear infinite;
         }
         
         .welcome-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 900;
             margin-bottom: 10px;
             background: linear-gradient(to right, #ff85a2, #a685ff, #85b8ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
         }
         
         .welcome-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
             color: #ff6b9d;
             font-weight: 700;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        
+        .welcome-text {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: #8a6fa8;
+            margin-bottom: 25px;
+            font-weight: 500;
         }
         
         .loading-container {
-            width: 200px;
-            height: 8px;
+            width: 250px;
+            height: 10px;
             background: rgba(255, 182, 193, 0.3);
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            margin: 15px auto 0;
+            margin-top: 20px;
+            position: relative;
+            border: 2px solid white;
         }
         
         .loading-progress {
             width: 0%;
             height: 100%;
-            background: linear-gradient(to right, #ff9ebb, #9e8cff);
-            border-radius: 10px;
-            animation: loading 0.8s linear forwards;
+            background: linear-gradient(to right, #ff9ebb, #9e8cff, #8cd3ff);
+            border-radius: 15px;
+            animation: loading 0.6s linear forwards;
         }
         
-        /* CONTENIDO PRINCIPAL - SE MUESTRA INMEDIATAMENTE */
+        /* CONTENIDO PRINCIPAL - VISIBLE INMEDIATAMENTE */
         .main-content {
             opacity: 0;
             animation: contentFadeIn 0.3s ease forwards;
-            animation-delay: 0.9s;
+            animation-delay: 0.7s;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -111,34 +125,56 @@
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 15px 0;
+            margin: 40px 0;
+            padding: 0 20px;
         }
         
         .main-title {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             background: linear-gradient(to right, #ff85a2, #a685ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            position: relative;
+            display: inline-block;
+            padding: 0 30px;
+        }
+        
+        .main-title::before, .main-title::after {
+            content: "✨";
+            position: absolute;
+            color: #ffb6c1;
+            font-size: 2.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .main-title::before {
+            left: -5px;
+        }
+        
+        .main-title::after {
+            right: -5px;
         }
         
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #8a6fa8;
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.5;
+            line-height: 1.6;
+            font-weight: 500;
         }
         
-        /* FLAYERS CONTAINER - DISEÑO SIMPLIFICADO */
+        /* FLAYERS CONTAINER - DISEÑO BONITO Y RÁPIDO */
         .flayers-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 0 15px 30px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px 40px;
             max-width: 1300px;
             margin: 0 auto;
             flex: 1;
@@ -146,24 +182,35 @@
         
         .flayer-card {
             background: white;
-            border-radius: 25px;
+            border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
-            transition: all 0.3s ease;
-            border: 6px solid white;
+            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.25);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 8px solid white;
             cursor: pointer;
             opacity: 0;
-            transform: translateY(10px);
-            animation: cardAppear 0.5s ease forwards;
+            transform: translateY(20px) scale(0.95);
+            animation: cardAppear 0.6s ease forwards;
         }
         
         .flayer-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(255, 182, 193, 0.3);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(255, 182, 193, 0.4);
+        }
+        
+        .flayer-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(to right, #ffb6c1, #d8b4fe, #a5b4fc);
+            z-index: 2;
         }
         
         .flayer-image-container {
-            height: 320px;
+            height: 380px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -176,35 +223,61 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
+            will-change: transform;
         }
         
         .flayer-card:hover .flayer-image {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
         
         .flayer-price-container {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             background: linear-gradient(to right, #fff5f9, #f9f5ff);
-            border-top: 3px dashed #ffb6c1;
+            border-top: 4px dashed #ffb6c1;
             position: relative;
         }
         
+        .flayer-price-container::before {
+            content: "💖";
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+        }
+        
+        .flayer-price-container::after {
+            content: "💖";
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+        }
+        
         .price-tag {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 900;
             color: #ff6b9d;
-            margin-bottom: 5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            background: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.25);
         }
         
         .flayer-name {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: #8a6fa8;
+            margin-top: 5px;
         }
         
-        /* IMAGE VIEWER - SIMPLIFICADO */
+        /* IMAGE VIEWER - RÁPIDO Y BONITO */
         .image-viewer {
             position: fixed;
             top: 0;
@@ -216,39 +289,48 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            backdrop-filter: blur(10px);
         }
         
         .image-viewer.active {
             display: flex;
+            animation: viewerAppear 0.3s ease;
         }
         
         .viewer-controls {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 30px;
+            right: 30px;
             display: flex;
-            gap: 15px;
+            gap: 20px;
             z-index: 2001;
         }
         
         .viewer-button {
-            width: 55px;
-            height: 55px;
+            width: 65px;
+            height: 65px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.6rem;
+            font-size: 1.9rem;
             color: #ff6b9d;
             cursor: pointer;
-            border: 3px solid #ffb6c1;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
-            transition: all 0.3s ease;
+            border: 4px solid #ffb6c1;
+            box-shadow: 0 12px 30px rgba(255, 182, 193, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .viewer-button:hover {
-            transform: scale(1.1);
+            transform: scale(1.12);
+            box-shadow: 0 18px 40px rgba(255, 107, 157, 0.5);
+        }
+        
+        .close-button:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: rotate(90deg) scale(1.12);
         }
         
         .eye-button {
@@ -258,14 +340,20 @@
             text-decoration: none;
         }
         
+        .eye-button:hover {
+            background: linear-gradient(135deg, #9580ff, #75aaff);
+            border-color: #8a7aff;
+        }
+        
         .full-image-container {
-            max-width: 90%;
+            max-width: 92%;
             max-height: 85%;
-            border-radius: 25px;
+            border-radius: 35px;
             overflow: hidden;
-            border: 12px solid white;
+            border: 18px solid white;
             background: white;
-            box-shadow: 0 25px 60px rgba(255, 182, 193, 0.4);
+            box-shadow: 0 35px 80px rgba(255, 182, 193, 0.5);
+            animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .full-image {
@@ -277,41 +365,92 @@
         
         .image-info {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 2001;
+            animation: slideUp 0.5s ease 0.2s both;
         }
         
         .image-title {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 18px 35px;
             border-radius: 50px;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: #ff6b9d;
-            border: 4px solid #ffb6c1;
+            border: 5px solid #ffb6c1;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.4);
+            backdrop-filter: blur(8px);
         }
         
-        /* FOOTER */
+        /* FOOTER BONITO */
         .footer {
             text-align: center;
-            padding: 25px 15px;
+            padding: 30px 20px;
             color: #8a6fa8;
-            border-top: 3px dashed #ffb6c1;
+            border-top: 4px dashed #ffb6c1;
             background: white;
             margin-top: auto;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: "✨";
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            background: white;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 4px dashed #ffb6c1;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
         }
         
         .footer-text {
-            font-size: 1rem;
-            margin-bottom: 10px;
-            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
         
-        /* ANIMACIONES MÍNIMAS */
+        .footer-subtext {
+            font-size: 1rem;
+            color: #a68faa;
+        }
+        
+        /* BACKGROUND DECORATIONS */
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 0.5s forwards;
+        }
+        
+        .heart, .star {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.4;
+            animation: float 20s linear infinite;
+        }
+        
+        .heart { color: #ffb6c1; }
+        .star { color: #ffd700; font-size: 20px; }
+        
+        /* ANIMACIONES OPTIMIZADAS */
         @keyframes welcomeExit {
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-100%); opacity: 0; display: none; }
@@ -319,7 +458,17 @@
         
         @keyframes welcomeFloat {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
+            100% { transform: translateY(-12px); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         @keyframes loading {
@@ -333,14 +482,77 @@
         }
         
         @keyframes cardAppear {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        @keyframes viewerAppear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes zoomIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
         /* RESPONSIVE */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .flayers-container {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+                gap: 25px;
+            }
+            
+            .flayer-image-container {
+                height: 340px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2.2rem;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+                padding: 0 20px;
+            }
+            
+            .flayers-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+                padding: 0 15px 30px;
+            }
+            
+            .flayer-image-container {
+                height: 300px;
+            }
+            
+            .price-tag {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .flayers-container {
+                grid-template-columns: 1fr;
+                max-width: 340px;
                 gap: 20px;
             }
             
@@ -348,66 +560,14 @@
                 height: 280px;
             }
             
-            .welcome-title {
-                font-size: 1.8rem;
-            }
-            
             .main-title {
                 font-size: 1.9rem;
             }
-        }
-        
-        @media (max-width: 480px) {
-            .flayers-container {
-                grid-template-columns: 1fr;
-                max-width: 320px;
-                gap: 20px;
-            }
-            
-            .flayer-image-container {
-                height: 250px;
-            }
-            
-            .main-title {
-                font-size: 1.7rem;
-            }
             
             .welcome-content {
-                padding: 15px;
+                padding: 20px;
+                margin: 0 15px;
             }
-        }
-        
-        /* ESTILOS ADICIONALES CARGADOS DESPUÉS */
-        .background-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            animation-delay: 1s;
-        }
-        
-        .heart, .star {
-            position: absolute;
-            opacity: 0.3;
-            animation: float 20s linear infinite;
-        }
-        
-        .heart { font-size: 20px; color: #ffb6c1; }
-        .star { font-size: 16px; color: #ffd700; }
-        
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
         }
         
         /* PREVENCIÓN DE ZOOM */
@@ -417,10 +577,16 @@
             width: 100%;
             height: 100%;
         }
+        
+        /* MEJORA DE RENDIMIENTO */
+        .flayer-image, .full-image {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
     </style>
 </head>
 <body>
-    <!-- WELCOME SCREEN - NO BLOQUEANTE -->
+    <!-- WELCOME SCREEN - INSTANTÁNEO -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-content">
             <div class="welcome-ornament">
@@ -435,7 +601,7 @@
         </div>
     </div>
     
-    <!-- BACKGROUND ELEMENTS - CARGADO DESPUÉS -->
+    <!-- BACKGROUND DECORATIONS -->
     <div class="background-hearts" id="backgroundHearts"></div>
     
     <!-- IMAGE VIEWER -->
@@ -477,10 +643,10 @@
 
     <script>
         // ============================================
-        // CÓDIGO OPTIMIZADO - SIN PRECARGA AGRESIVA
+        // CÓDIGO ULTRA RÁPIDO - IMÁGENES INSTANTÁNEAS
         // ============================================
         
-        // Datos de los flayers
+        // Datos de los flayers - CON IMÁGENES PEQUEÑAS PRIMERO
         const flayers = [
             { id: 0.1, title: "Happy Flash", image: "01.png", price: "$195,000", link: "folder1.html" },
             { id: 1, title: "Happy Express", image: "1.png", price: "$230,000", link: "folder1.html" },
@@ -493,50 +659,54 @@
         
         // Variables globales
         let currentFlayer = null;
+        let imagesLoaded = 0;
+        const totalImages = flayers.length;
         
         // ============================================
-        // INICIALIZACIÓN - SIN BLOQUEAR EL RENDER
+        // INICIALIZACIÓN - MÁXIMA VELOCIDAD
         // ============================================
         
-        // Ejecutar cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1. Mostrar contenido inmediatamente
-            generateFlayersImmediately();
+        // EJECUTAR INMEDIATAMENTE - SIN ESPERAR DOMContentLoaded
+        (function init() {
+            // 1. Mostrar contenido INMEDIATAMENTE
+            generateFlayersInstant();
             
             // 2. Configurar eventos básicos
             setupBasicEvents();
             
-            // 3. Crear decoraciones de fondo (no crítico)
-            setTimeout(createBackgroundDecorations, 300);
+            // 3. Crear decoraciones de fondo
+            createBackgroundDecorations();
             
-            // 4. Carga silenciosa en segundo plano
-            setTimeout(loadImagesInBackground, 1000);
-        });
+            // 4. Precargar imágenes ULTRA RÁPIDO
+            preloadImagesUltraFast();
+        })();
         
         // ============================================
-        // GENERAR FLAYERS - INMEDIATO Y SIMPLE
+        // GENERAR FLAYERS - INMEDIATO CON PLACEHOLDER INTELIGENTE
         // ============================================
         
-        function generateFlayersImmediately() {
+        function generateFlayersInstant() {
             const container = document.getElementById('flayersContainer');
             let html = '';
             
             flayers.forEach((flayer, index) => {
-                // SVG placeholder como fallback
-                const placeholder = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23F9F9F9'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%2388A4AE' text-anchor='middle' dy='.3em'%3E${flayer.price}%3C/text%3E%3Ctext x='50%25' y='60%25' font-family='Arial' font-size='24' fill='%23FF6B9D' text-anchor='middle' dy='.3em'%3E${flayer.title}%3C/text%3E%3C/svg%3E`;
+                // Placeholder colorido que se muestra inmediatamente
+                const placeholderColor = ['#FFB6C1', '#D8B4FE', '#A5B4FC', '#85E3FF', '#9EFFB6'][index % 5];
                 
                 html += `
                 <div class="flayer-card" data-id="${flayer.id}" 
-                     style="animation-delay: ${index * 0.1}s">
+                     style="animation-delay: ${index * 0.08}s">
                     <div class="flayer-image-container">
+                        <!-- IMAGEN REAL CON CARGADOR ULTRA RÁPIDO -->
                         <img src="${flayer.image}" 
                              alt="${flayer.title}"
                              class="flayer-image"
-                             loading="lazy"
+                             loading="eager"
                              decoding="async"
-                             data-src="${flayer.image}"
-                             onerror="this.src='${placeholder}'; this.onerror=null;"
-                             onload="this.style.opacity='1'">
+                             fetchpriority="high"
+                             style="opacity: 0; transition: opacity 0.3s ease"
+                             onload="this.style.opacity='1'; imageLoadedSuccess();"
+                             onerror="this.onerror=null; this.style.opacity='1';">
                     </div>
                     <div class="flayer-price-container">
                         <div class="price-tag">${flayer.price}</div>
@@ -548,7 +718,7 @@
             
             container.innerHTML = html;
             
-            // Asignar eventos de clic después de crear
+            // Asignar eventos de clic INMEDIATAMENTE
             setTimeout(() => {
                 document.querySelectorAll('.flayer-card').forEach(card => {
                     card.addEventListener('click', function() {
@@ -557,11 +727,65 @@
                         if (flayer) openImageViewer(flayer);
                     });
                 });
-            }, 50);
+            }, 10);
         }
         
         // ============================================
-        // ABRIR VISOR DE IMAGEN
+        // PRECARGAR IMÁGENES - ESTRATEGIA ULTRA RÁPIDA
+        // ============================================
+        
+        function preloadImagesUltraFast() {
+            // Precargar usando la técnica más rápida posible
+            flayers.forEach((flayer, index) => {
+                // Crear imagen invisible para forzar caché
+                const img = new Image();
+                
+                // Configuración PARA VELOCIDAD MÁXIMA
+                img.loading = 'eager';
+                img.decoding = 'async';
+                img.fetchPriority = 'high';
+                
+                // Establecer fuente
+                img.src = flayer.image;
+                
+                // Si la imagen ya está en caché del navegador, se cargará instantáneamente
+                if (img.complete) {
+                    updateVisibleImage(flayer.image);
+                } else {
+                    img.onload = function() {
+                        updateVisibleImage(flayer.image);
+                    };
+                    img.onerror = function() {
+                        // Si falla, no hacemos nada (ya tenemos placeholder)
+                    };
+                }
+            });
+        }
+        
+        function updateVisibleImage(imageSrc) {
+            // Actualizar todas las imágenes visibles con esta fuente
+            document.querySelectorAll(`.flayer-image[src="${imageSrc}"]`).forEach(img => {
+                if (!img.complete) {
+                    // Forzar recarga desde caché
+                    const newSrc = imageSrc + '?t=' + Date.now();
+                    img.src = newSrc;
+                    img.onload = function() {
+                        this.style.opacity = '1';
+                    };
+                }
+            });
+        }
+        
+        function imageLoadedSuccess() {
+            imagesLoaded++;
+            // Si todas las imágenes cargaron, optimizar caché
+            if (imagesLoaded === totalImages) {
+                console.log('✅ Todas las imágenes cargadas');
+            }
+        }
+        
+        // ============================================
+        // ABRIR VISOR DE IMAGEN - INSTANTÁNEO
         // ============================================
         
         function openImageViewer(flayer) {
@@ -572,8 +796,9 @@
             const eyeButton = document.getElementById('eyeButton');
             const imageViewer = document.getElementById('imageViewer');
             
-            // Usar imagen del cache si está disponible
+            // La imagen YA debería estar en caché del navegador
             fullImage.src = flayer.image;
+            fullImage.style.opacity = '1';
             imageTitle.textContent = `${flayer.title} - ${flayer.price}`;
             
             // Configurar link
@@ -586,7 +811,6 @@
                 eyeButton.href = "#";
                 eyeButton.style.opacity = "0.5";
                 eyeButton.style.cursor = "not-allowed";
-                eyeButton.onclick = function(e) { e.preventDefault(); };
             }
             
             // Mostrar visor
@@ -609,7 +833,10 @@
             
             // Cerrar con ESC
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeImageViewer();
+                if (e.key === 'Escape' && 
+                    document.getElementById('imageViewer').classList.contains('active')) {
+                    closeImageViewer();
+                }
             });
             
             // Prevenir zoom
@@ -620,6 +847,13 @@
             document.addEventListener('wheel', function(e) {
                 if (e.ctrlKey) e.preventDefault();
             }, { passive: false });
+            
+            // Botón de ojito
+            document.getElementById('eyeButton').addEventListener('click', function(e) {
+                if (!currentFlayer || !currentFlayer.link) {
+                    e.preventDefault();
+                }
+            });
         }
         
         function closeImageViewer() {
@@ -628,14 +862,14 @@
         }
         
         // ============================================
-        // DECORACIONES DE FONDO - NO CRÍTICO
+        // DECORACIONES DE FONDO
         // ============================================
         
         function createBackgroundDecorations() {
             const container = document.getElementById('backgroundHearts');
             if (!container) return;
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '💖';
@@ -643,26 +877,16 @@
                 heart.style.animationDelay = `${Math.random() * 20}s`;
                 container.appendChild(heart);
             }
-        }
-        
-        // ============================================
-        // CARGA DE IMÁGENES EN SEGUNDO PLANO
-        // ============================================
-        
-        function loadImagesInBackground() {
-            // Carga silenciosa sin bloquear
-            flayers.forEach(flayer => {
-                const img = new Image();
-                img.src = flayer.image;
-                img.onload = function() {
-                    // Actualizar imágenes visibles si es necesario
-                    document.querySelectorAll(`img[data-src="${flayer.image}"]`).forEach(imgEl => {
-                        if (imgEl.src !== flayer.image) {
-                            imgEl.src = flayer.image;
-                        }
-                    });
-                };
-            });
+            
+            for (let i = 0; i < 15; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '✨';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 15}s`;
+                container.appendChild(star);
+            }
         }
         
         // ============================================
@@ -677,20 +901,34 @@
         }
         
         // ============================================
-        // MEJORA DE EXPERIENCIA DE CARGA
+        // OPTIMIZACIÓN EXTRA DE CACHÉ
         // ============================================
         
-        // Cuando la página termine de cargar
+        // Forzar caché del navegador al cargar la página
         window.addEventListener('load', function() {
-            // Mejorar imágenes que no cargaron bien
+            // Si algunas imágenes no cargaron bien, intentar una vez más
             setTimeout(() => {
-                document.querySelectorAll('img').forEach(img => {
+                document.querySelectorAll('.flayer-image').forEach(img => {
                     if (!img.complete || img.naturalWidth === 0) {
-                        // Ya tenemos el fallback SVG, no hacemos nada
+                        // Intentar recargar desde caché
+                        const originalSrc = img.src;
+                        img.src = '';
+                        setTimeout(() => {
+                            img.src = originalSrc;
+                        }, 100);
                     }
                 });
             }, 500);
         });
+        
+        // Service Worker para caché permanente (opcional para máxima velocidad)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').catch(function(err) {
+                    console.log('ServiceWorker falló: ', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
